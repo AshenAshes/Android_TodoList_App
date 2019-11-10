@@ -14,11 +14,13 @@ import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.Toolbar;
 
 public class SettingsActivity extends AppCompatActivity {
     private static final int REQUEST_CODE_ADD = 1002;
     DoubleBack doubleBack=new DoubleBack();
 
+    private Toolbar toolbar;
     private LinearLayout buttonAgenda,buttonTodo,buttonFiles,buttonSettings;
     private FloatingActionButton fab;
 
@@ -26,6 +28,9 @@ public class SettingsActivity extends AppCompatActivity {
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_settings);
+        toolbar = findViewById(R.id.toolbar);
+        toolbar.setTitle("");
+        setSupportActionBar(toolbar);
 
         buttonAgenda = findViewById(R.id.button_agenda);
         buttonTodo = findViewById(R.id.button_todo);

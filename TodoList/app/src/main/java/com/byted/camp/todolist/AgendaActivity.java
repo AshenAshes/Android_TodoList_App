@@ -2,6 +2,7 @@ package com.byted.camp.todolist;
 
 import android.app.Activity;
 import android.content.ContentValues;
+import android.content.Context;
 import android.content.Intent;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
@@ -47,6 +48,7 @@ public class AgendaActivity extends AppCompatActivity {
     private SQLiteDatabase database;
 
     private LinearLayout buttonAgenda,buttonTodo,buttonFiles,buttonSettings;
+    private View topView;
     private Toolbar toolbar;
     private FloatingActionButton fab;
 
@@ -55,7 +57,17 @@ public class AgendaActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_agenda);
         toolbar = findViewById(R.id.toolbar);
+        toolbar.setTitle("");
         setSupportActionBar(toolbar);
+
+        //透明状态栏
+        if (Build.VERSION.SDK_INT >= 21) {
+            View decorView = getWindow().getDecorView();
+            int option = View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN
+                    | View.SYSTEM_UI_FLAG_LAYOUT_STABLE;
+            decorView.setSystemUiVisibility(option);
+            getWindow().setStatusBarColor(Color.TRANSPARENT);
+        }
 
         buttonAgenda = findViewById(R.id.button_agenda);
         buttonTodo = findViewById(R.id.button_todo);
@@ -65,14 +77,6 @@ public class AgendaActivity extends AppCompatActivity {
         bindActivity(R.id.button_todo, TodoActivity.class);
         bindActivity(R.id.button_files, FilesActivity.class);
         bindActivity(R.id.button_settings, SettingsActivity.class);
-
-        if (Build.VERSION.SDK_INT >= 21) {
-            View decorView = getWindow().getDecorView();
-            int option = View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN
-                    | View.SYSTEM_UI_FLAG_LAYOUT_STABLE;
-            decorView.setSystemUiVisibility(option);
-            getWindow().setStatusBarColor(Color.TRANSPARENT);
-        }
 
         fab = findViewById(R.id.fab);
         fab.setOnClickListener(new View.OnClickListener() {
@@ -91,8 +95,7 @@ public class AgendaActivity extends AppCompatActivity {
 
         recyclerView = findViewById(R.id.list_todo);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
-        recyclerView.addItemDecoration(
-                new DividerItemDecoration(this, DividerItemDecoration.VERTICAL));
+        recyclerView.addItemDecoration(new DividerItemDecoration(this, DividerItemDecoration.VERTICAL));
         notesAdapter = new NoteListAdapter(new NoteOperator() {
             @Override
             public void deleteNote(Note note) {
@@ -135,6 +138,17 @@ public class AgendaActivity extends AppCompatActivity {
         return true;
     }
 
+    /**
+     * 获取状态栏高度
+     * @param context context
+     * @return 状态栏高度
+     */
+    public static int getStatusBarHeight(Context context) {
+        // 获得状态栏高度
+        int resourceId = context.getResources().getIdentifier("status_bar_height", "dimen", "android");
+        return context.getResources().getDimensionPixelSize(resourceId);
+    }
+
 //    @Override
 //    public boolean onOptionsItemSelected(MenuItem item) {
 //        int id = item.getItemId();
@@ -175,7 +189,7 @@ public class AgendaActivity extends AppCompatActivity {
             while (cursor.moveToNext()) {
                 long id = cursor.getLong(cursor.getColumnIndex(TodoNote._ID));
                 String content = cursor.getString(cursor.getColumnIndex(TodoNote.COLUMN_CONTENT));
-                long dateMs = cursor.getLong(cursor.getColumnIndex(TodoNote.COLUMN_DATE));
+                long dateMs = cursor.getLong(cursor.getColumnIndex(TodoNote.COLUMN_DEADLINE));
                 int intState = cursor.getInt(cursor.getColumnIndex(TodoNote.COLUMN_STATE));
                 int intPriority = cursor.getInt(cursor.getColumnIndex(TodoNote.COLUMN_PRIORITY));
 
