@@ -50,7 +50,7 @@ public class NoteViewHolder extends RecyclerView.ViewHolder {
 
     public void bind(final Note note) {
         item_title.setText(note.getCaption());
-//        item_filename.setText(note.getFilename());
+        item_filename.setText(note.getFilename());
         item_content.setText(note.getContent());
 
 //        contentText.setText(note.getContent());

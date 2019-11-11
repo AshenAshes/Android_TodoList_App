@@ -40,6 +40,7 @@ import com.jaeger.library.StatusBarUtil;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Collections;
 import java.util.Date;
@@ -55,18 +56,11 @@ public class AgendaActivity extends AppCompatActivity {
     private RecyclerView recyclerView;
     private NoteListAdapter notesAdapter;
 
-    private TodoDbHelper dbHelper;
-    private SQLiteDatabase database;
-
     private TabLayout tableLayout;
     private ViewPager pager;
     private LinearLayout buttonAgenda,buttonTodo,buttonFiles,buttonSettings;
     private Toolbar toolbar;
     private FloatingActionButton fab;
-
-    private long todaySystemDate;
-    private String todayDate;
-    private int todayWeek;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -75,11 +69,6 @@ public class AgendaActivity extends AppCompatActivity {
         toolbar = findViewById(R.id.toolbar);
         toolbar.setTitle("");
         setSupportActionBar(toolbar);
-
-        todaySystemDate = System.currentTimeMillis();
-        //get XXXX-XX-XX
-        todayDate = DateFormatUtils.long2Str(todaySystemDate, false);
-        todayWeek = getDayofWeek(todayDate);
 
         //透明状态栏
         if (Build.VERSION.SDK_INT >= 21) {
@@ -94,11 +83,36 @@ public class AgendaActivity extends AppCompatActivity {
         pager = findViewById(R.id.view_pager);
 
         pager.setAdapter(new FragmentPagerAdapter(getSupportFragmentManager()) {
+            private String getDayBeforeOrAfter(String dateTime, int offset){
+                Calendar calendar = Calendar.getInstance();
+                SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+                calendar.add(Calendar.DATE,offset);
+                String offsetDate = sdf.format(calendar.getTime());
+                return offsetDate;
+            }
+
             @Override
             public Fragment getItem(int position) {
+                long todaySystemDate;
+                String todayDate;
+                int todayWeek;
+                int before,after;
+                List<String> aWeekDates = new ArrayList<>();
+
+                todaySystemDate = System.currentTimeMillis();
+                //get XXXX-XX-XX
+                todayDate = DateFormatUtils.long2Str(todaySystemDate, false);
+                todayWeek = getDayofWeek(todayDate);
+
+                before = 1 - todayWeek;
+                after = 7 - todayWeek;
+
+                for(int i=before;i <= after;i++)
+                    aWeekDates.add(getDayBeforeOrAfter(todayDate,i));
+
                 CalendarFragment calendarFragment = new CalendarFragment();
 
-                calendarFragment.setDate(position);
+                calendarFragment.setDate(aWeekDates.get(position));
                 return calendarFragment;
             }
             @Override
@@ -161,27 +175,6 @@ public class AgendaActivity extends AppCompatActivity {
                         REQUEST_CODE_ADD);
             }
         });
-
-        dbHelper = new TodoDbHelper(this);
-        database = dbHelper.getWritableDatabase();
-
-        recyclerView = findViewById(R.id.list_todo);
-        recyclerView.setLayoutManager(new LinearLayoutManager(this));
-        recyclerView.addItemDecoration(new DividerItemDecoration(this, DividerItemDecoration.VERTICAL));
-        notesAdapter = new NoteListAdapter(new NoteOperator() {
-            @Override
-            public void deleteNote(Note note) {
-                AgendaActivity.this.deleteNote(note);
-            }
-
-            @Override
-            public void updateNote(Note note) {
-                AgendaActivity.this.updateNode(note);
-            }
-        });
-        recyclerView.setAdapter(notesAdapter);
-
-        notesAdapter.refresh(loadNotesFromDatabase());
     }
 
     private void bindActivity(final int btnId, final Class<?> activityClass){
@@ -198,10 +191,6 @@ public class AgendaActivity extends AppCompatActivity {
     @Override
     protected void onDestroy() {
         super.onDestroy();
-        database.close();
-        database = null;
-        dbHelper.close();
-        dbHelper = null;
     }
 
     @Override
@@ -236,16 +225,23 @@ public class AgendaActivity extends AppCompatActivity {
 //
 //        return super.onOptionsItemSelected(item);
 //    }
+//
+//    @Override
+//    protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
+//        super.onActivityResult(requestCode, resultCode, data);
+//        if (requestCode == REQUEST_CODE_ADD
+//                && resultCode == Activity.RESULT_OK) {
+//            notesAdapter.refresh(loadNotesFromDatabase());
+//        }
+//    }
 
-    @Override
-    protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
-        super.onActivityResult(requestCode, resultCode, data);
-        if (requestCode == REQUEST_CODE_ADD
-                && resultCode == Activity.RESULT_OK) {
-            notesAdapter.refresh(loadNotesFromDatabase());
-        }
+    private String getDayBeforeOrAfter(String dateTime, int offset){
+        Calendar calendar = Calendar.getInstance();
+        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+        calendar.add(Calendar.DATE,offset);
+        String offsetDate = sdf.format(calendar.getTime());
+        return offsetDate;
     }
-
 
     //偏移量1-7表示周日一二三四五六
     private int getDayofWeek(String dateTime) {

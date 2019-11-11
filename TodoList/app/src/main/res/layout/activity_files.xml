@@ -29,6 +29,7 @@
 
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/list_todo"
+            android:layout_below="@+id/toolbarlayout"
             android:layout_above="@+id/separatorLine"
             android:layout_width="match_parent"
             android:layout_height="match_parent" />

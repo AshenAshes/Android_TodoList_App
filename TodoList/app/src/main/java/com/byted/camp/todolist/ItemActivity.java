@@ -134,7 +134,7 @@ public class ItemActivity extends AppCompatActivity implements View.OnClickListe
                     return;
                 }
                 boolean succeed = saveNote2Database(content.toString().trim(),filename,title,tag,deadline,scheduled,show,
-                        getSelectedState(),
+                        item_state.getText().toString().trim(),
                         getSelectedPriority());
                 if (succeed) {
                     Toast.makeText(ItemActivity.this,
@@ -158,7 +158,7 @@ public class ItemActivity extends AppCompatActivity implements View.OnClickListe
     }
 
     public Boolean saveNote2Database(String content, String filename, String title, String tag, String deadline, String scheduled,
-                                     String show, int state, int priority){
+                                     String show, String state, int priority){
         if(database==null||TextUtils.isEmpty(content)){
             return false;
         }
@@ -183,8 +183,8 @@ public class ItemActivity extends AppCompatActivity implements View.OnClickListe
     public int getSelectedState(){
         String state = item_state.getText().toString();
         switch (state){
-            case "TODO": return 1;
-            case "DONE": return 2;
+            case "Todo": return 1;
+            case "Done": return 2;
             default:return 0;
         }
     }

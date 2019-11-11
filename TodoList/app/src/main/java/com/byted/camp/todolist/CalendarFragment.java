@@ -2,6 +2,7 @@ package com.byted.camp.todolist;
 
 import android.content.ContentValues;
 import android.content.Context;
+import android.content.Intent;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
@@ -30,6 +31,7 @@ import java.util.LinkedList;
 import java.util.List;
 
 public class CalendarFragment extends Fragment {
+    private static final int REQUEST_CODE_ADD = 1002;
     private View view;
     private RecyclerView recyclerView;
     private NoteListAdapter notesAdapter;
@@ -39,7 +41,6 @@ public class CalendarFragment extends Fragment {
 
     @Nullable
     @Override
-
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         view = inflater.inflate(R.layout.fragment_calendar,container,false);
         //TODO context
@@ -69,6 +70,15 @@ public class CalendarFragment extends Fragment {
         return view;
     }
 
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if (requestCode == REQUEST_CODE_ADD
+                && resultCode == Activity.RESULT_OK) {
+            notesAdapter.refresh(loadNotesFromDatabase());
+        }
+    }
+
     public void setDate(String date_in){
         date = date_in;
     }
@@ -89,11 +99,10 @@ public class CalendarFragment extends Fragment {
                 long id = cursor.getLong(cursor.getColumnIndex(TodoContract.TodoNote._ID));
                 String caption = cursor.getString(cursor.getColumnIndex(TodoContract.TodoNote.COLUMN_CAPTION));
                 String content = cursor.getString(cursor.getColumnIndex(TodoContract.TodoNote.COLUMN_CONTENT));
-                int intState = cursor.getInt(cursor.getColumnIndex(TodoContract.TodoNote.COLUMN_STATE));
+                String intState = cursor.getString(cursor.getColumnIndex(TodoContract.TodoNote.COLUMN_STATE));
                 int intPriority = cursor.getInt(cursor.getColumnIndex(TodoContract.TodoNote.COLUMN_PRIORITY));
                 String fileName = cursor.getString(cursor.getColumnIndex(TodoContract.TodoNote.COLUMN_FILE));
 
-                //TODO:fix bugs
                 Note note = new Note(id);
                 note.setContent(content);
                 note.setCaption(caption);
@@ -127,7 +136,8 @@ public class CalendarFragment extends Fragment {
             return;
         }
         ContentValues values = new ContentValues();
-        values.put(TodoContract.TodoNote.COLUMN_STATE, (note.getState()+1)%3);
+        //TODO
+        values.put(TodoContract.TodoNote.COLUMN_STATE, note.getState());
 
         int rows = database.update(TodoContract.TodoNote.TABLE_NAME, values,
                 TodoContract.TodoNote._ID + "=?",

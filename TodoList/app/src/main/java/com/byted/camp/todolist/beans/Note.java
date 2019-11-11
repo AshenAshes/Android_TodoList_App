@@ -8,7 +8,7 @@ public class Note {
     private String deadline;
     private String show;
     private String scheduled;
-    private int state;
+    private String state;
     private int priority;
     private int week;
     private String caption;
@@ -32,8 +32,8 @@ public class Note {
     public void setShow(String show){this.show=show;}
     public String getScheduled(){return scheduled;}
     public void setScheduled(){this.scheduled=scheduled;}
-    public int getState(){return state;}
-    public void setState(int state){this.state=state;}
+    public String getState(){return state;}
+    public void setState(String state){this.state=state;}
     public int getPriority(){return priority;}
     public void setPriority(int priority){this.priority=priority;}
     public int getWeek(){return week;}

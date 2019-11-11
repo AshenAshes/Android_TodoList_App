@@ -1,5 +1,6 @@
 package com.byted.camp.todolist;
 
+import android.app.Activity;
 import android.content.Intent;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
@@ -97,6 +98,15 @@ public class TodoActivity extends AppCompatActivity {
         notesAdapter.refresh(loadNotesFromDatabase());
     }
 
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if (requestCode == REQUEST_CODE_ADD
+                && resultCode == Activity.RESULT_OK) {
+            notesAdapter.refresh(loadNotesFromDatabase());
+        }
+    }
+
     private List<Note> loadNotesFromDatabase() {
         if (database == null) {
             return Collections.emptyList();
@@ -104,20 +114,20 @@ public class TodoActivity extends AppCompatActivity {
         List<Note> result = new LinkedList<>();
         Cursor cursor = null;
         try {
+//            cursor = database.query(TodoContract.TodoNote.TABLE_NAME,
+//                    null,null,null,null,null,null);
             cursor = database.query(TodoContract.TodoNote.TABLE_NAME, null,
-                    "state like ?", new String[]{1+""},
+                    "state like ?", new String[]{"Todo"},
                     null, null,
                     TodoContract.TodoNote.COLUMN_FILE);
-
             while (cursor.moveToNext()) {
                 long id = cursor.getLong(cursor.getColumnIndex(TodoContract.TodoNote._ID));
                 String caption = cursor.getString(cursor.getColumnIndex(TodoContract.TodoNote.COLUMN_CAPTION));
                 String content = cursor.getString(cursor.getColumnIndex(TodoContract.TodoNote.COLUMN_CONTENT));
-                int intState = cursor.getInt(cursor.getColumnIndex(TodoContract.TodoNote.COLUMN_STATE));
+                String intState = cursor.getString(cursor.getColumnIndex(TodoContract.TodoNote.COLUMN_STATE));
                 int intPriority = cursor.getInt(cursor.getColumnIndex(TodoContract.TodoNote.COLUMN_PRIORITY));
                 String fileName = cursor.getString(cursor.getColumnIndex(TodoContract.TodoNote.COLUMN_FILE));
 
-                //TODO:fix bugs
                 Note note = new Note(id);
                 note.setContent(content);
                 note.setCaption(caption);
@@ -132,12 +142,6 @@ public class TodoActivity extends AppCompatActivity {
             }
         }
         return result;
-    }
-
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        getMenuInflater().inflate(R.menu.menu_main, menu);
-        return true;
     }
 
     private void bindActivity(final int btnId, final Class<?> activityClass){

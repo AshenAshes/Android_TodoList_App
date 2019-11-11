@@ -107,7 +107,7 @@ public class CustomPriorityPicker implements View.OnClickListener, PickerView.On
         mSelectedPriority=mBeginPriority;
 
         mBeginPriority = "None";
-        mEndPriority = "4";
+        mEndPriority = "D";
 
         boolean canSpanState = mBeginPriority != mEndPriority;
         if(canSpanState)
@@ -116,10 +116,10 @@ public class CustomPriorityPicker implements View.OnClickListener, PickerView.On
 
     private void initStateUnits(){
         mPriorityUnits.add("None");
-        mPriorityUnits.add("1");
-        mPriorityUnits.add("2");
-        mPriorityUnits.add("3");
-        mPriorityUnits.add("4");
+        mPriorityUnits.add("A");
+        mPriorityUnits.add("B");
+        mPriorityUnits.add("C");
+        mPriorityUnits.add("D");
         mDpvPriority.setDataList(mPriorityUnits);
         mDpvPriority.setSelected(0);
 

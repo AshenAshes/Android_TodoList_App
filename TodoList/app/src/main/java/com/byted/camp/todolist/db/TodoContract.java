@@ -9,7 +9,7 @@ public final class TodoContract {
                     + "(" + TodoNote._ID + " INTEGER PRIMARY KEY AUTOINCREMENT, "
                     + TodoNote.COLUMN_DEADLINE + " TEXT, "
                     + TodoNote.COLUMN_SHOW + " TEXT, "
-                    + TodoNote.COLUMN_STATE + " INTEGER, "
+                    + TodoNote.COLUMN_STATE + " TEXT, "
                     + TodoNote.COLUMN_SCHEDULED + " TEXT, "
                     + TodoNote.COLUMN_WEEK + " INTEGER, "
                     + TodoNote.COLUMN_WEEKLOP + " INTEGER, "
@@ -28,7 +28,7 @@ public final class TodoContract {
     }
 
     public static class TodoNote implements BaseColumns {
-        public static final String TABLE_NAME = "note";
+        public static final String TABLE_NAME = "note1";
 
         public static final String COLUMN_DEADLINE = "deadline";
         public static final String COLUMN_SCHEDULED = "scheduled";

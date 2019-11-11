@@ -2,6 +2,8 @@ package com.byted.camp.todolist.ui;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
+
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -36,11 +38,12 @@ public class NoteListAdapter extends RecyclerView.Adapter<NoteViewHolder> {
     public NoteViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int pos) {
         View itemView;
 
-        if(notes.get(pos).getState() == 1){//To do
+        Log.d("state:",notes.get(pos).getState()+"");
+        if(notes.get(pos).getState().equals("Todo")){//To do
             itemView = LayoutInflater.from(parent.getContext())
                     .inflate(R.layout.item_todo, parent, false);
         }
-        else if(notes.get(pos).getState() == 2){//done
+        else if(notes.get(pos).getState().equals("Done")){//done
             itemView = LayoutInflater.from(parent.getContext())
                     .inflate(R.layout.item_done, parent, false);
         }

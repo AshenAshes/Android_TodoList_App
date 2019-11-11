@@ -77,12 +77,6 @@ public class FilesActivity extends AppCompatActivity {
     }
 
     @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        getMenuInflater().inflate(R.menu.menu_main, menu);
-        return true;
-    }
-
-    @Override
     public void onBackPressed() {
         //实现Home键效果
         //super.onBackPressed();这句话一定要注掉,不然又去调用默认的back处理方式了
