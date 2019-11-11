@@ -58,14 +58,9 @@ public class CalendarFragment extends Fragment {
 
         notesAdapter = new NoteListAdapter(new NoteOperator() {
             @Override
-            public void deleteNote(Note note) {
-                CalendarFragment.this.deleteNote(note);
-            }
-
+            public void deleteNote(Note note) {}
             @Override
-            public void updateNote(Note note) {
-                CalendarFragment.this.updateNode(note);
-            }
+            public void updateNote(Note note) {}
         });
         recyclerView.setAdapter(notesAdapter);
 
@@ -130,32 +125,5 @@ public class CalendarFragment extends Fragment {
             }
         }
         return result;
-    }
-
-    private void deleteNote(Note note) {
-        if (database == null) {
-            return;
-        }
-        int rows = database.delete(TodoContract.TodoNote.TABLE_NAME,
-                TodoContract.TodoNote._ID + "=?",
-                new String[]{String.valueOf(note.id)});
-        if (rows > 0) {
-            notesAdapter.refresh(loadNotesFromDatabase());
-        }
-    }
-
-    private void updateNode(Note note) {
-        if (database == null) {
-            return;
-        }
-        ContentValues values = new ContentValues();
-        values.put(TodoContract.TodoNote.COLUMN_STATE, note.getState());
-
-        int rows = database.update(TodoContract.TodoNote.TABLE_NAME, values,
-                TodoContract.TodoNote._ID + "=?",
-                new String[]{String.valueOf(note.id)});
-        if (rows > 0) {
-            notesAdapter.refresh(loadNotesFromDatabase());
-        }
     }
 }

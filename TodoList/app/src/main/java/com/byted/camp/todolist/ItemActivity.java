@@ -1,4 +1,5 @@
 package com.byted.camp.todolist;
+
 import android.app.Activity;
 import android.content.ClipData;
 import android.content.ContentValues;
@@ -7,7 +8,9 @@ import android.database.sqlite.SQLiteDatabase;
 import android.graphics.Color;
 import android.os.Build;
 import android.os.Bundle;
+import android.text.Editable;
 import android.text.TextUtils;
+import android.text.TextWatcher;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
@@ -70,7 +73,8 @@ public class ItemActivity extends AppCompatActivity implements View.OnClickListe
     private SQLiteDatabase database;
     private long timeStamp;
 
-    private List<String> filenameFromDatabase = new ArrayList<>();
+    private List<String> itemTitlesFromDatabase = new ArrayList<>();
+    private databaseCallback fatherItemNewCallback;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -105,6 +109,22 @@ public class ItemActivity extends AppCompatActivity implements View.OnClickListe
         bar_back = findViewById(R.id.bar_back);
         item_loop_clickListener = new myOnClick();
 
+        item_filename.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence sequence, int i, int i1, int i2) {
+            }
+            @Override
+            public void onTextChanged(CharSequence sequence, int i, int i1, int i2) {
+            }
+            @Override
+            public void afterTextChanged(Editable editable) {
+                item_father_item.setText("None");
+                itemTitlesFromDatabase.clear();
+                itemTitlesFromDatabase.addAll(getItem(item_filename.getText().toString()));
+                fatherItemNewCallback.setOnDatabaseResult(itemTitlesFromDatabase);
+            }
+        });
+
         item_switch.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(CompoundButton button, boolean isChecked) {
@@ -135,8 +155,17 @@ public class ItemActivity extends AppCompatActivity implements View.OnClickListe
                 timeStamp=System.currentTimeMillis();
 
                 CharSequence content = item_content.getText();
-                String filename = item_filename.getText().toString().trim();
-                String title = item_title.getText().toString().trim();
+                String filename;
+                Log.d("itemValue",item_filename.getText().toString().trim());
+                if(!item_filename.getText().toString().equals(""))
+                    filename = item_filename.getText().toString().trim();
+                else
+                    filename = "new file";
+                String title;
+                if(!item_title.getText().toString().equals(""))
+                    title = item_title.getText().toString().trim();
+                else
+                    title = "Titled";
                 String deadline = item_deadline_date.getText().toString().trim();
                 String scheduled = item_scheduled_date.getText().toString().trim();
                 String show = item_show_date.getText().toString().trim();
@@ -189,8 +218,6 @@ public class ItemActivity extends AppCompatActivity implements View.OnClickListe
             }
         });
 
-        //TODO：在这里将数据传入
-
         initLoopPicker();
         initStatePicker();
         initPriorityPicker();
@@ -211,7 +238,6 @@ public class ItemActivity extends AppCompatActivity implements View.OnClickListe
                     "file like ?", new String[]{filename},
                     null, null,
                     TodoContract.TodoNote.COLUMN_CAPTION);
-
             while (cursor.moveToNext()) {
                 String caption = cursor.getString(cursor.getColumnIndex(TodoContract.TodoNote.COLUMN_CAPTION));
                 result.add(caption);
@@ -286,6 +312,7 @@ public class ItemActivity extends AppCompatActivity implements View.OnClickListe
                 mPriorityPicker.show(item_priority.getText().toString());
                 break;
             case R.id.item_fatheritem:
+                mFatherItemPicker.onResume();
                 mFatherItemPicker.show(item_father_item.getText().toString());
                 break;
             case R.id.item_tag:
@@ -335,7 +362,7 @@ public class ItemActivity extends AppCompatActivity implements View.OnClickListe
         // 允许点击屏幕或物理返回键关闭
         mPriorityPicker.setCancelable(true);
         // 允许循环滚动
-        mPriorityPicker.setScrollLoop(true);
+        mPriorityPicker.setScrollLoop(false);
     }
 
     private void initFatherItemPicker(){
@@ -346,11 +373,11 @@ public class ItemActivity extends AppCompatActivity implements View.OnClickListe
             public void onFatherItemPicker(String fatherItem) {
                 item_father_item.setText(fatherItem);
             }
-        }, filenameFromDatabase);
+        }, this);
         // 允许点击屏幕或物理返回键关闭
         mFatherItemPicker.setCancelable(true);
         // 允许循环滚动
-        mFatherItemPicker.setScrollLoop(true);
+        mFatherItemPicker.setScrollLoop(false);
     }
 
     private void initScheduledDatePicker() {
@@ -459,9 +486,13 @@ public class ItemActivity extends AppCompatActivity implements View.OnClickListe
         dbHelper = null;
     }
 
+    public interface databaseCallback{
+        void setOnDatabaseResult(List<String> itemTitlesFromDatabase);
+    }
 
-
-
+    public void sendCallback(databaseCallback callback){
+        fatherItemNewCallback = callback;
+    }
 }
 
 

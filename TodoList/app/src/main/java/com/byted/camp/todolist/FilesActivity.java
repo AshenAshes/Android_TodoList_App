@@ -6,6 +6,7 @@ import android.database.sqlite.SQLiteDatabase;
 import android.graphics.Color;
 import android.os.Build;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.Menu;
 import android.view.View;
 import android.widget.Button;
@@ -49,7 +50,7 @@ public class FilesActivity extends AppCompatActivity {
     private Button button_showAll, button_search;
     private RecyclerView recyclerView;
 
-    private String searchString;
+    private String searchString = "a";
 
     private NoteListAdapter notesAdapter;
     private TodoDbHelper dbHelper;
@@ -62,6 +63,8 @@ public class FilesActivity extends AppCompatActivity {
         toolbar = findViewById(R.id.toolbar);
         toolbar.setTitle("");
         setSupportActionBar(toolbar);
+        dbHelper = new TodoDbHelper(this);
+        database = dbHelper.getWritableDatabase();
 
         if (Build.VERSION.SDK_INT >= 21) {
             View decorView = getWindow().getDecorView();
@@ -96,6 +99,7 @@ public class FilesActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 searchString = searchText.getText().toString();
+                Log.d("searchString",searchString);
                 notesAdapter.refresh(loadNotesFromDatabase());
             }
         });
@@ -126,8 +130,10 @@ public class FilesActivity extends AppCompatActivity {
         });
     }
 
+    //TODO: 如果searchString == "", 则列出全部项
     private List<Note> loadNotesFromDatabase() {
         if (database == null) {
+            Log.d("null","null");
             return Collections.emptyList();
         }
         List<Note> result = new LinkedList<>();
@@ -160,6 +166,7 @@ public class FilesActivity extends AppCompatActivity {
                 cursor.close();
             }
         }
+        Log.d("resultSize",result.size()+"");
         return result;
     }
 

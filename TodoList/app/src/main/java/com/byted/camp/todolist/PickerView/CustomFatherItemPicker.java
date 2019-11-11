@@ -1,14 +1,17 @@
 package com.byted.camp.todolist.PickerView;
 
+import android.app.Activity;
 import android.app.Dialog;
 import android.content.Context;
 import android.database.sqlite.SQLiteDatabase;
 import android.text.TextUtils;
+import android.util.Log;
 import android.view.Gravity;
 import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
 
+import com.byted.camp.todolist.ItemActivity;
 import com.byted.camp.todolist.R;
 import com.byted.camp.todolist.db.TodoDbHelper;
 
@@ -25,7 +28,8 @@ public class CustomFatherItemPicker implements View.OnClickListener, PickerView.
     private PickerView mDpvFatherItem;
 
     private List<String> mFatherItemUnits = new ArrayList<>();
-    private List<String> filenamesFromDatabase = new ArrayList<>();
+    private List<String> mItemTitlesFromDatabase = new ArrayList<>();
+    private ItemActivity mActivity;
 
     /**
      * 状态选择结果回调接口
@@ -40,22 +44,35 @@ public class CustomFatherItemPicker implements View.OnClickListener, PickerView.
      * @param context      Activity Context
      * @param callback     选择结果回调
      */
-    public CustomFatherItemPicker(Context context, Callback callback, List<String> database) {
+    public CustomFatherItemPicker(Context context, Callback callback, ItemActivity activity) {
         if(context == null || callback == null){
             mCanDialogShow = false;
             return;
         }
 
+        mActivity = activity;
+        mActivity.sendCallback(new ItemActivity.databaseCallback() {
+            @Override
+            public void setOnDatabaseResult(List<String> itemTitlesFromDatabase) {
+                Log.d("itemTitlesFromDatabase",itemTitlesFromDatabase.size()+"");
+                mItemTitlesFromDatabase = itemTitlesFromDatabase;
+                Log.d("mItemTitlesFromDatabase",mItemTitlesFromDatabase.size()+"");
+            }
+        });
         mContext = context;
         mCallback = callback;
         mBeginFatherItem = "";
         mEndFatherItem = "";
         mSelectedFatherItem = "";
-        filenamesFromDatabase = database;
 
         initView();
         initData();
         mCanDialogShow = true;
+    }
+
+    public void onResume(){
+        initView();
+        initData();
     }
 
     private void initView() {
@@ -95,12 +112,14 @@ public class CustomFatherItemPicker implements View.OnClickListener, PickerView.
         }
     }
 
+
+
     @Override
     public void onSelect(View view, String selected) {
         if (view == null || TextUtils.isEmpty(selected)) return;
 
         switch (view.getId()) {
-            case R.id.dpv_priority:
+            case R.id.dpv_fatheritem:
                 mSelectedFatherItem = selected;
         }
     }
@@ -117,12 +136,14 @@ public class CustomFatherItemPicker implements View.OnClickListener, PickerView.
     }
 
     private void initStateUnits(){
+        mFatherItemUnits.clear();
         mFatherItemUnits.add("None");
-
-
-
-        for(String fatherItemName: filenamesFromDatabase){
-            mFatherItemUnits.add(fatherItemName);
+        if(mItemTitlesFromDatabase.size() == 0)
+            ;
+        else{
+            for(String fatherItemName: mItemTitlesFromDatabase){
+                mFatherItemUnits.add(fatherItemName);
+            }
         }
         mDpvFatherItem.setDataList(mFatherItemUnits);
         mDpvFatherItem.setSelected(0);
