@@ -149,7 +149,6 @@ public class CalendarFragment extends Fragment {
             return;
         }
         ContentValues values = new ContentValues();
-        //TODO
         values.put(TodoContract.TodoNote.COLUMN_STATE, note.getState());
 
         int rows = database.update(TodoContract.TodoNote.TABLE_NAME, values,
