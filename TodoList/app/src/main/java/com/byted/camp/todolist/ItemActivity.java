@@ -18,6 +18,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.byted.camp.todolist.PickerView.CustomDatePicker;
+import com.byted.camp.todolist.PickerView.CustomFatherItemPicker;
 import com.byted.camp.todolist.PickerView.CustomFutureDatePicker;
 import com.byted.camp.todolist.PickerView.CustomLoopPicker;
 import com.byted.camp.todolist.PickerView.CustomPriorityPicker;
@@ -28,8 +29,10 @@ import com.byted.camp.todolist.db.TodoDbHelper;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
+import java.util.List;
 import java.util.Locale;
 
 import androidx.annotation.Nullable;
@@ -42,6 +45,7 @@ public class ItemActivity extends AppCompatActivity implements View.OnClickListe
     private TextView item_state;
     private TextView item_priority;
     private EditText item_tag;
+    private TextView item_father_item;
     private TextView item_scheduled_date;
     private TextView item_deadline_date;
     private TextView item_show_date;
@@ -53,6 +57,7 @@ public class ItemActivity extends AppCompatActivity implements View.OnClickListe
     private CustomLoopPicker mLoopPicker;
     private CustomStatePicker mStatePicker;
     private CustomPriorityPicker mPriorityPicker;
+    private CustomFatherItemPicker mFatherItemPicker;
     private CustomDatePicker mScheduledDatePicker;
     private CustomFutureDatePicker mDeadlineDatePicker;
     private CustomFutureDatePicker mShowDatePicker;
@@ -60,6 +65,8 @@ public class ItemActivity extends AppCompatActivity implements View.OnClickListe
     private TodoDbHelper dbHelper;
     private SQLiteDatabase database;
     private long timeStamp;
+
+    private List<String> filenameFromDatabase = new ArrayList<>();
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -84,6 +91,7 @@ public class ItemActivity extends AppCompatActivity implements View.OnClickListe
         item_state = findViewById(R.id.item_state);
         item_priority = findViewById(R.id.item_priority);
         item_tag = findViewById(R.id.item_tag);
+        item_father_item = findViewById(R.id.item_fatheritem);
         item_scheduled_date = findViewById(R.id.item_sheduled_date);
         item_deadline_date = findViewById(R.id.item_deadline_date);
         item_show_date = findViewById(R.id.item_show_date);
@@ -110,6 +118,7 @@ public class ItemActivity extends AppCompatActivity implements View.OnClickListe
         item_state.setOnClickListener(this);
         item_priority.setOnClickListener(this);
         item_tag.setOnClickListener(this);
+        item_father_item.setOnClickListener(this);
         item_scheduled_date.setOnClickListener(this);
         item_deadline_date.setOnClickListener(this);
         item_show_date.setOnClickListener(this);
@@ -149,9 +158,12 @@ public class ItemActivity extends AppCompatActivity implements View.OnClickListe
             }
         });
 
+        //TODO：在这里将数据传入
+
         initLoopPicker();
         initStatePicker();
         initPriorityPicker();
+        initFatherItemPicker();
         initScheduledDatePicker();
         initDeadlineDatePicker();
         initShowDatePicker();
@@ -220,6 +232,9 @@ public class ItemActivity extends AppCompatActivity implements View.OnClickListe
             case R.id.item_priority:
                 mPriorityPicker.show(item_priority.getText().toString());
                 break;
+            case R.id.item_fatheritem:
+                mFatherItemPicker.show(item_father_item.getText().toString());
+                break;
             case R.id.item_tag:
                 break;
         }
@@ -268,6 +283,21 @@ public class ItemActivity extends AppCompatActivity implements View.OnClickListe
         mPriorityPicker.setCancelable(true);
         // 允许循环滚动
         mPriorityPicker.setScrollLoop(true);
+    }
+
+    private void initFatherItemPicker(){
+        item_father_item.setText("None");
+
+        mFatherItemPicker = new CustomFatherItemPicker(this, new CustomFatherItemPicker.Callback() {
+            @Override
+            public void onFatherItemPicker(String fatherItem) {
+                item_father_item.setText(fatherItem);
+            }
+        }, filenameFromDatabase);
+        // 允许点击屏幕或物理返回键关闭
+        mFatherItemPicker.setCancelable(true);
+        // 允许循环滚动
+        mFatherItemPicker.setScrollLoop(true);
     }
 
     private void initScheduledDatePicker() {

@@ -1,16 +1,22 @@
 package com.byted.camp.todolist;
 
 import android.content.Intent;
+import android.database.sqlite.SQLiteDatabase;
 import android.graphics.Color;
 import android.os.Build;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.View;
+import android.widget.Button;
+import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.byted.camp.todolist.beans.Note;
+import com.byted.camp.todolist.db.TodoDbHelper;
 import com.byted.camp.todolist.extra.DoubleBack;
+import com.byted.camp.todolist.ui.NoteListAdapter;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
 import java.nio.file.Files;
@@ -18,6 +24,9 @@ import java.nio.file.Files;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
+import androidx.recyclerview.widget.DividerItemDecoration;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 public class FilesActivity extends AppCompatActivity {
     private static final int REQUEST_CODE_ADD = 1002;
@@ -26,6 +35,16 @@ public class FilesActivity extends AppCompatActivity {
     private Toolbar toolbar;
     private LinearLayout buttonAgenda,buttonTodo,buttonFiles,buttonSettings;
     private FloatingActionButton fab;
+
+    private EditText searchText;
+    private Button button_showAll, button_search;
+    private RecyclerView recyclerView;
+
+    private String searchString;
+
+    private NoteListAdapter notesAdapter;
+    private TodoDbHelper dbHelper;
+    private SQLiteDatabase database;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -52,6 +71,39 @@ public class FilesActivity extends AppCompatActivity {
         bindActivity(R.id.button_todo,TodoActivity.class);
         bindActivity(R.id.button_settings, SettingsActivity.class);
 
+        searchText = findViewById(R.id.search_input);
+        button_showAll = findViewById(R.id.button_showAll);
+        button_search = findViewById(R.id.button_search);
+
+        //TODO:查询的filename是变量searchString 写一下loadNotesFromDatabase()
+        button_showAll.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                searchString = "";
+                notesAdapter.refresh(loadNotesFromDatabase());
+            }
+        });
+
+        button_search.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                searchString = searchText.getText().toString();
+                notesAdapter.refresh(loadNotesFromDatabase());
+            }
+        });
+
+        recyclerView = findViewById(R.id.list_items);
+        recyclerView.setLayoutManager(new LinearLayoutManager(this));
+        recyclerView.addItemDecoration(new DividerItemDecoration(this, DividerItemDecoration.VERTICAL));
+        notesAdapter = new NoteListAdapter(new NoteOperator() {
+            @Override
+            public void deleteNote(Note note) {}
+            @Override
+            public void updateNote(Note note) {}
+        });
+        recyclerView.setAdapter(notesAdapter);
+
+        notesAdapter.refresh(loadNotesFromDatabase());
 
         fab = findViewById(R.id.fab);
         fab.setOnClickListener(new View.OnClickListener() {

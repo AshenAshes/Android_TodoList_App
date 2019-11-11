@@ -29,7 +29,7 @@ public class CustomFatherItemPicker implements View.OnClickListener, PickerView.
      * 状态选择结果回调接口
      */
     public interface Callback {
-        void onPrioritySelected(String fatherItem);
+        void onFatherItemPicker(String fatherItem);
     }
 
     /**
@@ -38,7 +38,7 @@ public class CustomFatherItemPicker implements View.OnClickListener, PickerView.
      * @param context      Activity Context
      * @param callback     选择结果回调
      */
-    public CustomFatherItemPicker(Context context, Callback callback) {
+    public CustomFatherItemPicker(Context context, Callback callback, List<String> database) {
         if(context == null || callback == null){
             mCanDialogShow = false;
             return;
@@ -49,6 +49,7 @@ public class CustomFatherItemPicker implements View.OnClickListener, PickerView.
         mBeginFatherItem = "";
         mEndFatherItem = "";
         mSelectedFatherItem = "";
+        filenamesFromDatabase = database;
 
         initView();
         initData();
@@ -82,7 +83,7 @@ public class CustomFatherItemPicker implements View.OnClickListener, PickerView.
                 break;
             case R.id.tv_confirm:
                 if (mCallback != null) {
-                    mCallback.onPrioritySelected(mSelectedFatherItem);
+                    mCallback.onFatherItemPicker(mSelectedFatherItem);
                 }
                 break;
         }
@@ -115,8 +116,6 @@ public class CustomFatherItemPicker implements View.OnClickListener, PickerView.
 
     private void initStateUnits(){
         mFatherItemUnits.add("None");
-
-        //TODO：从数据库拿到所有的filename放入filenameFromDatabase中
 
         for(String fatherItemName: filenamesFromDatabase){
             mFatherItemUnits.add(fatherItemName);

@@ -26,9 +26,42 @@
                 app:popupTheme="@style/AppTheme.PopupOverlay" />
         </com.google.android.material.appbar.AppBarLayout>
 
-        <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/list_todo"
+        <RelativeLayout
+            android:id="@+id/bar_search"
             android:layout_below="@+id/toolbarlayout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+            <EditText
+                android:id="@+id/search_input"
+                android:background="@color/lightGray"
+                android:textAlignment="center"
+                android:layout_alignParentStart="true"
+                android:hint="input the filename to search..."
+                android:layout_width="match_parent"
+                android:layout_height="40dp"/>
+            <LinearLayout
+                android:layout_below="@+id/search_input"
+                android:layout_width="match_parent"
+                android:layout_height="40dp">
+                <Button
+                    android:id="@+id/button_showAll"
+                    android:text="Show All"
+                    android:layout_width="0dp"
+                    android:layout_weight="1"
+                    android:layout_height="match_parent"/>
+                <Button
+                    android:id="@+id/button_search"
+                    android:text="Search"
+                    android:layout_width="0dp"
+                    android:layout_weight="1"
+                    android:layout_height="match_parent"/>
+            </LinearLayout>
+
+        </RelativeLayout>
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/list_items"
+            android:layout_below="@+id/bar_search"
             android:layout_above="@+id/separatorLine"
             android:layout_width="match_parent"
             android:layout_height="match_parent" />

@@ -207,6 +207,32 @@
             android:layout_width="match_parent"
             android:layout_height="30dp"/>
 
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="30dp">
+            <ImageView
+                android:layout_marginTop="10dp"
+                android:layout_marginLeft="15dp"
+                android:layout_width="20dp"
+                android:layout_height="20dp"
+                android:src="@drawable/fatheritem"/>
+            <TextView
+                android:text="父类"
+                android:gravity="bottom"
+                android:layout_marginLeft="15dp"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"/>
+        </LinearLayout>
+        <TextView
+            android:id="@+id/item_fatheritem"
+            android:textSize="14dp"
+            android:background="@null"
+            android:gravity="bottom"
+            android:hint="点击添加父类..."
+            android:layout_marginLeft="50dp"
+            android:layout_width="match_parent"
+            android:layout_height="30dp"/>
+
         <TextView
             android:background="@color/midGray"
             android:layout_marginTop="10dp"
