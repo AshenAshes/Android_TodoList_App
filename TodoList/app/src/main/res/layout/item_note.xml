@@ -35,7 +35,7 @@
         tools:text="2019-01-29" />
 
     <ImageButton
-        android:id="@id/btn_delete"
+        android:id="@+id/btn_delete"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentEnd="true"

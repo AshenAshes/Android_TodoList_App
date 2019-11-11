@@ -193,6 +193,7 @@ public class AgendaActivity extends AppCompatActivity {
                 int intState = cursor.getInt(cursor.getColumnIndex(TodoNote.COLUMN_STATE));
                 int intPriority = cursor.getInt(cursor.getColumnIndex(TodoNote.COLUMN_PRIORITY));
 
+                //TODO:fix bugs
                 Note note = new Note(id);
                 note.setContent(content);
                 note.setDate(new Date(dateMs));
@@ -226,6 +227,7 @@ public class AgendaActivity extends AppCompatActivity {
             return;
         }
         ContentValues values = new ContentValues();
+        //TODO:fix bugs
         values.put(TodoNote.COLUMN_STATE, note.getState().intValue);
 
         int rows = database.update(TodoNote.TABLE_NAME, values,

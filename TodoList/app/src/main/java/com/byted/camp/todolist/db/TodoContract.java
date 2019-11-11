@@ -4,6 +4,7 @@ import android.provider.BaseColumns;
 
 public final class TodoContract {
 
+    //TODO:add filename
     public static final String SQL_CREATE_NOTES =
             "CREATE TABLE " + TodoNote.TABLE_NAME
                     + "(" + TodoNote._ID + " INTEGER PRIMARY KEY AUTOINCREMENT, "

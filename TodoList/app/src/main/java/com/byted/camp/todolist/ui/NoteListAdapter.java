@@ -34,8 +34,20 @@ public class NoteListAdapter extends RecyclerView.Adapter<NoteViewHolder> {
     @NonNull
     @Override
     public NoteViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int pos) {
-        View itemView = LayoutInflater.from(parent.getContext())
-                .inflate(R.layout.item_note, parent, false);
+        View itemView;
+
+        if(notes.get(pos).getState() == 1){//To do
+            itemView = LayoutInflater.from(parent.getContext())
+                    .inflate(R.layout.item_todo, parent, false);
+        }
+        else if(notes.get(pos).getState() == 2){//done
+            itemView = LayoutInflater.from(parent.getContext())
+                    .inflate(R.layout.item_done, parent, false);
+        }
+        else{//none
+            itemView = LayoutInflater.from(parent.getContext())
+                    .inflate(R.layout.item_none, parent, false);
+        }
         return new NoteViewHolder(itemView, operator);
     }
 
