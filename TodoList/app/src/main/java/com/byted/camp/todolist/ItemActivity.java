@@ -167,8 +167,7 @@ public class ItemActivity extends AppCompatActivity implements View.OnClickListe
         values.put(TodoContract.TodoNote.COLUMN_SHOW,show);
         values.put(TodoContract.TodoNote.COLUMN_STATE,state);
         values.put(TodoContract.TodoNote.COLUMN_SCHEDULED,scheduled);
-        //TODO:week?  用getDayofWeek(scheduled)得到对应的 int 星期
-        values.put(TodoContract.TodoNote.COLUMN_WEEK,1);
+        values.put(TodoContract.TodoNote.COLUMN_WEEK,getDayofWeek(scheduled));
         values.put(TodoContract.TodoNote.COLUMN_WEEKLOP,0);
         values.put(TodoContract.TodoNote.COLUMN_MONTHLOP,0);
         values.put(TodoContract.TodoNote.COLUMN_YEARLOP,0);

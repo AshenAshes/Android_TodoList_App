@@ -1,6 +1,8 @@
 package com.byted.camp.todolist;
 
 import android.content.Intent;
+import android.database.Cursor;
+import android.database.sqlite.SQLiteDatabase;
 import android.graphics.Color;
 import android.os.Build;
 import android.os.Bundle;
@@ -11,6 +13,8 @@ import android.widget.LinearLayout;
 import android.widget.Toast;
 
 import com.byted.camp.todolist.beans.Note;
+import com.byted.camp.todolist.db.TodoContract;
+import com.byted.camp.todolist.db.TodoDbHelper;
 import com.byted.camp.todolist.extra.DoubleBack;
 import com.byted.camp.todolist.ui.NoteListAdapter;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
@@ -21,6 +25,10 @@ import androidx.appcompat.widget.Toolbar;
 import androidx.recyclerview.widget.DividerItemDecoration;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
+
+import java.util.Collections;
+import java.util.LinkedList;
+import java.util.List;
 
 
 public class TodoActivity extends AppCompatActivity {
@@ -33,7 +41,8 @@ public class TodoActivity extends AppCompatActivity {
 
     private RecyclerView recyclerView;
     private NoteListAdapter notesAdapter;
-
+    private TodoDbHelper dbHelper;
+    private SQLiteDatabase database;
     //TODO:加数据库，select state=TODO(也就是1)的项，并按filename的字母序排序
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -42,6 +51,8 @@ public class TodoActivity extends AppCompatActivity {
         toolbar = findViewById(R.id.toolbar);
         toolbar.setTitle("");
         setSupportActionBar(toolbar);
+        dbHelper = new TodoDbHelper(this);
+        database = dbHelper.getWritableDatabase();
 
         buttonAgenda = findViewById(R.id.button_agenda);
         buttonTodo = findViewById(R.id.button_todo);
@@ -84,6 +95,43 @@ public class TodoActivity extends AppCompatActivity {
         recyclerView.setAdapter(notesAdapter);
 
         notesAdapter.refresh(loadNotesFromDatabase());
+    }
+
+    private List<Note> loadNotesFromDatabase() {
+        if (database == null) {
+            return Collections.emptyList();
+        }
+        List<Note> result = new LinkedList<>();
+        Cursor cursor = null;
+        try {
+            cursor = database.query(TodoContract.TodoNote.TABLE_NAME, null,
+                    "state like ?", new String[]{1+""},
+                    null, null,
+                    TodoContract.TodoNote.COLUMN_FILE);
+
+            while (cursor.moveToNext()) {
+                long id = cursor.getLong(cursor.getColumnIndex(TodoContract.TodoNote._ID));
+                String caption = cursor.getString(cursor.getColumnIndex(TodoContract.TodoNote.COLUMN_CAPTION));
+                String content = cursor.getString(cursor.getColumnIndex(TodoContract.TodoNote.COLUMN_CONTENT));
+                int intState = cursor.getInt(cursor.getColumnIndex(TodoContract.TodoNote.COLUMN_STATE));
+                int intPriority = cursor.getInt(cursor.getColumnIndex(TodoContract.TodoNote.COLUMN_PRIORITY));
+                String fileName = cursor.getString(cursor.getColumnIndex(TodoContract.TodoNote.COLUMN_FILE));
+
+                //TODO:fix bugs
+                Note note = new Note(id);
+                note.setContent(content);
+                note.setCaption(caption);
+                note.setState(intState);
+                note.setPriority(intPriority);
+                note.setFilename(fileName);
+                result.add(note);
+            }
+        } finally {
+            if (cursor != null) {
+                cursor.close();
+            }
+        }
+        return result;
     }
 
     @Override

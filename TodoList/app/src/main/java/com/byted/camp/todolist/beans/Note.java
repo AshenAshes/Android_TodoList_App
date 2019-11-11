@@ -14,6 +14,7 @@ public class Note {
     private String caption;
     private String tag;
     private String content;
+    private String filename;
 
     public Note(long id) {
         this.id = id;
@@ -41,5 +42,7 @@ public class Note {
     public void setCaption(String caption){this.caption=caption;}
     public String getTag(){return tag;}
     public void setTag(String tag){this.tag=tag;}
+    public String getFilename(){return filename;}
+    public void  setFilename(String filename){this.filename=filename;}
 
 }

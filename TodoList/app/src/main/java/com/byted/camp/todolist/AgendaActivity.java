@@ -246,69 +246,6 @@ public class AgendaActivity extends AppCompatActivity {
         }
     }
 
-    private List<Note> loadNotesFromDatabase() {
-        if (database == null) {
-            return Collections.emptyList();
-        }
-        List<Note> result = new LinkedList<>();
-        Cursor cursor = null;
-        try {
-            cursor = database.query(TodoNote.TABLE_NAME, null,
-                    null, null,
-                    null, null,
-                    TodoNote.COLUMN_PRIORITY + " DESC");
-
-            while (cursor.moveToNext()) {
-                long id = cursor.getLong(cursor.getColumnIndex(TodoNote._ID));
-                String content = cursor.getString(cursor.getColumnIndex(TodoNote.COLUMN_CONTENT));
-                long dateMs = cursor.getLong(cursor.getColumnIndex(TodoNote.COLUMN_DEADLINE));
-                int intState = cursor.getInt(cursor.getColumnIndex(TodoNote.COLUMN_STATE));
-                int intPriority = cursor.getInt(cursor.getColumnIndex(TodoNote.COLUMN_PRIORITY));
-
-                //TODO:fix bugs
-                Note note = new Note(id);
-                note.setContent(content);
-                note.setDate(new Date(dateMs));
-                note.setState(State.from(intState));
-                note.setPriority(Priority.from(intPriority));
-
-                result.add(note);
-            }
-        } finally {
-            if (cursor != null) {
-                cursor.close();
-            }
-        }
-        return result;
-    }
-
-    private void deleteNote(Note note) {
-        if (database == null) {
-            return;
-        }
-        int rows = database.delete(TodoNote.TABLE_NAME,
-                TodoNote._ID + "=?",
-                new String[]{String.valueOf(note.id)});
-        if (rows > 0) {
-            notesAdapter.refresh(loadNotesFromDatabase());
-        }
-    }
-
-    private void updateNode(Note note) {
-        if (database == null) {
-            return;
-        }
-        ContentValues values = new ContentValues();
-        //TODO:fix bugs
-        values.put(TodoNote.COLUMN_STATE, note.getState().intValue);
-
-        int rows = database.update(TodoNote.TABLE_NAME, values,
-                TodoNote._ID + "=?",
-                new String[]{String.valueOf(note.id)});
-        if (rows > 0) {
-            notesAdapter.refresh(loadNotesFromDatabase());
-        }
-    }
 
     //偏移量1-7表示周日一二三四五六
     private int getDayofWeek(String dateTime) {

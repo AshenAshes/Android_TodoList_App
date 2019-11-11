@@ -2,13 +2,18 @@ package com.byted.camp.todolist;
 
 import android.content.ContentValues;
 import android.content.Context;
+import android.database.Cursor;
+import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
 import com.byted.camp.todolist.beans.Note;
+import com.byted.camp.todolist.beans.Priority;
+import com.byted.camp.todolist.beans.State;
 import com.byted.camp.todolist.db.TodoContract;
+import com.byted.camp.todolist.db.TodoDbHelper;
 import com.byted.camp.todolist.ui.NoteListAdapter;
 
 import androidx.annotation.NonNull;
@@ -19,19 +24,27 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import androidx.recyclerview.widget.StaggeredGridLayoutManager;
 
+import java.util.Collections;
+import java.util.Date;
+import java.util.LinkedList;
+import java.util.List;
+
 public class CalendarFragment extends Fragment {
     private View view;
     private RecyclerView recyclerView;
     private NoteListAdapter notesAdapter;
-
+    private TodoDbHelper dbHelper;
+    private SQLiteDatabase database;
     private String date;
 
     @Nullable
     @Override
-    //TODO 把AgendaActivity中的数据库移到这里来 按这里的变量date查询数据
+
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         view = inflater.inflate(R.layout.fragment_calendar,container,false);
-
+        //TODO context
+        dbHelper = new TodoDbHelper(this.getContext());
+        database = dbHelper.getWritableDatabase();
         recyclerView = view.findViewById(R.id.list_items);
         Context context = getActivity();
         LinearLayoutManager layoutManager = new LinearLayoutManager(context);
@@ -60,6 +73,43 @@ public class CalendarFragment extends Fragment {
         date = date_in;
     }
 
+    private List<Note> loadNotesFromDatabase() {
+        if (database == null) {
+            return Collections.emptyList();
+        }
+        List<Note> result = new LinkedList<>();
+        Cursor cursor = null;
+        try {
+            cursor = database.query(TodoContract.TodoNote.TABLE_NAME, null,
+                    "scheduled like ?", new String[]{date},
+                    null, null,
+                    TodoContract.TodoNote.COLUMN_PRIORITY);
+
+            while (cursor.moveToNext()) {
+                long id = cursor.getLong(cursor.getColumnIndex(TodoContract.TodoNote._ID));
+                String caption = cursor.getString(cursor.getColumnIndex(TodoContract.TodoNote.COLUMN_CAPTION));
+                String content = cursor.getString(cursor.getColumnIndex(TodoContract.TodoNote.COLUMN_CONTENT));
+                int intState = cursor.getInt(cursor.getColumnIndex(TodoContract.TodoNote.COLUMN_STATE));
+                int intPriority = cursor.getInt(cursor.getColumnIndex(TodoContract.TodoNote.COLUMN_PRIORITY));
+                String fileName = cursor.getString(cursor.getColumnIndex(TodoContract.TodoNote.COLUMN_FILE));
+
+                //TODO:fix bugs
+                Note note = new Note(id);
+                note.setContent(content);
+                note.setCaption(caption);
+                note.setState(intState);
+                note.setPriority(intPriority);
+                note.setFilename(fileName);
+                result.add(note);
+            }
+        } finally {
+            if (cursor != null) {
+                cursor.close();
+            }
+        }
+        return result;
+    }
+
     private void deleteNote(Note note) {
         if (database == null) {
             return;
@@ -77,8 +127,7 @@ public class CalendarFragment extends Fragment {
             return;
         }
         ContentValues values = new ContentValues();
-        //TODO:fix bugs
-        values.put(TodoContract.TodoNote.COLUMN_STATE, note.getState().intValue);
+        values.put(TodoContract.TodoNote.COLUMN_STATE, (note.getState()+1)%3);
 
         int rows = database.update(TodoContract.TodoNote.TABLE_NAME, values,
                 TodoContract.TodoNote._ID + "=?",
