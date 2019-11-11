@@ -53,7 +53,6 @@ public class CalendarFragment extends Fragment {
         recyclerView.setLayoutManager(layoutManager);
         recyclerView.addItemDecoration(new DividerItemDecoration(context, DividerItemDecoration.VERTICAL));
 
-
         notesAdapter = new NoteListAdapter(new NoteOperator() {
             @Override
             public void deleteNote(Note note) {
