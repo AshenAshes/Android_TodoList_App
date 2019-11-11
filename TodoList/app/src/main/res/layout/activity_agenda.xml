@@ -24,7 +24,7 @@
                 android:layout_height="?attr/actionBarSize"
                 android:background="@drawable/bar_background">
                 <TextView
-                    android:text="今天"
+                    android:id="@+id/agenda_title"
                     android:textColor="#ffffff"
                     android:textSize="20dp"
                     android:singleLine="true"
@@ -35,13 +35,32 @@
             <!--            app:popupTheme="@style/AppTheme.PopupOverlay" />-->
         </com.google.android.material.appbar.AppBarLayout>
 
-
-        <androidx.recyclerview.widget.RecyclerView
+        <com.google.android.material.tabs.TabLayout
+            android:id="@+id/tab_layout"
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
             android:layout_below="@+id/toolbarlayout"
-            android:id="@+id/list_todo"
+            app:tabBackground="@null"
+            app:tabGravity="center"
+            app:tabIndicatorColor="@null"
+            app:tabIndicatorFullWidth="false"
+            app:tabSelectedTextColor="@color/tabIndicatorColor"
+            app:tabTextAppearance="@style/tabTextStyle"
+            app:tabTextColor="@color/colorPrimaryDark" />
+
+        <androidx.viewpager.widget.ViewPager
+            android:id="@+id/view_pager"
+            android:layout_below="@+id/tab_layout"
             android:layout_above="@+id/separatorLine"
             android:layout_width="match_parent"
-            android:layout_height="match_parent" />
+            android:layout_height="wrap_content"/>
+
+<!--        <androidx.recyclerview.widget.RecyclerView-->
+<!--            android:layout_below="@+id/toolbarlayout"-->
+<!--            android:id="@+id/list_todo"-->
+<!--            android:layout_above="@+id/separatorLine"-->
+<!--            android:layout_width="match_parent"-->
+<!--            android:layout_height="match_parent" />-->
 
         <com.google.android.material.floatingactionbutton.FloatingActionButton
             android:id="@+id/fab"

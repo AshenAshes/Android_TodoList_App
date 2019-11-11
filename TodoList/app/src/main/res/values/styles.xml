@@ -22,5 +22,9 @@
         <item name="android:windowBackground">@color/date_picker_bg</item>
     </style>
 
+    <style name="tabTextStyle">
+        <item name="android:textSize">17sp</item>
+        <item name="android:textStyle">bold</item>
+    </style>
 
 </resources>

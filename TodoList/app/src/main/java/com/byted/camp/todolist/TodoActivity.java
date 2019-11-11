@@ -10,12 +10,18 @@ import android.view.View;
 import android.widget.LinearLayout;
 import android.widget.Toast;
 
+import com.byted.camp.todolist.beans.Note;
 import com.byted.camp.todolist.extra.DoubleBack;
+import com.byted.camp.todolist.ui.NoteListAdapter;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
+import androidx.recyclerview.widget.DividerItemDecoration;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
+
 
 public class TodoActivity extends AppCompatActivity {
     private static final int REQUEST_CODE_ADD = 1002;
@@ -25,6 +31,10 @@ public class TodoActivity extends AppCompatActivity {
     private LinearLayout buttonAgenda,buttonTodo,buttonFiles,buttonSettings;
     private FloatingActionButton fab;
 
+    private RecyclerView recyclerView;
+    private NoteListAdapter notesAdapter;
+
+    //TODO:加数据库，select state=TODO(也就是1)的项，并按filename的字母序排序
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -61,6 +71,19 @@ public class TodoActivity extends AppCompatActivity {
                         REQUEST_CODE_ADD);
             }
         });
+
+        recyclerView = findViewById(R.id.list_todo);
+        recyclerView.setLayoutManager(new LinearLayoutManager(this));
+        recyclerView.addItemDecoration(new DividerItemDecoration(this, DividerItemDecoration.VERTICAL));
+        notesAdapter = new NoteListAdapter(new NoteOperator() {
+            @Override
+            public void deleteNote(Note note) {}
+            @Override
+            public void updateNote(Note note) {}
+        });
+        recyclerView.setAdapter(notesAdapter);
+
+        notesAdapter.refresh(loadNotesFromDatabase());
     }
 
     @Override

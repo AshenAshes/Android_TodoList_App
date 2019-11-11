@@ -11,13 +11,18 @@ import android.os.Build;
 import android.os.Bundle;
 import androidx.annotation.Nullable;
 
+import com.byted.camp.todolist.PickerView.DateFormatUtils;
 import com.byted.camp.todolist.extra.DoubleBack;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentPagerAdapter;
 import androidx.recyclerview.widget.DividerItemDecoration;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import androidx.appcompat.widget.Toolbar;
+import androidx.viewpager.widget.ViewPager;
+
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -30,15 +35,21 @@ import com.byted.camp.todolist.beans.State;
 import com.byted.camp.todolist.db.TodoContract.TodoNote;
 import com.byted.camp.todolist.db.TodoDbHelper;
 import com.byted.camp.todolist.ui.NoteListAdapter;
+import com.google.android.material.tabs.TabLayout;
 import com.jaeger.library.StatusBarUtil;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
 import java.util.Collections;
 import java.util.Date;
 import java.util.LinkedList;
 import java.util.List;
+import java.util.Locale;
 
 public class AgendaActivity extends AppCompatActivity {
     private static final int REQUEST_CODE_ADD = 1002;
+    private static final int PAGE_COUNT=7;
     DoubleBack doubleBack=new DoubleBack();
 
     private RecyclerView recyclerView;
@@ -47,10 +58,15 @@ public class AgendaActivity extends AppCompatActivity {
     private TodoDbHelper dbHelper;
     private SQLiteDatabase database;
 
+    private TabLayout tableLayout;
+    private ViewPager pager;
     private LinearLayout buttonAgenda,buttonTodo,buttonFiles,buttonSettings;
-    private View topView;
     private Toolbar toolbar;
     private FloatingActionButton fab;
+
+    private long todaySystemDate;
+    private String todayDate;
+    private int todayWeek;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -60,6 +76,11 @@ public class AgendaActivity extends AppCompatActivity {
         toolbar.setTitle("");
         setSupportActionBar(toolbar);
 
+        todaySystemDate = System.currentTimeMillis();
+        //get XXXX-XX-XX
+        todayDate = DateFormatUtils.long2Str(todaySystemDate, false);
+        todayWeek = getDayofWeek(todayDate);
+
         //透明状态栏
         if (Build.VERSION.SDK_INT >= 21) {
             View decorView = getWindow().getDecorView();
@@ -68,6 +89,57 @@ public class AgendaActivity extends AppCompatActivity {
             decorView.setSystemUiVisibility(option);
             getWindow().setStatusBarColor(Color.TRANSPARENT);
         }
+
+        tableLayout = findViewById(R.id.tab_layout);
+        pager = findViewById(R.id.view_pager);
+
+        pager.setAdapter(new FragmentPagerAdapter(getSupportFragmentManager()) {
+            @Override
+            public Fragment getItem(int position) {
+                CalendarFragment calendarFragment = new CalendarFragment();
+
+                calendarFragment.setDate(position);
+                return calendarFragment;
+            }
+            @Override
+            public int getCount() {
+                return PAGE_COUNT;
+            }
+            @Override
+            public CharSequence getPageTitle(int position){
+                switch(position){
+                    case 0:
+                        return "日";
+                    case 1:
+                        return "一";
+                    case 2:
+                        return "二";
+                    case 3:
+                        return "三";
+                    case 4:
+                        return "四";
+                    case 5:
+                        return "五";
+                    case 6:
+                        return "六";
+                    default:
+                        return "空";
+                }
+            }
+        });
+
+        pager.addOnPageChangeListener(new ViewPager.OnPageChangeListener() {
+            @Override
+            public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
+            }
+            @Override
+            public void onPageSelected(int position) {
+            }
+            @Override
+            public void onPageScrollStateChanged(int state) {
+            }
+        });
+        tableLayout.setupWithViewPager(pager);
 
         buttonAgenda = findViewById(R.id.button_agenda);
         buttonTodo = findViewById(R.id.button_todo);
@@ -237,6 +309,29 @@ public class AgendaActivity extends AppCompatActivity {
             notesAdapter.refresh(loadNotesFromDatabase());
         }
     }
+
+    //偏移量1-7表示周日一二三四五六
+    private int getDayofWeek(String dateTime) {
+        Calendar cal = Calendar.getInstance();
+
+        if (dateTime.equals("")) {
+            cal.setTime(new Date(System.currentTimeMillis()));
+        } else {
+            SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd", Locale.getDefault());
+            Date date;
+                try {
+                    date = sdf.parse(dateTime);
+                } catch (ParseException e) {
+                    date = null;
+                    e.printStackTrace();
+            }
+            if (date != null) {
+                cal.setTime(new Date(date.getTime()));
+            }
+        }
+        return cal.get(Calendar.DAY_OF_WEEK);
+    }
+
 
     @Override
     public void onBackPressed() {

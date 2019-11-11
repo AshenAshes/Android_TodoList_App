@@ -46,7 +46,6 @@ public class NoteViewHolder extends RecyclerView.ViewHolder {
 //        contentText = itemView.findViewById(R.id.text_content);
 //        dateText = itemView.findViewById(R.id.text_date);
 //        deleteBtn = itemView.findViewById(R.id.btn_delete);
-
     }
 
     public void bind(final Note note) {

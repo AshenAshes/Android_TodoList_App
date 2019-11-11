@@ -2,9 +2,9 @@ package com.byted.camp.todolist.db;
 
 import android.provider.BaseColumns;
 
+//TODO:add filename item
 public final class TodoContract {
 
-    //TODO:add filename
     public static final String SQL_CREATE_NOTES =
             "CREATE TABLE " + TodoNote.TABLE_NAME
                     + "(" + TodoNote._ID + " INTEGER PRIMARY KEY AUTOINCREMENT, "

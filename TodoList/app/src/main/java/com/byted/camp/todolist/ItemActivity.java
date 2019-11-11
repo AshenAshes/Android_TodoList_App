@@ -26,6 +26,12 @@ import com.byted.camp.todolist.PickerView.DateFormatUtils;
 import com.byted.camp.todolist.db.TodoContract;
 import com.byted.camp.todolist.db.TodoDbHelper;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
+import java.util.Date;
+import java.util.Locale;
+
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -161,6 +167,7 @@ public class ItemActivity extends AppCompatActivity implements View.OnClickListe
         values.put(TodoContract.TodoNote.COLUMN_SHOW,show);
         values.put(TodoContract.TodoNote.COLUMN_STATE,state);
         values.put(TodoContract.TodoNote.COLUMN_SCHEDULED,scheduled);
+        //TODO:week?  用getDayofWeek(scheduled)得到对应的 int 星期
         values.put(TodoContract.TodoNote.COLUMN_WEEK,1);
         values.put(TodoContract.TodoNote.COLUMN_WEEKLOP,0);
         values.put(TodoContract.TodoNote.COLUMN_MONTHLOP,0);
@@ -341,6 +348,29 @@ public class ItemActivity extends AppCompatActivity implements View.OnClickListe
         // 不允许滚动动画
         mShowDatePicker.setCanShowAnim(false);
     }
+
+    //偏移量1-7表示周日一二三四五六
+    private int getDayofWeek(String dateTime) {
+        Calendar cal = Calendar.getInstance();
+
+        if (dateTime.equals("")) {
+            cal.setTime(new Date(System.currentTimeMillis()));
+        } else {
+            SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd", Locale.getDefault());
+            Date date;
+            try {
+                date = sdf.parse(dateTime);
+            } catch (ParseException e) {
+                date = null;
+                e.printStackTrace();
+            }
+            if (date != null) {
+                cal.setTime(new Date(date.getTime()));
+            }
+        }
+        return cal.get(Calendar.DAY_OF_WEEK);
+    }
+
     @Override
     protected void onDestroy() {
         super.onDestroy();
