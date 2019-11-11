@@ -1,0 +1,240 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ChangeListManager">
+    <list default="true" id="98908137-6f3e-4352-870e-6155243a3878" name="Default Changelist" comment="">
+      <change afterPath="$PROJECT_DIR$/.idea/Android_TodoList_App.iml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/codeStyles/Project.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/modules.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/vcs.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/TodoList/.gradle/5.4.1/executionHistory/executionHistory.bin" beforeDir="false" afterPath="$PROJECT_DIR$/TodoList/.gradle/5.4.1/executionHistory/executionHistory.bin" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/TodoList/.gradle/5.4.1/executionHistory/executionHistory.lock" beforeDir="false" afterPath="$PROJECT_DIR$/TodoList/.gradle/5.4.1/executionHistory/executionHistory.lock" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/TodoList/.gradle/5.4.1/fileHashes/fileHashes.bin" beforeDir="false" afterPath="$PROJECT_DIR$/TodoList/.gradle/5.4.1/fileHashes/fileHashes.bin" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/TodoList/.gradle/5.4.1/fileHashes/fileHashes.lock" beforeDir="false" afterPath="$PROJECT_DIR$/TodoList/.gradle/5.4.1/fileHashes/fileHashes.lock" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/TodoList/.gradle/5.4.1/fileHashes/resourceHashesCache.bin" beforeDir="false" afterPath="$PROJECT_DIR$/TodoList/.gradle/5.4.1/fileHashes/resourceHashesCache.bin" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/TodoList/.gradle/5.4.1/javaCompile/classAnalysis.bin" beforeDir="false" afterPath="$PROJECT_DIR$/TodoList/.gradle/5.4.1/javaCompile/classAnalysis.bin" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/TodoList/.gradle/5.4.1/javaCompile/javaCompile.lock" beforeDir="false" afterPath="$PROJECT_DIR$/TodoList/.gradle/5.4.1/javaCompile/javaCompile.lock" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/TodoList/.gradle/5.4.1/javaCompile/taskHistory.bin" beforeDir="false" afterPath="$PROJECT_DIR$/TodoList/.gradle/5.4.1/javaCompile/taskHistory.bin" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/TodoList/.gradle/buildOutputCleanup/buildOutputCleanup.lock" beforeDir="false" afterPath="$PROJECT_DIR$/TodoList/.gradle/buildOutputCleanup/buildOutputCleanup.lock" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/TodoList/.gradle/buildOutputCleanup/outputFiles.bin" beforeDir="false" afterPath="$PROJECT_DIR$/TodoList/.gradle/buildOutputCleanup/outputFiles.bin" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/TodoList/.idea/caches/build_file_checksums.ser" beforeDir="false" afterPath="$PROJECT_DIR$/TodoList/.idea/caches/build_file_checksums.ser" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/TodoList/.idea/caches/gradle_models.ser" beforeDir="false" afterPath="$PROJECT_DIR$/TodoList/.idea/caches/gradle_models.ser" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/TodoList/.idea/libraries/Gradle__com_jaeger_statusbarutil_library_1_5_1_aar.xml" beforeDir="false" afterPath="$PROJECT_DIR$/TodoList/.idea/libraries/Gradle__com_jaeger_statusbarutil_library_1_5_1_aar.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/TodoList/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/TodoList/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/TodoList/app/app.iml" beforeDir="false" afterPath="$PROJECT_DIR$/TodoList/app/app.iml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/TodoList/app/src/main/java/com/byted/camp/todolist/AgendaActivity.java" beforeDir="false" afterPath="$PROJECT_DIR$/TodoList/app/src/main/java/com/byted/camp/todolist/AgendaActivity.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/TodoList/app/src/main/java/com/byted/camp/todolist/FilesActivity.java" beforeDir="false" afterPath="$PROJECT_DIR$/TodoList/app/src/main/java/com/byted/camp/todolist/FilesActivity.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/TodoList/app/src/main/java/com/byted/camp/todolist/ItemActivity.java" beforeDir="false" afterPath="$PROJECT_DIR$/TodoList/app/src/main/java/com/byted/camp/todolist/ItemActivity.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/TodoList/app/src/main/java/com/byted/camp/todolist/SettingsActivity.java" beforeDir="false" afterPath="$PROJECT_DIR$/TodoList/app/src/main/java/com/byted/camp/todolist/SettingsActivity.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/TodoList/app/src/main/java/com/byted/camp/todolist/TodoActivity.java" beforeDir="false" afterPath="$PROJECT_DIR$/TodoList/app/src/main/java/com/byted/camp/todolist/TodoActivity.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/TodoList/app/src/main/java/com/byted/camp/todolist/ui/NoteViewHolder.java" beforeDir="false" afterPath="$PROJECT_DIR$/TodoList/app/src/main/java/com/byted/camp/todolist/ui/NoteViewHolder.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/TodoList/app/src/main/res/layout/activity_agenda.xml" beforeDir="false" afterPath="$PROJECT_DIR$/TodoList/app/src/main/res/layout/activity_agenda.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/TodoList/app/src/main/res/layout/activity_files.xml" beforeDir="false" afterPath="$PROJECT_DIR$/TodoList/app/src/main/res/layout/activity_files.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/TodoList/app/src/main/res/layout/activity_item.xml" beforeDir="false" afterPath="$PROJECT_DIR$/TodoList/app/src/main/res/layout/activity_item.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/TodoList/app/src/main/res/layout/activity_settings.xml" beforeDir="false" afterPath="$PROJECT_DIR$/TodoList/app/src/main/res/layout/activity_settings.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/TodoList/app/src/main/res/layout/activity_todo.xml" beforeDir="false" afterPath="$PROJECT_DIR$/TodoList/app/src/main/res/layout/activity_todo.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/TodoList/local.properties" beforeDir="false" afterPath="$PROJECT_DIR$/TodoList/local.properties" afterDir="false" />
+    </list>
+    <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
+    <option name="SHOW_DIALOG" value="false" />
+    <option name="HIGHLIGHT_CONFLICTS" value="true" />
+    <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
+    <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="DefaultGradleProjectSettings">
+    <option name="testRunner" value="GRADLE" />
+    <option name="delegatedBuild" value="true" />
+  </component>
+  <component name="FileEditorManager">
+    <leaf>
+      <file pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/TodoList/app/src/main/java/com/byted/camp/todolist/AgendaActivity.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="391">
+              <caret line="52" column="37" lean-forward="true" selection-start-line="52" selection-start-column="37" selection-end-line="52" selection-end-column="37" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+    </leaf>
+  </component>
+  <component name="Git.Settings">
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
+  </component>
+  <component name="ProjectFrameBounds" extendedState="6">
+    <option name="x" value="552" />
+    <option name="width" value="1690" />
+    <option name="height" value="1048" />
+  </component>
+  <component name="ProjectView">
+    <navigator currentView="ProjectPane" proportions="" version="1">
+      <foldersAlwaysOnTop value="true" />
+    </navigator>
+    <panes>
+      <pane id="ProjectPane">
+        <subPane>
+          <expand>
+            <path>
+              <item name="Android_TodoList_App" type="b2602c69:ProjectViewProjectNode" />
+              <item name="Android_TodoList_App" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="Android_TodoList_App" type="b2602c69:ProjectViewProjectNode" />
+              <item name="Android_TodoList_App" type="462c0819:PsiDirectoryNode" />
+              <item name="TodoList" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="Android_TodoList_App" type="b2602c69:ProjectViewProjectNode" />
+              <item name="Android_TodoList_App" type="462c0819:PsiDirectoryNode" />
+              <item name="TodoList" type="462c0819:PsiDirectoryNode" />
+              <item name="app" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="Android_TodoList_App" type="b2602c69:ProjectViewProjectNode" />
+              <item name="Android_TodoList_App" type="462c0819:PsiDirectoryNode" />
+              <item name="TodoList" type="462c0819:PsiDirectoryNode" />
+              <item name="app" type="462c0819:PsiDirectoryNode" />
+              <item name="src" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="Android_TodoList_App" type="b2602c69:ProjectViewProjectNode" />
+              <item name="Android_TodoList_App" type="462c0819:PsiDirectoryNode" />
+              <item name="TodoList" type="462c0819:PsiDirectoryNode" />
+              <item name="app" type="462c0819:PsiDirectoryNode" />
+              <item name="src" type="462c0819:PsiDirectoryNode" />
+              <item name="main" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="Android_TodoList_App" type="b2602c69:ProjectViewProjectNode" />
+              <item name="Android_TodoList_App" type="462c0819:PsiDirectoryNode" />
+              <item name="TodoList" type="462c0819:PsiDirectoryNode" />
+              <item name="app" type="462c0819:PsiDirectoryNode" />
+              <item name="src" type="462c0819:PsiDirectoryNode" />
+              <item name="main" type="462c0819:PsiDirectoryNode" />
+              <item name="java" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="Android_TodoList_App" type="b2602c69:ProjectViewProjectNode" />
+              <item name="Android_TodoList_App" type="462c0819:PsiDirectoryNode" />
+              <item name="TodoList" type="462c0819:PsiDirectoryNode" />
+              <item name="app" type="462c0819:PsiDirectoryNode" />
+              <item name="src" type="462c0819:PsiDirectoryNode" />
+              <item name="main" type="462c0819:PsiDirectoryNode" />
+              <item name="java" type="462c0819:PsiDirectoryNode" />
+              <item name="com" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="Android_TodoList_App" type="b2602c69:ProjectViewProjectNode" />
+              <item name="Android_TodoList_App" type="462c0819:PsiDirectoryNode" />
+              <item name="TodoList" type="462c0819:PsiDirectoryNode" />
+              <item name="app" type="462c0819:PsiDirectoryNode" />
+              <item name="src" type="462c0819:PsiDirectoryNode" />
+              <item name="main" type="462c0819:PsiDirectoryNode" />
+              <item name="java" type="462c0819:PsiDirectoryNode" />
+              <item name="com" type="462c0819:PsiDirectoryNode" />
+              <item name="byted" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="Android_TodoList_App" type="b2602c69:ProjectViewProjectNode" />
+              <item name="Android_TodoList_App" type="462c0819:PsiDirectoryNode" />
+              <item name="TodoList" type="462c0819:PsiDirectoryNode" />
+              <item name="app" type="462c0819:PsiDirectoryNode" />
+              <item name="src" type="462c0819:PsiDirectoryNode" />
+              <item name="main" type="462c0819:PsiDirectoryNode" />
+              <item name="java" type="462c0819:PsiDirectoryNode" />
+              <item name="com" type="462c0819:PsiDirectoryNode" />
+              <item name="byted" type="462c0819:PsiDirectoryNode" />
+              <item name="camp" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="Android_TodoList_App" type="b2602c69:ProjectViewProjectNode" />
+              <item name="Android_TodoList_App" type="462c0819:PsiDirectoryNode" />
+              <item name="TodoList" type="462c0819:PsiDirectoryNode" />
+              <item name="app" type="462c0819:PsiDirectoryNode" />
+              <item name="src" type="462c0819:PsiDirectoryNode" />
+              <item name="main" type="462c0819:PsiDirectoryNode" />
+              <item name="java" type="462c0819:PsiDirectoryNode" />
+              <item name="com" type="462c0819:PsiDirectoryNode" />
+              <item name="byted" type="462c0819:PsiDirectoryNode" />
+              <item name="camp" type="462c0819:PsiDirectoryNode" />
+              <item name="todolist" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="Android_TodoList_App" type="b2602c69:ProjectViewProjectNode" />
+              <item name="Android_TodoList_App" type="462c0819:PsiDirectoryNode" />
+              <item name="TodoList" type="462c0819:PsiDirectoryNode" />
+              <item name="app" type="462c0819:PsiDirectoryNode" />
+              <item name="src" type="462c0819:PsiDirectoryNode" />
+              <item name="main" type="462c0819:PsiDirectoryNode" />
+              <item name="res" type="462c0819:PsiDirectoryNode" />
+            </path>
+          </expand>
+          <select />
+        </subPane>
+      </pane>
+      <pane id="Scope" />
+      <pane id="PackagesPane" />
+    </panes>
+  </component>
+  <component name="PropertiesComponent">
+    <property name="ASKED_SHARE_PROJECT_CONFIGURATION_FILES" value="true" />
+    <property name="SHARE_PROJECT_CONFIGURATION_FILES" value="true" />
+    <property name="android.sdk.path" value="$PROJECT_DIR$/.." />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/../../android todolist/Android_TodoList_App/TodoList" />
+  </component>
+  <component name="RunDashboard">
+    <option name="ruleStates">
+      <list>
+        <RuleState>
+          <option name="name" value="ConfigurationTypeDashboardGroupingRule" />
+        </RuleState>
+        <RuleState>
+          <option name="name" value="StatusDashboardGroupingRule" />
+        </RuleState>
+      </list>
+    </option>
+  </component>
+  <component name="SvnConfiguration">
+    <configuration />
+  </component>
+  <component name="TaskManager">
+    <task active="true" id="Default" summary="Default task">
+      <changelist id="98908137-6f3e-4352-870e-6155243a3878" name="Default Changelist" comment="" />
+      <created>1573437504696</created>
+      <option name="number" value="Default" />
+      <option name="presentableId" value="Default" />
+      <updated>1573437504696</updated>
+    </task>
+    <servers />
+  </component>
+  <component name="ToolWindowManager">
+    <frame x="-6" y="-6" width="1513" height="973" extended-state="6" />
+    <editor active="true" />
+    <layout>
+      <window_info active="true" content_ui="combo" id="Project" visible="true" weight="0.2593094" />
+      <window_info id="Structure" side_tool="true" />
+      <window_info id="Image Layers" />
+      <window_info id="Designer" />
+      <window_info id="Resources Explorer" />
+      <window_info id="Capture Tool" />
+      <window_info id="Favorites" side_tool="true" />
+      <window_info id="Captures" order="0" weight="0.25" />
+      <window_info anchor="bottom" id="Version Control" />
+      <window_info anchor="bottom" id="TODO" />
+      <window_info anchor="bottom" id="Terminal" />
+      <window_info anchor="bottom" id="Event Log" side_tool="true" />
+      <window_info anchor="right" id="Capture Analysis" />
+      <window_info anchor="right" id="Theme Preview" />
+      <window_info anchor="right" id="Palette&#9;" />
+    </layout>
+  </component>
+  <component name="editorHistoryManager">
+    <entry file="file://$PROJECT_DIR$/TodoList/app/src/main/java/com/byted/camp/todolist/AgendaActivity.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="391">
+          <caret line="52" column="37" lean-forward="true" selection-start-line="52" selection-start-column="37" selection-end-line="52" selection-end-column="37" />
+        </state>
+      </provider>
+    </entry>
+  </component>
+</project>

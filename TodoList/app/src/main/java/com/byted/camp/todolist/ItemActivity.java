@@ -4,6 +4,8 @@ import android.app.Activity;
 import android.content.ClipData;
 import android.content.ContentValues;
 import android.database.sqlite.SQLiteDatabase;
+import android.graphics.Color;
+import android.os.Build;
 import android.os.Bundle;
 import android.text.TextUtils;
 import android.util.Log;
@@ -39,6 +41,7 @@ public class ItemActivity extends AppCompatActivity implements View.OnClickListe
     private TextView item_show_date;
     private TextView item_loop;
     private Switch item_switch;
+    private TextView bar_commit,bar_back;
     private myOnClick item_loop_clickListener;
 
     private CustomLoopPicker mLoopPicker;
@@ -50,13 +53,22 @@ public class ItemActivity extends AppCompatActivity implements View.OnClickListe
 
     private TodoDbHelper dbHelper;
     private SQLiteDatabase database;
-    private Button bar_commit;
     private long timeStamp;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_item);
+
+        //透明状态栏
+        if (Build.VERSION.SDK_INT >= 21) {
+            View decorView = getWindow().getDecorView();
+            int option = View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN
+                    | View.SYSTEM_UI_FLAG_LAYOUT_STABLE;
+            decorView.setSystemUiVisibility(option);
+            getWindow().setStatusBarColor(Color.TRANSPARENT);
+        }
+
         dbHelper = new TodoDbHelper(this);
         database = dbHelper.getWritableDatabase();
 
@@ -71,6 +83,8 @@ public class ItemActivity extends AppCompatActivity implements View.OnClickListe
         item_show_date = findViewById(R.id.item_show_date);
         item_loop = findViewById(R.id.item_loop);
         item_switch = findViewById(R.id.item_switch);
+        bar_commit = findViewById(R.id.bar_commit);
+        bar_back = findViewById(R.id.bar_back);
         item_loop_clickListener = new myOnClick();
 
         item_switch.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
@@ -93,6 +107,7 @@ public class ItemActivity extends AppCompatActivity implements View.OnClickListe
         item_scheduled_date.setOnClickListener(this);
         item_deadline_date.setOnClickListener(this);
         item_show_date.setOnClickListener(this);
+
         bar_commit.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -127,6 +142,7 @@ public class ItemActivity extends AppCompatActivity implements View.OnClickListe
                 finish();
             }
         });
+
         initLoopPicker();
         initStatePicker();
         initPriorityPicker();
@@ -134,7 +150,6 @@ public class ItemActivity extends AppCompatActivity implements View.OnClickListe
         initDeadlineDatePicker();
         initShowDatePicker();
     }
-
 
     public Boolean saveNote2Database(String content, String filename, String title, String tag, String deadline, String scheduled,
                                      String show, int state, int priority){

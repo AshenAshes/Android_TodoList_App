@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.graphics.Color;
 import android.os.Build;
 import android.os.Bundle;
+import android.view.Menu;
 import android.view.View;
 import android.widget.LinearLayout;
 import android.widget.Toast;
@@ -15,11 +16,13 @@ import java.nio.file.Files;
 
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.Toolbar;
 
 public class FilesActivity extends AppCompatActivity {
     private static final int REQUEST_CODE_ADD = 1002;
     DoubleBack doubleBack=new DoubleBack();
 
+    private Toolbar toolbar;
     private LinearLayout buttonAgenda,buttonTodo,buttonFiles,buttonSettings;
     private FloatingActionButton fab;
 
@@ -27,6 +30,17 @@ public class FilesActivity extends AppCompatActivity {
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_files);
+        toolbar = findViewById(R.id.toolbar);
+        toolbar.setTitle("");
+        setSupportActionBar(toolbar);
+
+        if (Build.VERSION.SDK_INT >= 21) {
+            View decorView = getWindow().getDecorView();
+            int option = View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN
+                    | View.SYSTEM_UI_FLAG_LAYOUT_STABLE;
+            decorView.setSystemUiVisibility(option);
+            getWindow().setStatusBarColor(Color.TRANSPARENT);
+        }
 
         buttonAgenda = findViewById(R.id.button_agenda);
         buttonTodo = findViewById(R.id.button_todo);
@@ -37,13 +51,6 @@ public class FilesActivity extends AppCompatActivity {
         bindActivity(R.id.button_todo,TodoActivity.class);
         bindActivity(R.id.button_settings, SettingsActivity.class);
 
-        if (Build.VERSION.SDK_INT >= 21) {
-            View decorView = getWindow().getDecorView();
-            int option = View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN
-                    | View.SYSTEM_UI_FLAG_LAYOUT_STABLE;
-            decorView.setSystemUiVisibility(option);
-            getWindow().setStatusBarColor(Color.TRANSPARENT);
-        }
 
         fab = findViewById(R.id.fab);
         fab.setOnClickListener(new View.OnClickListener() {
@@ -67,6 +74,12 @@ public class FilesActivity extends AppCompatActivity {
                 overridePendingTransition(android.R.anim.fade_in,android.R.anim.fade_out);
             }
         });
+    }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.menu_main, menu);
+        return true;
     }
 
     @Override
