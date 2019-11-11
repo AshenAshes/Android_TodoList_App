@@ -26,19 +26,6 @@
                 app:popupTheme="@style/AppTheme.PopupOverlay" />
         </com.google.android.material.appbar.AppBarLayout>
 
-        <TextView
-            android:id="@+id/text1"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_below="@+id/toolbarlayout"/>
-        <TextView
-            android:id="@+id/text2"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_below="@+id/text1"/>
-
-
-
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/list_todo"
             android:layout_below="@+id/toolbarlayout"

@@ -7,6 +7,7 @@ import android.os.Bundle;
 import android.view.Menu;
 import android.view.View;
 import android.widget.LinearLayout;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.byted.camp.todolist.extra.DoubleBack;
@@ -25,7 +26,6 @@ public class FilesActivity extends AppCompatActivity {
     private Toolbar toolbar;
     private LinearLayout buttonAgenda,buttonTodo,buttonFiles,buttonSettings;
     private FloatingActionButton fab;
-    private TextView text1,text2;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -34,9 +34,6 @@ public class FilesActivity extends AppCompatActivity {
         toolbar = findViewById(R.id.toolbar);
         toolbar.setTitle("");
         setSupportActionBar(toolbar);
-
-        text1 = findViewById(R.id.text1);
-        text2 = findViewById(R.id.text2);
 
         if (Build.VERSION.SDK_INT >= 21) {
             View decorView = getWindow().getDecorView();
