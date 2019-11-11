@@ -11,17 +11,23 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="5c8c2598-e9a9-4664-b72e-a0d9c5241d8e" name="Default Changelist" comment="">
+<<<<<<< HEAD
       <change afterPath="$PROJECT_DIR$/../.idea/Android_TodoList_App.iml" afterDir="false" />
       <change afterPath="$PROJECT_DIR$/../.idea/codeStyles/Project.xml" afterDir="false" />
       <change afterPath="$PROJECT_DIR$/../.idea/misc.xml" afterDir="false" />
       <change afterPath="$PROJECT_DIR$/../.idea/modules.xml" afterDir="false" />
       <change afterPath="$PROJECT_DIR$/../.idea/vcs.xml" afterDir="false" />
+=======
+>>>>>>> 16247b7e416854ff3c2dd7d4f14ea65a9a434ce7
       <change beforePath="$PROJECT_DIR$/.gradle/5.4.1/executionHistory/executionHistory.bin" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/5.4.1/executionHistory/executionHistory.bin" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.gradle/5.4.1/executionHistory/executionHistory.lock" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/5.4.1/executionHistory/executionHistory.lock" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.gradle/5.4.1/fileHashes/fileHashes.bin" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/5.4.1/fileHashes/fileHashes.bin" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.gradle/5.4.1/fileHashes/fileHashes.lock" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/5.4.1/fileHashes/fileHashes.lock" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.gradle/5.4.1/fileHashes/resourceHashesCache.bin" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/5.4.1/fileHashes/resourceHashesCache.bin" afterDir="false" />
+<<<<<<< HEAD
       <change beforePath="$PROJECT_DIR$/.gradle/5.4.1/javaCompile/classAnalysis.bin" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/5.4.1/javaCompile/classAnalysis.bin" afterDir="false" />
+=======
+>>>>>>> 16247b7e416854ff3c2dd7d4f14ea65a9a434ce7
       <change beforePath="$PROJECT_DIR$/.gradle/5.4.1/javaCompile/javaCompile.lock" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/5.4.1/javaCompile/javaCompile.lock" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.gradle/5.4.1/javaCompile/taskHistory.bin" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/5.4.1/javaCompile/taskHistory.bin" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.gradle/buildOutputCleanup/buildOutputCleanup.lock" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/buildOutputCleanup/buildOutputCleanup.lock" afterDir="false" />
@@ -53,6 +59,7 @@
   <component name="DefaultGradleProjectSettings">
     <option name="isMigrated" value="true" />
   </component>
+  <component name="ExecutionTargetManager" SELECTED_TARGET="93d44065" />
   <component name="ExternalProjectsManager">
     <system id="GRADLE">
       <state>
@@ -64,7 +71,72 @@
     <favorites_list name="todolist" />
   </component>
   <component name="FileEditorManager">
+<<<<<<< HEAD
     <leaf />
+=======
+    <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/app/src/main/java/com/byted/camp/todolist/AgendaActivity.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="460">
+              <caret line="109" column="44" selection-start-line="109" selection-start-column="32" selection-end-line="109" selection-end-column="44" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/app/src/main/java/com/byted/camp/todolist/ui/NoteListAdapter.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="437">
+              <caret line="37" column="43" selection-start-line="37" selection-start-column="34" selection-end-line="37" selection-end-column="43" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/app/src/main/java/com/byted/camp/todolist/ui/NoteViewHolder.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="368">
+              <caret line="45" lean-forward="true" selection-start-line="45" selection-end-line="45" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/app/src/main/res/layout/item_note.xml">
+          <provider editor-type-id="android-designer2" />
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="283">
+              <caret line="14" column="13" lean-forward="true" selection-start-line="14" selection-start-column="13" selection-end-line="14" selection-end-column="13" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/app/src/main/java/com/byted/camp/todolist/db/TodoDbHelper.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="667">
+              <caret line="35" lean-forward="true" selection-start-line="35" selection-end-line="35" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/app/src/main/java/com/byted/camp/todolist/ItemActivity.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="134">
+              <caret line="114" column="36" lean-forward="true" selection-start-line="114" selection-start-column="36" selection-end-line="114" selection-end-column="36" />
+              <folding>
+                <element signature="imports" expanded="true" />
+                <element signature="class#myOnClick#0;class#ItemActivity#0" />
+                <element signature="method#onClick#0;class#ItemActivity#0" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+    </leaf>
+>>>>>>> 16247b7e416854ff3c2dd7d4f14ea65a9a434ce7
   </component>
   <component name="FileTemplateManagerImpl">
     <option name="RECENT_TEMPLATES">
@@ -180,12 +252,15 @@
               <item name="TodoList" type="b2602c69:ProjectViewProjectNode" />
               <item name="TodoList" type="8a07ba80:GradleTreeStructureProvider$GradleModuleDirectoryNode" />
               <item name="app" type="8a07ba80:GradleTreeStructureProvider$GradleModuleDirectoryNode" />
+<<<<<<< HEAD
               <item name="src" type="462c0819:PsiDirectoryNode" />
             </path>
             <path>
               <item name="TodoList" type="b2602c69:ProjectViewProjectNode" />
               <item name="TodoList" type="8a07ba80:GradleTreeStructureProvider$GradleModuleDirectoryNode" />
               <item name="app" type="8a07ba80:GradleTreeStructureProvider$GradleModuleDirectoryNode" />
+=======
+>>>>>>> 16247b7e416854ff3c2dd7d4f14ea65a9a434ce7
               <item name="src" type="462c0819:PsiDirectoryNode" />
               <item name="main" type="462c0819:PsiDirectoryNode" />
             </path>
@@ -270,6 +345,7 @@
               <item name="main" type="462c0819:PsiDirectoryNode" />
               <item name="res" type="462c0819:PsiDirectoryNode" />
               <item name="values" type="462c0819:PsiDirectoryNode" />
+<<<<<<< HEAD
             </path>
           </expand>
           <select />
@@ -349,6 +425,8 @@
               <item name="byted" type="9f88c78c:ScopeViewTreeModel$FileNode" />
               <item name="camp" type="9f88c78c:ScopeViewTreeModel$FileNode" />
               <item name="todolist" type="9f88c78c:ScopeViewTreeModel$FileNode" />
+=======
+>>>>>>> 16247b7e416854ff3c2dd7d4f14ea65a9a434ce7
             </path>
           </expand>
           <select />
@@ -482,11 +560,15 @@
       <window_info anchor="bottom" id="Logcat" order="1" sideWeight="0.49965635" weight="0.6876485" />
       <window_info anchor="bottom" id="DB Execution Console" order="2" />
       <window_info anchor="bottom" id="TODO" order="3" weight="0.32897863" />
-      <window_info anchor="bottom" id="Android Profiler" order="4" show_stripe_button="false" weight="0.32897863" />
+      <window_info anchor="bottom" id="Android Profiler" order="4" weight="0.32897863" />
       <window_info anchor="bottom" id="Debug" order="5" />
       <window_info anchor="bottom" id="Event Log" order="6" sideWeight="0.57113403" side_tool="true" weight="0.24940617" />
       <window_info anchor="bottom" id="Version Control" order="7" weight="0.32897863" />
+<<<<<<< HEAD
       <window_info anchor="bottom" id="Build" order="8" sideWeight="0.42886597" visible="true" weight="0.24940617" />
+=======
+      <window_info anchor="bottom" id="Build" order="8" sideWeight="0.42886597" weight="0.24940617" />
+>>>>>>> 16247b7e416854ff3c2dd7d4f14ea65a9a434ce7
       <window_info anchor="bottom" id="Terminal" order="9" weight="0.32897863" />
       <window_info anchor="bottom" id="Find" order="10" sideWeight="0.49946696" visible="true" weight="0.3264642" />
       <window_info anchor="right" id="Device File Explorer" order="0" side_tool="true" />
@@ -704,6 +786,7 @@
       <provider selected="true" editor-type-id="text-editor" />
     </entry>
     <entry file="file://$PROJECT_DIR$/app/build.gradle">
+<<<<<<< HEAD
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="444">
           <caret line="31" lean-forward="true" selection-start-line="31" selection-end-line="31" />
@@ -712,6 +795,16 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/app/src/main/java/com/byted/camp/todolist/NoteActivity.java">
       <provider selected="true" editor-type-id="text-editor">
+=======
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="444">
+          <caret line="31" lean-forward="true" selection-start-line="31" selection-end-line="31" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/byted/camp/todolist/NoteActivity.java">
+      <provider selected="true" editor-type-id="text-editor">
+>>>>>>> 16247b7e416854ff3c2dd7d4f14ea65a9a434ce7
         <state relative-caret-position="1794">
           <caret line="96" column="43" selection-start-line="96" selection-start-column="43" selection-end-line="96" selection-end-column="43" />
           <folding>
@@ -748,6 +841,10 @@
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/app/src/main/res/layout/activity_files.xml">
+<<<<<<< HEAD
+=======
+      <provider editor-type-id="android-designer2" />
+>>>>>>> 16247b7e416854ff3c2dd7d4f14ea65a9a434ce7
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="421">
           <caret line="126" column="55" lean-forward="true" selection-start-line="126" selection-start-column="55" selection-end-line="126" selection-end-column="55" />
@@ -759,6 +856,10 @@
       <provider editor-type-id="android-designer2" />
     </entry>
     <entry file="file://$PROJECT_DIR$/app/src/main/res/layout/activity_settings.xml">
+<<<<<<< HEAD
+=======
+      <provider editor-type-id="android-designer2" />
+>>>>>>> 16247b7e416854ff3c2dd7d4f14ea65a9a434ce7
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="467">
           <caret line="128" column="25" lean-forward="true" selection-start-line="128" selection-start-column="25" selection-end-line="128" selection-end-column="25" />
@@ -767,6 +868,11 @@
           </folding>
         </state>
       </provider>
+<<<<<<< HEAD
+=======
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/res/layout/activity_todo.xml">
+>>>>>>> 16247b7e416854ff3c2dd7d4f14ea65a9a434ce7
       <provider editor-type-id="android-designer2" />
     </entry>
     <entry file="file://$PROJECT_DIR$/app/src/main/res/layout/activity_todo.xml">
@@ -781,6 +887,7 @@
       <provider editor-type-id="android-designer2" />
     </entry>
     <entry file="file://$PROJECT_DIR$/app/src/main/res/layout/activity_note.xml">
+<<<<<<< HEAD
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="384">
           <caret line="40" column="50" lean-forward="true" selection-start-line="40" selection-start-column="50" selection-end-line="40" selection-end-column="50" />
@@ -789,6 +896,8 @@
           </folding>
         </state>
       </provider>
+=======
+>>>>>>> 16247b7e416854ff3c2dd7d4f14ea65a9a434ce7
       <provider editor-type-id="android-designer2" />
     </entry>
     <entry file="file://$PROJECT_DIR$/app/src/main/res/drawable/agenda_bold.png">
@@ -796,22 +905,50 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/app/src/main/res/layout/activity_item.xml">
       <provider selected="true" editor-type-id="text-editor">
+<<<<<<< HEAD
         <state relative-caret-position="276">
           <caret line="26" column="43" lean-forward="true" selection-start-line="26" selection-start-column="43" selection-end-line="26" selection-end-column="43" />
+=======
+        <state relative-caret-position="384">
+          <caret line="40" column="50" lean-forward="true" selection-start-line="40" selection-start-column="50" selection-end-line="40" selection-end-column="50" />
+          <folding>
+            <element signature="e#1522#1544#0" expanded="true" />
+          </folding>
+>>>>>>> 16247b7e416854ff3c2dd7d4f14ea65a9a434ce7
         </state>
       </provider>
       <provider editor-type-id="android-designer2" />
     </entry>
+<<<<<<< HEAD
     <entry file="file://$PROJECT_DIR$/app/src/main/res/layout/activity_agenda.xml">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="270">
           <caret line="40" column="38" selection-start-line="40" selection-start-column="29" selection-end-line="40" selection-end-column="38" />
         </state>
       </provider>
+=======
+    <entry file="file://$PROJECT_DIR$/app/src/main/res/drawable/agenda_bold.png">
+      <provider selected="true" editor-type-id="images" />
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/byted/camp/todolist/ItemActivity.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="134">
+          <caret line="114" column="36" lean-forward="true" selection-start-line="114" selection-start-column="36" selection-end-line="114" selection-end-column="36" />
+          <folding>
+            <element signature="imports" expanded="true" />
+            <element signature="class#myOnClick#0;class#ItemActivity#0" />
+            <element signature="method#onClick#0;class#ItemActivity#0" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/res/layout/activity_item.xml">
+>>>>>>> 16247b7e416854ff3c2dd7d4f14ea65a9a434ce7
       <provider editor-type-id="android-designer2" />
     </entry>
     <entry file="file://$PROJECT_DIR$/app/src/main/java/com/byted/camp/todolist/db/TodoContract.java">
       <provider selected="true" editor-type-id="text-editor">
+<<<<<<< HEAD
         <state relative-caret-position="391">
           <caret line="17" column="57" lean-forward="true" selection-start-line="17" selection-start-column="57" selection-end-line="17" selection-end-column="57" />
         </state>
@@ -821,13 +958,30 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="506">
           <caret line="34" column="5" lean-forward="true" selection-start-line="34" selection-start-column="5" selection-end-line="34" selection-end-column="5" />
+=======
+        <state relative-caret-position="276">
+          <caret line="26" column="43" lean-forward="true" selection-start-line="26" selection-start-column="43" selection-end-line="26" selection-end-column="43" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/res/layout/activity_agenda.xml">
+      <provider editor-type-id="android-designer2" />
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="270">
+          <caret line="40" column="38" selection-start-line="40" selection-start-column="29" selection-end-line="40" selection-end-column="38" />
+>>>>>>> 16247b7e416854ff3c2dd7d4f14ea65a9a434ce7
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/app/src/main/java/com/byted/camp/todolist/ui/NoteViewHolder.java">
       <provider selected="true" editor-type-id="text-editor">
+<<<<<<< HEAD
         <state relative-caret-position="506">
           <caret line="46" column="50" lean-forward="true" selection-start-line="46" selection-start-column="50" selection-end-line="46" selection-end-column="50" />
+=======
+        <state relative-caret-position="460">
+          <caret line="109" column="44" selection-start-line="109" selection-start-column="32" selection-end-line="109" selection-end-column="44" />
+>>>>>>> 16247b7e416854ff3c2dd7d4f14ea65a9a434ce7
         </state>
       </provider>
     </entry>
@@ -838,6 +992,7 @@
         </state>
       </provider>
     </entry>
+<<<<<<< HEAD
     <entry file="file://$PROJECT_DIR$/app/src/main/java/com/byted/camp/todolist/AgendaActivity.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="460">
@@ -849,19 +1004,39 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="283">
           <caret line="14" column="13" lean-forward="true" selection-start-line="14" selection-start-column="13" selection-end-line="14" selection-end-column="13" />
+=======
+    <entry file="file://$PROJECT_DIR$/app/src/main/res/layout/item_note.xml">
+      <provider editor-type-id="android-designer2" />
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="283">
+          <caret line="14" column="13" lean-forward="true" selection-start-line="14" selection-start-column="13" selection-end-line="14" selection-end-column="13" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/byted/camp/todolist/db/TodoDbHelper.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="667">
+          <caret line="35" lean-forward="true" selection-start-line="35" selection-end-line="35" />
+>>>>>>> 16247b7e416854ff3c2dd7d4f14ea65a9a434ce7
         </state>
       </provider>
       <provider editor-type-id="android-designer2" />
     </entry>
     <entry file="file://$PROJECT_DIR$/app/src/main/java/com/byted/camp/todolist/db/TodoDbHelper.java">
       <provider selected="true" editor-type-id="text-editor">
+<<<<<<< HEAD
         <state relative-caret-position="667">
           <caret line="35" lean-forward="true" selection-start-line="35" selection-end-line="35" />
+=======
+        <state relative-caret-position="391">
+          <caret line="17" column="57" lean-forward="true" selection-start-line="17" selection-start-column="57" selection-end-line="17" selection-end-column="57" />
+>>>>>>> 16247b7e416854ff3c2dd7d4f14ea65a9a434ce7
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/byted/camp/todolist/ItemActivity.java">
+    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/byted/camp/todolist/beans/Note.java">
       <provider selected="true" editor-type-id="text-editor">
+<<<<<<< HEAD
         <state relative-caret-position="134">
           <caret line="114" column="36" lean-forward="true" selection-start-line="114" selection-start-column="36" selection-end-line="114" selection-end-column="36" />
           <folding>
@@ -869,6 +1044,17 @@
             <element signature="class#myOnClick#0;class#ItemActivity#0" />
             <element signature="method#onClick#0;class#ItemActivity#0" />
           </folding>
+=======
+        <state relative-caret-position="230">
+          <caret line="10" column="30" lean-forward="true" selection-start-line="10" selection-start-column="30" selection-end-line="10" selection-end-column="30" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/byted/camp/todolist/ui/NoteViewHolder.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="368">
+          <caret line="45" lean-forward="true" selection-start-line="45" selection-end-line="45" />
+>>>>>>> 16247b7e416854ff3c2dd7d4f14ea65a9a434ce7
         </state>
       </provider>
     </entry>
