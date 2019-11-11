@@ -141,12 +141,13 @@ public class ItemActivity extends AppCompatActivity implements View.OnClickListe
                 String scheduled = item_scheduled_date.getText().toString().trim();
                 String show = item_show_date.getText().toString().trim();
                 String tag = item_tag.getText().toString().trim();
+                String repeat = item_loop.getText().toString().trim();
                 if (TextUtils.isEmpty(content)) {
                     Toast.makeText(ItemActivity.this,
                             "No content to add", Toast.LENGTH_SHORT).show();
                     return;
                 }
-                boolean succeed = saveNote2Database(content.toString().trim(),filename,title,tag,deadline,scheduled,show,
+                boolean succeed = saveNote2Database(content.toString().trim(),filename,title,tag,deadline,scheduled,show,repeat,
                         item_state.getText().toString().trim(),
                         getSelectedPriority());
                 if (succeed) {
@@ -157,11 +158,24 @@ public class ItemActivity extends AppCompatActivity implements View.OnClickListe
                     Toast.makeText(ItemActivity.this,
                             "Error", Toast.LENGTH_SHORT).show();
                 }
+                String rRule="";
+                switch (repeat) {
+                    case "每日":
+                        rRule = "FREQ=DAILY";
+                        break;
+                    case "每周":
+                        rRule = "FREQ=WEEKLY";
+                        break;
+                    case "每月":
+                        rRule = "FREQ=MONTHLY";
+                        break;
+                }
 
                 CalendarEvent calendarEvent = new CalendarEvent(title,content.toString().trim(),
                         null,DateFormatUtils.str2Long(scheduled,false),
                         DateFormatUtils.str2Long(deadline,false),
-                        (int)DateFormatUtils.str2Long(deadline,false)-(int)DateFormatUtils.str2Long(show,false),null);
+                        (int)DateFormatUtils.str2Long(deadline,false)-(int)DateFormatUtils.str2Long(show,false),
+                        (!rRule.equals(""))?rRule:null);
                 int result = CalendarProviderManager.addCalendarEvent(ItemActivity.this, calendarEvent);
                 if (result == 0) {
                     Toast.makeText(ItemActivity.this, "插入成功", Toast.LENGTH_SHORT).show();
@@ -211,7 +225,7 @@ public class ItemActivity extends AppCompatActivity implements View.OnClickListe
     }
 
     public Boolean saveNote2Database(String content, String filename, String title, String tag, String deadline, String scheduled,
-                                     String show, String state, int priority){
+                                     String show,String repeat, String state, int priority){
         if(database==null||TextUtils.isEmpty(content)){
             return false;
         }
@@ -221,9 +235,7 @@ public class ItemActivity extends AppCompatActivity implements View.OnClickListe
         values.put(TodoContract.TodoNote.COLUMN_STATE,state);
         values.put(TodoContract.TodoNote.COLUMN_SCHEDULED,scheduled);
         values.put(TodoContract.TodoNote.COLUMN_WEEK,getDayofWeek(scheduled));
-        values.put(TodoContract.TodoNote.COLUMN_WEEKLOP,0);
-        values.put(TodoContract.TodoNote.COLUMN_MONTHLOP,0);
-        values.put(TodoContract.TodoNote.COLUMN_YEARLOP,0);
+        values.put(TodoContract.TodoNote.COLUMN_REPEAT,repeat);
         values.put(TodoContract.TodoNote.COLUMN_CAPTION,title);
         values.put(TodoContract.TodoNote.COLUMN_FILE,filename);
         values.put(TodoContract.TodoNote.COLUMN_TAG,tag);

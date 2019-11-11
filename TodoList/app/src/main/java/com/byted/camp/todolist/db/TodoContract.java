@@ -12,9 +12,7 @@ public final class TodoContract {
                     + TodoNote.COLUMN_STATE + " TEXT, "
                     + TodoNote.COLUMN_SCHEDULED + " TEXT, "
                     + TodoNote.COLUMN_WEEK + " INTEGER, "
-                    + TodoNote.COLUMN_WEEKLOP + " INTEGER, "
-                    + TodoNote.COLUMN_MONTHLOP + " INTEGER, "
-                    + TodoNote.COLUMN_YEARLOP + " INTEGER, "
+                    + TodoNote.COLUMN_REPEAT + " TEXT, "
                     + TodoNote.COLUMN_CAPTION + " TEXT, "
                     + TodoNote.COLUMN_FILE + " TEXT, "
                     + TodoNote.COLUMN_FATHERITEM+" TEXT, "
@@ -35,10 +33,7 @@ public final class TodoContract {
         public static final String COLUMN_SCHEDULED = "scheduled";
         public static final String COLUMN_SHOW = "show";
         public static final String COLUMN_WEEK = "week";
-        public static final String COLUMN_WEEKLOP = "weeklop";
-        public static final String COLUMN_MONTHLOP = "monthlop";
-        public static final String COLUMN_YEARLOP = "yearlop";
-
+        public static final String COLUMN_REPEAT = "repeat";
         public static final String COLUMN_STATE = "state";
         public static final String COLUMN_CAPTION = "caption";
         public static final String COLUMN_FILE = "file";
