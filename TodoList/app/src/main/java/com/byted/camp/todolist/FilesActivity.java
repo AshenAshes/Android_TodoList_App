@@ -1,6 +1,7 @@
 package com.byted.camp.todolist;
 
 import android.content.Intent;
+import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.graphics.Color;
 import android.os.Build;
@@ -14,6 +15,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.byted.camp.todolist.beans.Note;
+import com.byted.camp.todolist.db.TodoContract;
 import com.byted.camp.todolist.db.TodoDbHelper;
 import com.byted.camp.todolist.extra.DoubleBack;
 import com.byted.camp.todolist.ui.NoteListAdapter;
@@ -24,6 +26,9 @@ import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.nio.file.Files;
+import java.util.Collections;
+import java.util.LinkedList;
+import java.util.List;
 
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
@@ -120,6 +125,43 @@ public class FilesActivity extends AppCompatActivity {
                         REQUEST_CODE_ADD);
             }
         });
+    }
+
+    private List<Note> loadNotesFromDatabase() {
+        if (database == null) {
+            return Collections.emptyList();
+        }
+        List<Note> result = new LinkedList<>();
+        Cursor cursor = null;
+        try {
+//            cursor = database.query(TodoContract.TodoNote.TABLE_NAME,
+//                    null,null,null,null,null,null);
+            cursor = database.query(TodoContract.TodoNote.TABLE_NAME, null,
+                    "file like ?", new String[]{searchString},
+                    null, null,
+                    TodoContract.TodoNote.COLUMN_FILE);
+            while (cursor.moveToNext()) {
+                long id = cursor.getLong(cursor.getColumnIndex(TodoContract.TodoNote._ID));
+                String caption = cursor.getString(cursor.getColumnIndex(TodoContract.TodoNote.COLUMN_CAPTION));
+                String content = cursor.getString(cursor.getColumnIndex(TodoContract.TodoNote.COLUMN_CONTENT));
+                String intState = cursor.getString(cursor.getColumnIndex(TodoContract.TodoNote.COLUMN_STATE));
+                int intPriority = cursor.getInt(cursor.getColumnIndex(TodoContract.TodoNote.COLUMN_PRIORITY));
+                String fileName = cursor.getString(cursor.getColumnIndex(TodoContract.TodoNote.COLUMN_FILE));
+
+                Note note = new Note(id);
+                note.setContent(content);
+                note.setCaption(caption);
+                note.setState(intState);
+                note.setPriority(intPriority);
+                note.setFilename(fileName);
+                result.add(note);
+            }
+        } finally {
+            if (cursor != null) {
+                cursor.close();
+            }
+        }
+        return result;
     }
 
     private CharSequence loadTextFromFile(){

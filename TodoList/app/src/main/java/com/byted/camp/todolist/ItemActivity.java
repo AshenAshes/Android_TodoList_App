@@ -1,5 +1,4 @@
 package com.byted.camp.todolist;
-
 import android.app.Activity;
 import android.content.ClipData;
 import android.content.ContentValues;
@@ -18,6 +17,8 @@ import android.widget.Switch;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.byted.camp.todolist.Calendar.calendar.CalendarEvent;
+import com.byted.camp.todolist.Calendar.calendar.CalendarProviderManager;
 import com.byted.camp.todolist.PickerView.CustomDatePicker;
 import com.byted.camp.todolist.PickerView.CustomFatherItemPicker;
 import com.byted.camp.todolist.PickerView.CustomFutureDatePicker;
@@ -156,6 +157,19 @@ public class ItemActivity extends AppCompatActivity implements View.OnClickListe
                     Toast.makeText(ItemActivity.this,
                             "Error", Toast.LENGTH_SHORT).show();
                 }
+
+                CalendarEvent calendarEvent = new CalendarEvent(title,content.toString().trim(),
+                        null,DateFormatUtils.str2Long(scheduled,false),
+                        DateFormatUtils.str2Long(deadline,false),
+                        (int)DateFormatUtils.str2Long(deadline,false)-(int)DateFormatUtils.str2Long(show,false),null);
+                int result = CalendarProviderManager.addCalendarEvent(ItemActivity.this, calendarEvent);
+                if (result == 0) {
+                    Toast.makeText(ItemActivity.this, "插入成功", Toast.LENGTH_SHORT).show();
+                } else if (result == -1) {
+                    Toast.makeText(ItemActivity.this, "插入失败", Toast.LENGTH_SHORT).show();
+                } else if (result == -2) {
+                    Toast.makeText(ItemActivity.this, "没有权限", Toast.LENGTH_SHORT).show();
+                }
                 //insert(content.toString().trim(),fileText.getText().toString().trim(), getSelectedPriority());
                 finish();
             }
@@ -172,7 +186,6 @@ public class ItemActivity extends AppCompatActivity implements View.OnClickListe
         initShowDatePicker();
     }
 
-    //TODO：从数据库拿到所有的filename放入filenameFromDatabase中
     public List<String> getItem(String filename){
         if (database == null) {
             return Collections.emptyList();
@@ -433,6 +446,10 @@ public class ItemActivity extends AppCompatActivity implements View.OnClickListe
         dbHelper.close();
         dbHelper = null;
     }
+
+
+
+
 }
 
 
