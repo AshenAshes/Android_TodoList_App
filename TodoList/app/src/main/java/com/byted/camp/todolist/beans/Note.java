@@ -15,7 +15,7 @@ public class Note {
     private String tag;
     private String content;
     private String filename;
-
+    private String fatherItem;
     public Note(long id) {
         this.id = id;
     }
@@ -44,5 +44,6 @@ public class Note {
     public void setTag(String tag){this.tag=tag;}
     public String getFilename(){return filename;}
     public void  setFilename(String filename){this.filename=filename;}
-
+    public String getFatherItem(){return fatherItem;}
+    public void setFatherItem(String fatherItem) { this.fatherItem = fatherItem; }
 }

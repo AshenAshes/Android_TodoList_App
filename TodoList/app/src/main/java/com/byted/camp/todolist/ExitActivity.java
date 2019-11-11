@@ -41,17 +41,23 @@ public class ExitActivity extends AppCompatActivity {
             String fileN = null;
 
             for(int i=0;i<notes.size();i++){
-                Log.d("i",i+"");
+
                 String filename = notes.get(i).getFilename();
                 try {
-                    if(!(fileN.equals(filename))){
-                        File file = new File(filename);
-                        if(file.exists()){
-                            file.delete();
-                            Log.d("write", "delete: ");
-                        }
+                    if(fileN==null){
+                        Log.d("i",i+"");
+                        out = openFileOutput(filename, Context.MODE_PRIVATE);
+                        fileN=filename;
                     }
-                    out = openFileOutput(filename, Context.MODE_APPEND);//"data"为文件名，第二个参数为文件操作模式：文件已经存在，就往文件里面追加类容，不从新创建文件。
+                    else if(!(fileN.equals(filename))){
+                        Log.d("i",i+"");
+                        out = openFileOutput(filename, Context.MODE_PRIVATE);
+                        fileN=filename;
+                    }
+                    else{
+                        out = openFileOutput(filename, Context.MODE_APPEND);
+                    }
+                    //"data"为文件名，第二个参数为文件操作模式：文件已经存在，就往文件里面追加类容，不从新创建文件。
                     writer = new BufferedWriter(new OutputStreamWriter(out));
                     writer.write("* "+notes.get(i).getState()+" [#"+getSelectedPriority(notes.get(i).getPriority())+"] "+notes.get(i).getCaption());
                     writer.newLine();

@@ -47,7 +47,6 @@ public class CalendarFragment extends Fragment {
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         view = inflater.inflate(R.layout.fragment_calendar,container,false);
-        //TODO context
         dbHelper = new TodoDbHelper(this.getContext());
         database = dbHelper.getWritableDatabase();
         image = view.findViewById(R.id.image_noitem);
