@@ -84,7 +84,6 @@ public class FilesActivity extends AppCompatActivity {
         button_showAll = findViewById(R.id.button_showAll);
         button_search = findViewById(R.id.button_search);
 
-        //TODO:查询的filename是变量searchString 写一下loadNotesFromDatabase()
         button_showAll.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {

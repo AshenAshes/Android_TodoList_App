@@ -74,7 +74,7 @@ public class AgendaActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         Toast.makeText(AgendaActivity.this,
                 "create", Toast.LENGTH_SHORT).show();
-
+//TODO(Kong):所有的item显示在file下面加一个deadline
         setContentView(R.layout.activity_agenda);
         toolbar = findViewById(R.id.toolbar);
         toolbar.setTitle("");
