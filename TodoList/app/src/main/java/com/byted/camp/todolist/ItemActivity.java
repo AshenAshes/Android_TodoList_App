@@ -3,6 +3,7 @@ package com.byted.camp.todolist;
 import android.app.Activity;
 import android.content.ClipData;
 import android.content.ContentValues;
+import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.graphics.Color;
 import android.os.Build;
@@ -31,7 +32,9 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.Collections;
 import java.util.Date;
+import java.util.LinkedList;
 import java.util.List;
 import java.util.Locale;
 
@@ -167,6 +170,31 @@ public class ItemActivity extends AppCompatActivity implements View.OnClickListe
         initScheduledDatePicker();
         initDeadlineDatePicker();
         initShowDatePicker();
+    }
+
+    //TODO：从数据库拿到所有的filename放入filenameFromDatabase中
+    public List<String> getItem(String filename){
+        if (database == null) {
+            return Collections.emptyList();
+        }
+        List<String> result = new LinkedList<>();
+        Cursor cursor = null;
+        try {
+            cursor = database.query(TodoContract.TodoNote.TABLE_NAME, null,
+                    "file like ?", new String[]{filename},
+                    null, null,
+                    TodoContract.TodoNote.COLUMN_CAPTION);
+
+            while (cursor.moveToNext()) {
+                String caption = cursor.getString(cursor.getColumnIndex(TodoContract.TodoNote.COLUMN_CAPTION));
+                result.add(caption);
+            }
+        } finally {
+            if (cursor != null) {
+                cursor.close();
+            }
+        }
+        return result;
     }
 
     public Boolean saveNote2Database(String content, String filename, String title, String tag, String deadline, String scheduled,

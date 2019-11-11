@@ -19,6 +19,10 @@ import com.byted.camp.todolist.extra.DoubleBack;
 import com.byted.camp.todolist.ui.NoteListAdapter;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
+import java.io.BufferedReader;
+import java.io.FileInputStream;
+import java.io.IOException;
+import java.io.InputStreamReader;
 import java.nio.file.Files;
 
 import androidx.annotation.Nullable;
@@ -116,6 +120,32 @@ public class FilesActivity extends AppCompatActivity {
                         REQUEST_CODE_ADD);
             }
         });
+    }
+
+    private CharSequence loadTextFromFile(){
+        FileInputStream in = null;
+        BufferedReader reader = null;
+        String text="";
+        try {
+            in = openFileInput("我");           //“data”为文件名
+            reader = new BufferedReader(new InputStreamReader(in));
+            String line = "";
+            int id = 0;
+            while ((line = reader.readLine()) != null) {
+                text+=line+"\r\n";
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
+        } finally {
+            if (reader != null) {
+                try {
+                    reader.close();
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+            }
+        }
+        return text;
     }
 
     private void bindActivity(final int btnId, final Class<?> activityClass){

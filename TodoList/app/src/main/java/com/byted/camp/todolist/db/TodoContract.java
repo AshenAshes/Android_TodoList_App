@@ -17,6 +17,7 @@ public final class TodoContract {
                     + TodoNote.COLUMN_YEARLOP + " INTEGER, "
                     + TodoNote.COLUMN_CAPTION + " TEXT, "
                     + TodoNote.COLUMN_FILE + " TEXT, "
+                    + TodoNote.COLUMN_FATHERITEM+" TEXT, "
                     + TodoNote.COLUMN_TAG + " TEXT, "
                     + TodoNote.COLUMN_CONTENT + " TEXT, "
                     + TodoNote.COLUMN_PRIORITY + " INTEGER)";
@@ -41,6 +42,7 @@ public final class TodoContract {
         public static final String COLUMN_STATE = "state";
         public static final String COLUMN_CAPTION = "caption";
         public static final String COLUMN_FILE = "file";
+        public static final String COLUMN_FATHERITEM = "fatheritem";
         public static final String COLUMN_TAG = "tag";
         public static final String COLUMN_CONTENT = "content";
         public static final String COLUMN_PRIORITY = "priority";

@@ -2,6 +2,7 @@ package com.byted.camp.todolist.PickerView;
 
 import android.app.Dialog;
 import android.content.Context;
+import android.database.sqlite.SQLiteDatabase;
 import android.text.TextUtils;
 import android.view.Gravity;
 import android.view.View;
@@ -9,6 +10,7 @@ import android.view.Window;
 import android.view.WindowManager;
 
 import com.byted.camp.todolist.R;
+import com.byted.camp.todolist.db.TodoDbHelper;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -116,6 +118,8 @@ public class CustomFatherItemPicker implements View.OnClickListener, PickerView.
 
     private void initStateUnits(){
         mFatherItemUnits.add("None");
+
+
 
         for(String fatherItemName: filenamesFromDatabase){
             mFatherItemUnits.add(fatherItemName);
