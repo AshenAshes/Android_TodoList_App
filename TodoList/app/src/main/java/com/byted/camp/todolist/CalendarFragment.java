@@ -10,6 +10,7 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 
 import com.byted.camp.todolist.beans.Note;
 import com.byted.camp.todolist.beans.Priority;
@@ -34,11 +35,13 @@ import java.util.List;
 public class CalendarFragment extends Fragment {
     private static final int REQUEST_CODE_ADD = 1002;
     private View view;
+    private ImageView image;
     private RecyclerView recyclerView;
     private NoteListAdapter notesAdapter;
     private TodoDbHelper dbHelper;
     private SQLiteDatabase database;
     private String date;
+    private boolean isResumeFirst = false;
 
     @Nullable
     @Override
@@ -47,6 +50,7 @@ public class CalendarFragment extends Fragment {
         //TODO context
         dbHelper = new TodoDbHelper(this.getContext());
         database = dbHelper.getWritableDatabase();
+        image = view.findViewById(R.id.image_noitem);
         recyclerView = view.findViewById(R.id.list_items);
         Context context = getActivity();
         LinearLayoutManager layoutManager = new LinearLayoutManager(context);
@@ -67,17 +71,26 @@ public class CalendarFragment extends Fragment {
         recyclerView.setAdapter(notesAdapter);
 
         notesAdapter.refresh(loadNotesFromDatabase());
+        if(notesAdapter.getItemCount() == 0)
+            image.setVisibility(View.VISIBLE);
+        else
+            image.setVisibility(View.INVISIBLE);
 
         return view;
     }
 
     @Override
-    public void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
-        super.onActivityResult(requestCode, resultCode, data);
-        if (requestCode == REQUEST_CODE_ADD
-                && resultCode == Activity.RESULT_OK) {
+    public void onResume() {
+        super.onResume();
+        if(!isResumeFirst){
             notesAdapter.refresh(loadNotesFromDatabase());
+            if(notesAdapter.getItemCount() == 0)
+                image.setVisibility(View.VISIBLE);
+            else
+                image.setVisibility(View.INVISIBLE);
         }
+
+        isResumeFirst = false;
     }
 
     public void setDate(String date_in){

@@ -28,6 +28,7 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.LinearLayout;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.byted.camp.todolist.beans.Note;
@@ -57,6 +58,7 @@ public class AgendaActivity extends AppCompatActivity {
     private RecyclerView recyclerView;
     private NoteListAdapter notesAdapter;
 
+    private TextView agenda_title;
     private TabLayout tableLayout;
     private ViewPager pager;
     private LinearLayout buttonAgenda,buttonTodo,buttonFiles,buttonSettings;
@@ -73,6 +75,7 @@ public class AgendaActivity extends AppCompatActivity {
         toolbar = findViewById(R.id.toolbar);
         toolbar.setTitle("");
         setSupportActionBar(toolbar);
+        agenda_title = findViewById(R.id.agenda_title);
 
         //透明状态栏
         if (Build.VERSION.SDK_INT >= 21) {
@@ -82,6 +85,23 @@ public class AgendaActivity extends AppCompatActivity {
             decorView.setSystemUiVisibility(option);
             getWindow().setStatusBarColor(Color.TRANSPARENT);
         }
+
+        long todaySystemDate;
+        final String todayDate;
+        int todayWeek;
+        int before,after;
+        final List<String> aWeekDates = new ArrayList<>();
+
+        todaySystemDate = System.currentTimeMillis();
+        //get XXXX-XX-XX
+        todayDate = DateFormatUtils.long2Str(todaySystemDate, false);
+        todayWeek = getDayofWeek("今天");
+
+        before = 1 - todayWeek;
+        after = 7 - todayWeek;
+
+        for(int i=before;i <= after;i++)
+            aWeekDates.add(getDayBeforeOrAfter(todayDate,i));
 
         tableLayout = findViewById(R.id.tab_layout);
         pager = findViewById(R.id.view_pager);
@@ -127,24 +147,27 @@ public class AgendaActivity extends AppCompatActivity {
             public CharSequence getPageTitle(int position){
                 switch(position){
                     case 0:
-                        return "日";
+                        return "Sun";
                     case 1:
-                        return "一";
+                        return "Mon";
                     case 2:
-                        return "二";
+                        return "Tue";
                     case 3:
-                        return "三";
+                        return "Wed";
                     case 4:
-                        return "四";
+                        return "Thu";
                     case 5:
-                        return "五";
+                        return "Fri";
                     case 6:
-                        return "六";
+                        return "Sat";
                     default:
-                        return "空";
+                        return "null";
                 }
             }
         });
+
+        pager.setCurrentItem(todayWeek-1);
+        agenda_title.setText("今天");
 
         pager.addOnPageChangeListener(new ViewPager.OnPageChangeListener() {
             @Override
@@ -152,6 +175,10 @@ public class AgendaActivity extends AppCompatActivity {
             }
             @Override
             public void onPageSelected(int position) {
+                if(!aWeekDates.get(position).equals(todayDate))
+                    agenda_title.setText(aWeekDates.get(position));
+                else
+                    agenda_title.setText("今天");
             }
             @Override
             public void onPageScrollStateChanged(int state) {
@@ -181,6 +208,14 @@ public class AgendaActivity extends AppCompatActivity {
         });
     }
 
+    private String getDayBeforeOrAfter(String dateTime, int offset){
+        Calendar calendar = Calendar.getInstance();
+        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+        calendar.add(Calendar.DATE,offset);
+        String offsetDate = sdf.format(calendar.getTime());
+        return offsetDate;
+    }
+
     private void bindActivity(final int btnId, final Class<?> activityClass){
         findViewById(btnId).setOnClickListener(new View.OnClickListener(){
             @Override
@@ -195,12 +230,6 @@ public class AgendaActivity extends AppCompatActivity {
     @Override
     protected void onDestroy() {
         super.onDestroy();
-    }
-
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        getMenuInflater().inflate(R.menu.menu_main, menu);
-        return true;
     }
 
     /**
@@ -238,14 +267,6 @@ public class AgendaActivity extends AppCompatActivity {
 //            notesAdapter.refresh(loadNotesFromDatabase());
 //        }
 //    }
-
-    private String getDayBeforeOrAfter(String dateTime, int offset){
-        Calendar calendar = Calendar.getInstance();
-        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
-        calendar.add(Calendar.DATE,offset);
-        String offsetDate = sdf.format(calendar.getTime());
-        return offsetDate;
-    }
 
     //偏移量1-7表示周日一二三四五六
     private int getDayofWeek(String dateTime) {

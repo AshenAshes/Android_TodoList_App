@@ -40,11 +40,11 @@
             android:layout_width="match_parent"
             android:layout_height="50dp"
             android:layout_below="@+id/toolbarlayout"
-            app:tabBackground="@null"
+            app:tabBackground="@color/lightGray"
             app:tabGravity="center"
             app:tabIndicatorColor="@null"
             app:tabIndicatorFullWidth="false"
-            app:tabSelectedTextColor="@color/tabIndicatorColor"
+            app:tabSelectedTextColor="@color/date_picker_text_light"
             app:tabTextAppearance="@style/tabTextStyle"
             app:tabTextColor="@color/colorPrimaryDark" />
 

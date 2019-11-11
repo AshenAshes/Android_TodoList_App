@@ -7,6 +7,8 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.ViewParent;
+import android.widget.ImageView;
 
 
 import com.byted.camp.todolist.NoteOperator;
@@ -30,7 +32,20 @@ public class NoteListAdapter extends RecyclerView.Adapter<NoteViewHolder> {
         if (newNotes != null) {
             notes.addAll(newNotes);
         }
+
         notifyDataSetChanged();
+    }
+
+    @Override
+    public int getItemViewType(int position) {
+        //Implement your logic here
+        Note note = notes.get(position);
+        if(note.getState().equals("Todo"))
+            return 1;
+        else if(note.getState().equals("Done"))
+            return 2;
+        else
+            return 0;
     }
 
     @NonNull
@@ -38,12 +53,11 @@ public class NoteListAdapter extends RecyclerView.Adapter<NoteViewHolder> {
     public NoteViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int pos) {
         View itemView;
 
-        Log.d("state:",notes.get(pos).getState()+"");
-        if(notes.get(pos).getState().equals("Todo")){//To do
+        if(pos == 1){//To do
             itemView = LayoutInflater.from(parent.getContext())
                     .inflate(R.layout.item_todo, parent, false);
         }
-        else if(notes.get(pos).getState().equals("Done")){//done
+        else if(pos == 2){//done
             itemView = LayoutInflater.from(parent.getContext())
                     .inflate(R.layout.item_done, parent, false);
         }
