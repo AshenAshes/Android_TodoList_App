@@ -31,7 +31,7 @@ public class Note {
     public String getShow(){return show;}
     public void setShow(String show){this.show=show;}
     public String getScheduled(){return scheduled;}
-    public void setScheduled(){this.scheduled=scheduled;}
+    public void setScheduled(String scheduled){this.scheduled=scheduled;}
     public String getState(){return state;}
     public void setState(String state){this.state=state;}
     public int getPriority(){return priority;}

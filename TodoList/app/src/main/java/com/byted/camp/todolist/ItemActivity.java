@@ -180,15 +180,6 @@ public class ItemActivity extends AppCompatActivity implements View.OnClickListe
         return rowId!=-1;
     }
 
-    public int getSelectedState(){
-        String state = item_state.getText().toString();
-        switch (state){
-            case "Todo": return 1;
-            case "Done": return 2;
-            default:return 0;
-        }
-    }
-
     public int getSelectedPriority(){
         String Priority = item_priority.getText().toString();
         switch(Priority){

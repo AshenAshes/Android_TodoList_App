@@ -23,6 +23,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import androidx.appcompat.widget.Toolbar;
 import androidx.viewpager.widget.ViewPager;
 
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -65,6 +66,9 @@ public class AgendaActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        Toast.makeText(AgendaActivity.this,
+                "create", Toast.LENGTH_SHORT).show();
+
         setContentView(R.layout.activity_agenda);
         toolbar = findViewById(R.id.toolbar);
         toolbar.setTitle("");

@@ -44,7 +44,6 @@ public class TodoActivity extends AppCompatActivity {
     private NoteListAdapter notesAdapter;
     private TodoDbHelper dbHelper;
     private SQLiteDatabase database;
-    //TODO:加数据库，select state=TODO(也就是1)的项，并按filename的字母序排序
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);

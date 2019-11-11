@@ -72,7 +72,7 @@ public class CalendarFragment extends Fragment {
     }
 
     @Override
-    protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
+    public void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
         if (requestCode == REQUEST_CODE_ADD
                 && resultCode == Activity.RESULT_OK) {
