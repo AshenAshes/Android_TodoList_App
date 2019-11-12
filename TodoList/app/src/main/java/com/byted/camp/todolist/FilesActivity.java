@@ -141,7 +141,6 @@ public class FilesActivity extends AppCompatActivity {
         });
     }
 
-    //TODO: 如果searchString == "", 则列出全部项
     private List<Note> loadNotesFromDatabase() {
         if (database == null) {
             Log.d("null","null");
@@ -152,10 +151,19 @@ public class FilesActivity extends AppCompatActivity {
         try {
 //            cursor = database.query(TodoContract.TodoNote.TABLE_NAME,
 //                    null,null,null,null,null,null);
-            cursor = database.query(TodoContract.TodoNote.TABLE_NAME, null,
-                    "file like ?", new String[]{searchString},
-                    null, null,
-                    TodoContract.TodoNote.COLUMN_FILE);
+            if(searchString==""){
+                cursor = database.query(TodoContract.TodoNote.TABLE_NAME, null,
+                        null, null,
+                        null, null,
+                        TodoContract.TodoNote.COLUMN_FILE);
+            }
+            else{
+                cursor = database.query(TodoContract.TodoNote.TABLE_NAME, null,
+                        "file like ?", new String[]{searchString},
+                        null, null,
+                        TodoContract.TodoNote.COLUMN_FILE);
+            }
+
             while (cursor.moveToNext()) {
                 long id = cursor.getLong(cursor.getColumnIndex(TodoContract.TodoNote._ID));
                 String caption = cursor.getString(cursor.getColumnIndex(TodoContract.TodoNote.COLUMN_CAPTION));
@@ -163,13 +171,14 @@ public class FilesActivity extends AppCompatActivity {
                 String intState = cursor.getString(cursor.getColumnIndex(TodoContract.TodoNote.COLUMN_STATE));
                 int intPriority = cursor.getInt(cursor.getColumnIndex(TodoContract.TodoNote.COLUMN_PRIORITY));
                 String fileName = cursor.getString(cursor.getColumnIndex(TodoContract.TodoNote.COLUMN_FILE));
-
+                String deadline = cursor.getString(cursor.getColumnIndex(TodoContract.TodoNote.COLUMN_DEADLINE));
                 Note note = new Note(id);
                 note.setContent(content);
                 note.setCaption(caption);
                 note.setState(intState);
                 note.setPriority(intPriority);
                 note.setFilename(fileName);
+                note.setDeadline(deadline);
                 result.add(note);
             }
         } finally {
@@ -181,31 +190,7 @@ public class FilesActivity extends AppCompatActivity {
         return result;
     }
 
-    private CharSequence loadTextFromFile(){
-        FileInputStream in = null;
-        BufferedReader reader = null;
-        String text="";
-        try {
-            in = openFileInput("我");           //“data”为文件名
-            reader = new BufferedReader(new InputStreamReader(in));
-            String line = "";
-            int id = 0;
-            while ((line = reader.readLine()) != null) {
-                text+=line+"\r\n";
-            }
-        } catch (IOException e) {
-            e.printStackTrace();
-        } finally {
-            if (reader != null) {
-                try {
-                    reader.close();
-                } catch (IOException e) {
-                    e.printStackTrace();
-                }
-            }
-        }
-        return text;
-    }
+
 
     private void bindActivity(final int btnId, final Class<?> activityClass){
         findViewById(btnId).setOnClickListener(new View.OnClickListener(){

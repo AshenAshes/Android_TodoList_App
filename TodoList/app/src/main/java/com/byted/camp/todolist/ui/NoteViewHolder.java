@@ -53,7 +53,6 @@ public class NoteViewHolder extends RecyclerView.ViewHolder {
         item_content.setText(note.getContent());
         item_deadline_date.setText(note.getDeadline());
 
-        //TODO:fix bug, getDeadline() = null?
         if(note.getDeadline() == null)
             Log.d("deadline","null");
         else

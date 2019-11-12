@@ -4,6 +4,11 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.widget.TextView;
 
+import java.io.BufferedReader;
+import java.io.FileInputStream;
+import java.io.IOException;
+import java.io.InputStreamReader;
+
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -24,8 +29,33 @@ public class FileInfActivity extends AppCompatActivity {
         fileTitle.setText(filename);
         fileInf = findViewById(R.id.fileInf);
         fileInf.setText(filename);
+        fileInf.setText(loadTextFromFile());
 
-        //TODO:变量filename是文件名，从数据库中找到对应的.org内容写入fileInf中(fileInf是个TextView)
+    }
 
+    private CharSequence loadTextFromFile(){
+        FileInputStream in = null;
+        BufferedReader reader = null;
+        String text="";
+        try {
+            in = openFileInput(filename);           //“data”为文件名
+            reader = new BufferedReader(new InputStreamReader(in));
+            String line = "";
+            int id = 0;
+            while ((line = reader.readLine()) != null) {
+                text+=line+"\r\n";
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
+        } finally {
+            if (reader != null) {
+                try {
+                    reader.close();
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+            }
+        }
+        return text;
     }
 }
