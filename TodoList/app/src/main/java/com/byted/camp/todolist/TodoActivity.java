@@ -126,12 +126,13 @@ public class TodoActivity extends AppCompatActivity {
                 String intState = cursor.getString(cursor.getColumnIndex(TodoContract.TodoNote.COLUMN_STATE));
                 int intPriority = cursor.getInt(cursor.getColumnIndex(TodoContract.TodoNote.COLUMN_PRIORITY));
                 String fileName = cursor.getString(cursor.getColumnIndex(TodoContract.TodoNote.COLUMN_FILE));
-
+                String deadline = cursor.getString(cursor.getColumnIndex(TodoContract.TodoNote.COLUMN_DEADLINE));
                 Note note = new Note(id);
                 note.setContent(content);
                 note.setCaption(caption);
                 note.setState(intState);
                 note.setPriority(intPriority);
+                note.setDeadline(deadline);
                 note.setFilename(fileName);
                 result.add(note);
             }

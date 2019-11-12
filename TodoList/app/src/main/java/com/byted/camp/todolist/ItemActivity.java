@@ -166,6 +166,7 @@ public class ItemActivity extends AppCompatActivity implements View.OnClickListe
                     title = item_title.getText().toString().trim();
                 else
                     title = "Titled";
+                String fatherItem = item_father_item.getText().toString();
                 String deadline = item_deadline_date.getText().toString().trim();
                 String scheduled = item_scheduled_date.getText().toString().trim();
                 Log.d("deadline",deadline);
@@ -180,7 +181,7 @@ public class ItemActivity extends AppCompatActivity implements View.OnClickListe
                 }
                 boolean succeed = saveNote2Database(content.toString().trim(),filename,title,tag,deadline,scheduled,show,repeat,
                         item_state.getText().toString().trim(),
-                        getSelectedPriority());
+                        getSelectedPriority(),fatherItem);
                 if (succeed) {
                     Toast.makeText(ItemActivity.this,
                             "Note added", Toast.LENGTH_SHORT).show();
@@ -251,9 +252,8 @@ public class ItemActivity extends AppCompatActivity implements View.OnClickListe
         }
         return result;
     }
-    //TODO:添加fatherItem, String fatherItem = item_father_item.getText().toString()
     public Boolean saveNote2Database(String content, String filename, String title, String tag, String deadline, String scheduled,
-                                     String show,String repeat, String state, int priority){
+                                     String show,String repeat, String state, int priority,String fatherItem){
         if(database==null||TextUtils.isEmpty(content)){
             return false;
         }
@@ -269,6 +269,7 @@ public class ItemActivity extends AppCompatActivity implements View.OnClickListe
         values.put(TodoContract.TodoNote.COLUMN_TAG,tag);
         values.put(TodoContract.TodoNote.COLUMN_CONTENT,content);
         values.put(TodoContract.TodoNote.COLUMN_PRIORITY,priority);
+        values.put(TodoContract.TodoNote.COLUMN_FATHERITEM,fatherItem);
         long rowId = database.insert(TodoContract.TodoNote.TABLE_NAME, null, values);
         return rowId!=-1;
     }
