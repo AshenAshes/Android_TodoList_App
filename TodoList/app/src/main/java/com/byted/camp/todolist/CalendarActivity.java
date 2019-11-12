@@ -86,17 +86,6 @@ public class CalendarActivity extends AppCompatActivity {
         mDate = localDate2DateString(selectedDate);
         date.setText(mDate);
 
-        wholeMonthDate.addAll(myCalendar.getCurrectDateList());
-        if(wholeMonthDate.size()==0)
-            Log.d("empty","");
-        markedDate.clear();
-        for(LocalDate temp:wholeMonthDate){
-            tempDate = localDate2DateString(temp);
-            if(!loadNotesFromDatabase(tempDate).isEmpty())
-                markedDate.add(tempDate);
-        }
-        InnerPainter innerPainter = (InnerPainter)myCalendar.getCalendarPainter();
-        innerPainter.setPointList(markedDate);
 
         myCalendar.setOnCalendarMultipleChangedListener(new OnCalendarMultipleChangedListener() {
             @Override
@@ -112,6 +101,18 @@ public class CalendarActivity extends AppCompatActivity {
                     image.setVisibility(View.VISIBLE);
                 else
                     image.setVisibility(View.GONE);
+
+                wholeMonthDate.addAll(myCalendar.getCurrectDateList());
+                if(wholeMonthDate.size()==0)
+                    Log.d("empty","");
+                markedDate.clear();
+                for(LocalDate temp:wholeMonthDate){
+                    tempDate = localDate2DateString(temp);
+                    if(!loadNotesFromDatabase(tempDate).isEmpty())
+                        markedDate.add(tempDate);
+                }
+                InnerPainter innerPainter = (InnerPainter)myCalendar.getCalendarPainter();
+                innerPainter.setPointList(markedDate);
             }
         });
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
