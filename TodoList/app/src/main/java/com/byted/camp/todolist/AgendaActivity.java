@@ -9,6 +9,7 @@ import android.os.Build;
 import android.os.Bundle;
 
 import com.byted.camp.todolist.PickerView.DateFormatUtils;
+import com.byted.camp.todolist.backstage.FileWriteService;
 import com.byted.camp.todolist.extra.DoubleBack;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import androidx.appcompat.app.AppCompatActivity;
@@ -45,7 +46,7 @@ public class AgendaActivity extends AppCompatActivity {
 
     private RecyclerView recyclerView;
     private NoteListAdapter notesAdapter;
-
+    private Intent mIntent;
     private TextView agenda_title;
     private TabLayout tableLayout;
     private ViewPager pager;
@@ -59,6 +60,9 @@ public class AgendaActivity extends AppCompatActivity {
 //        Toast.makeText(AgendaActivity.this,
 //                "create", Toast.LENGTH_SHORT).show();
         setContentView(R.layout.activity_agenda);
+        mIntent = new Intent(this, FileWriteService.class);
+        startService(mIntent);
+
         toolbar = findViewById(R.id.toolbar);
         toolbar.setTitle("");
         setSupportActionBar(toolbar);
@@ -224,6 +228,7 @@ public class AgendaActivity extends AppCompatActivity {
     @Override
     protected void onDestroy() {
         super.onDestroy();
+        stopService(mIntent);
     }
 
     /**

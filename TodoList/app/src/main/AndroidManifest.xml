@@ -23,6 +23,12 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+        <service android:name=".backstage.FileWriteService">
+
+        </service>
+        <receiver android:name=".backstage.AlarmReceiver">
+
+        </receiver>
         <activity android:name=".NoteActivity" />
         <activity android:name=".ItemActivity" />
         <activity android:name=".TodoActivity"/>
@@ -32,6 +38,7 @@
         <activity android:name=".ExitActivity"/>
         <activity android:name=".EditItemActivity"/>
         <activity android:name=".CalendarActivity"/>
+
     </application>
 
 </manifest>
