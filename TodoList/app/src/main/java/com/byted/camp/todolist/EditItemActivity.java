@@ -265,8 +265,9 @@ public class EditItemActivity extends AppCompatActivity implements View.OnClickL
                         break;
                 }
 
-                CalendarEvent calendarEvent = new CalendarEvent(title,content.toString().trim(),
-                        null, DateFormatUtils.str2Long(scheduled,false),
+                CalendarEvent calendarEvent;
+                calendarEvent = new CalendarEvent(title,content.toString().trim(),
+                        null,DateFormatUtils.str2Long(scheduled,false),
                         DateFormatUtils.str2Long(deadline,false),
                         (int)DateFormatUtils.str2Long(deadline,false)-(int)DateFormatUtils.str2Long(show,false),
                         (!rRule.equals(""))?rRule:null);
@@ -278,12 +279,17 @@ public class EditItemActivity extends AppCompatActivity implements View.OnClickL
                         Toast.makeText(EditItemActivity.this, "没有事件可以更新", Toast.LENGTH_SHORT).show();
                     } else {
                         long eventID = events.get(0).getId();
-                        int result3 = CalendarProviderManager.updateCalendarEventTitle(
-                                EditItemActivity.this, eventID, "改吃晚饭的房间第三方监督司法");
-                        if (result3 == 1) {
-                            Toast.makeText(EditItemActivity.this, "更新成功", Toast.LENGTH_SHORT).show();
+                        int result2 = CalendarProviderManager.deleteCalendarEvent(EditItemActivity.this, eventID);
+                        if (result2 == -2) {
+                            Toast.makeText(EditItemActivity.this, "没有权限", Toast.LENGTH_SHORT).show();
                         } else {
-                            Toast.makeText(EditItemActivity.this, "更新失败", Toast.LENGTH_SHORT).show();
+                            int result = CalendarProviderManager.addCalendarEvent(EditItemActivity.this, calendarEvent);
+                            if(result==0){
+                                Toast.makeText(EditItemActivity.this, "更新成功", Toast.LENGTH_SHORT).show();
+                            }
+                            else{
+                                Toast.makeText(EditItemActivity.this, "添加失败", Toast.LENGTH_SHORT).show();
+                            }
                         }
                     }
                 } else {
@@ -576,15 +582,17 @@ public class EditItemActivity extends AppCompatActivity implements View.OnClickL
     }
 
     private Note initialNoteInfFromDatabase() {
+        Note note_init;
         if (database == null) {
             return null;
         }
+        List<Note> result = new LinkedList<>();
         Cursor cursor = null;
         try {
             cursor = database.query(TodoContract.TodoNote.TABLE_NAME, null,
                     "_id like ?", new String[]{String.valueOf(id)},
                     null, null,
-                    TodoContract.TodoNote.COLUMN_FILE);
+                    null);
             while (cursor.moveToNext()) {
                 long id = cursor.getLong(cursor.getColumnIndex(TodoContract.TodoNote._ID));
                 String caption = cursor.getString(cursor.getColumnIndex(TodoContract.TodoNote.COLUMN_CAPTION));
@@ -613,12 +621,13 @@ public class EditItemActivity extends AppCompatActivity implements View.OnClickL
                 note.setPriority(intPriority);
                 note.setDeadline(deadline);
                 note.setFilename(fileName);
+                result.add(note);
             }
         } finally {
             if (cursor != null) {
                 cursor.close();
             }
         }
-        return note;
+        return result.get(0);
     }
 }
