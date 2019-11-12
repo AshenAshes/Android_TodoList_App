@@ -22,6 +22,7 @@ public class CustomFutureDatePicker implements View.OnClickListener, PickerView.
     private Callback mCallback;
     private Calendar mBeginTime, mEndTime, mSelectedTime;
     private boolean mCanDialogShow;
+    private Calendar mFutureTime;
 
     private Dialog mPickerDialog;
     private PickerView mDpvYear, mDpvMonth, mDpvDay, mDpvHour, mDpvMinute;
@@ -29,6 +30,7 @@ public class CustomFutureDatePicker implements View.OnClickListener, PickerView.
 
     private int mBeginYear, mBeginMonth, mBeginDay, mBeginHour, mBeginMinute,
             mEndYear, mEndMonth, mEndDay, mEndHour, mEndMinute;
+    private int mFutureYear, mFutureMonth, mFutureDay;
     private List<String> mYearUnits = new ArrayList<>(), mMonthUnits = new ArrayList<>(), mDayUnits = new ArrayList<>(),
             mHourUnits = new ArrayList<>(), mMinuteUnits = new ArrayList<>();
     private DecimalFormat mDecimalFormat = new DecimalFormat("00");
@@ -69,9 +71,9 @@ public class CustomFutureDatePicker implements View.OnClickListener, PickerView.
      * @param beginDateStr 日期字符串，格式为 yyyy-MM-dd HH:mm
      * @param endDateStr   日期字符串，格式为 yyyy-MM-dd HH:mm
      */
-    public CustomFutureDatePicker(Context context, Callback callback, String beginDateStr, String endDateStr) {
+    public CustomFutureDatePicker(Context context, Callback callback, String beginDateStr, String endDateStr, long futureTimestamp) {
         this(context, callback, DateFormatUtils.str2Long(beginDateStr, true),
-                DateFormatUtils.str2Long(endDateStr, true));
+                DateFormatUtils.str2Long(endDateStr, true), futureTimestamp);
     }
 
     /**
@@ -82,7 +84,7 @@ public class CustomFutureDatePicker implements View.OnClickListener, PickerView.
      * @param beginTimestamp 毫秒级时间戳
      * @param endTimestamp   毫秒级时间戳
      */
-    public CustomFutureDatePicker(Context context, Callback callback, long beginTimestamp, long endTimestamp) {
+    public CustomFutureDatePicker(Context context, Callback callback, long beginTimestamp, long endTimestamp, long futureTimeStamp) {
         if (context == null || callback == null || beginTimestamp <= 0 || beginTimestamp > endTimestamp) {
             mCanDialogShow = false;
             return;
@@ -95,6 +97,8 @@ public class CustomFutureDatePicker implements View.OnClickListener, PickerView.
         mEndTime = Calendar.getInstance();
         mEndTime.setTimeInMillis(endTimestamp);
         mSelectedTime = Calendar.getInstance();
+        mFutureTime = Calendar.getInstance();
+        mFutureTime.setTimeInMillis(futureTimeStamp);
 
         initView();
         initData();
@@ -206,6 +210,10 @@ public class CustomFutureDatePicker implements View.OnClickListener, PickerView.
         mEndHour = mEndTime.get(Calendar.HOUR_OF_DAY);
         mEndMinute = mEndTime.get(Calendar.MINUTE);
 
+        mFutureYear = mFutureTime.get(Calendar.YEAR);
+        mFutureMonth = mFutureTime.get(Calendar.MONTH) + 1;
+        mFutureDay = mFutureTime.get(Calendar.DAY_OF_MONTH);
+
         boolean canSpanYear = mBeginYear != mEndYear;
         boolean canSpanMon = !canSpanYear && mBeginMonth != mEndMonth;
         boolean canSpanDay = !canSpanMon && mBeginDay != mEndDay;
@@ -254,11 +262,11 @@ public class CustomFutureDatePicker implements View.OnClickListener, PickerView.
         }
 
         mDpvYear.setDataList(mYearUnits);
-        mDpvYear.setSelected(0);
+        mDpvYear.setSelected(mYearUnits.indexOf(mFutureYear));
         mDpvMonth.setDataList(mMonthUnits);
-        mDpvMonth.setSelected(0);
+        mDpvMonth.setSelected(mYearUnits.indexOf(mFutureMonth));
         mDpvDay.setDataList(mDayUnits);
-        mDpvDay.setSelected(0);
+        mDpvDay.setSelected(mYearUnits.indexOf(mFutureDay));
         mDpvHour.setDataList(mHourUnits);
         mDpvHour.setSelected(0);
         mDpvMinute.setDataList(mMinuteUnits);

@@ -23,6 +23,7 @@ public class CustomDatePicker implements View.OnClickListener, PickerView.OnSele
     private Callback mCallback;
     private Calendar mBeginTime, mEndTime, mSelectedTime;
     private boolean mCanDialogShow;
+    private Calendar mScheduledTime;
 
     private Dialog mPickerDialog;
     private PickerView mDpvYear, mDpvMonth, mDpvDay, mDpvHour, mDpvMinute;
@@ -30,6 +31,7 @@ public class CustomDatePicker implements View.OnClickListener, PickerView.OnSele
 
     private int mBeginYear, mBeginMonth, mBeginDay, mBeginHour, mBeginMinute,
             mEndYear, mEndMonth, mEndDay, mEndHour, mEndMinute;
+    private int mScheduledYear, mScheduledMonth, mScheduledDay;
     private List<String> mYearUnits = new ArrayList<>(), mMonthUnits = new ArrayList<>(), mDayUnits = new ArrayList<>(),
             mHourUnits = new ArrayList<>(), mMinuteUnits = new ArrayList<>();
     private DecimalFormat mDecimalFormat = new DecimalFormat("00");
@@ -70,9 +72,9 @@ public class CustomDatePicker implements View.OnClickListener, PickerView.OnSele
      * @param beginDateStr 日期字符串，格式为 yyyy-MM-dd HH:mm
      * @param endDateStr   日期字符串，格式为 yyyy-MM-dd HH:mm
      */
-    public CustomDatePicker(Context context, Callback callback, String beginDateStr, String endDateStr) {
+    public CustomDatePicker(Context context, Callback callback, String beginDateStr, String endDateStr, long scheduled) {
         this(context, callback, DateFormatUtils.str2Long(beginDateStr, true),
-                DateFormatUtils.str2Long(endDateStr, true));
+                DateFormatUtils.str2Long(endDateStr, true), scheduled);
     }
 
     /**
@@ -83,7 +85,7 @@ public class CustomDatePicker implements View.OnClickListener, PickerView.OnSele
      * @param beginTimestamp 毫秒级时间戳
      * @param endTimestamp   毫秒级时间戳
      */
-    public CustomDatePicker(Context context, Callback callback, long beginTimestamp, long endTimestamp) {
+    public CustomDatePicker(Context context, Callback callback, long beginTimestamp, long endTimestamp, long scheduled) {
         if (context == null || callback == null || beginTimestamp <= 0 || beginTimestamp >= endTimestamp) {
             mCanDialogShow = false;
             return;
@@ -95,6 +97,8 @@ public class CustomDatePicker implements View.OnClickListener, PickerView.OnSele
         mBeginTime.setTimeInMillis(beginTimestamp);
         mEndTime = Calendar.getInstance();
         mEndTime.setTimeInMillis(endTimestamp);
+        mScheduledTime = Calendar.getInstance();
+        mScheduledTime.setTimeInMillis(scheduled);
         mSelectedTime = Calendar.getInstance();
 
         initView();
@@ -138,7 +142,6 @@ public class CustomDatePicker implements View.OnClickListener, PickerView.OnSele
         switch (v.getId()) {
             case R.id.tv_cancel:
                 break;
-
             case R.id.tv_confirm:
                 Log.d("confirm",""+mSelectedTime.getTimeInMillis());
                 if (mCallback != null) {
@@ -209,6 +212,10 @@ public class CustomDatePicker implements View.OnClickListener, PickerView.OnSele
         mEndHour = mEndTime.get(Calendar.HOUR_OF_DAY);
         mEndMinute = mEndTime.get(Calendar.MINUTE);
 
+        mScheduledYear = mScheduledTime.get(Calendar.YEAR);
+        mScheduledMonth = mScheduledTime.get(Calendar.MONTH) + 1;
+        mScheduledDay = mScheduledTime.get(Calendar.DAY_OF_MONTH);
+
         boolean canSpanYear = mBeginYear != mEndYear;
         boolean canSpanMon = !canSpanYear && mBeginMonth != mEndMonth;
         boolean canSpanDay = !canSpanMon && mBeginDay != mEndDay;
@@ -257,11 +264,11 @@ public class CustomDatePicker implements View.OnClickListener, PickerView.OnSele
         }
 
         mDpvYear.setDataList(mYearUnits);
-        mDpvYear.setSelected(0);
+        mDpvYear.setSelected(mYearUnits.indexOf(mScheduledYear));
         mDpvMonth.setDataList(mMonthUnits);
-        mDpvMonth.setSelected(0);
+        mDpvMonth.setSelected(mMonthUnits.indexOf(mScheduledMonth));
         mDpvDay.setDataList(mDayUnits);
-        mDpvDay.setSelected(0);
+        mDpvDay.setSelected(mDayUnits.indexOf(mScheduledDay));
         mDpvHour.setDataList(mHourUnits);
         mDpvHour.setSelected(0);
         mDpvMinute.setDataList(mMinuteUnits);

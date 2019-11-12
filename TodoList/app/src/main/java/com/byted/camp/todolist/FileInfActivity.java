@@ -28,9 +28,7 @@ public class FileInfActivity extends AppCompatActivity {
         fileTitle = findViewById(R.id.file_title);
         fileTitle.setText(filename);
         fileInf = findViewById(R.id.fileInf);
-        fileInf.setText(filename);
         fileInf.setText(loadTextFromFile());
-
     }
 
     private CharSequence loadTextFromFile(){

@@ -179,7 +179,6 @@ public class EditItemActivity extends AppCompatActivity implements View.OnClickL
         item_deadline_date.setOnClickListener(this);
         item_show_date.setOnClickListener(this);
 
-        //TODO：这里的添加一条数据改成更新一条数据，根据变量id查找对应数据
         bar_save.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -298,6 +297,7 @@ public class EditItemActivity extends AppCompatActivity implements View.OnClickL
         }
         return result;
     }
+
     public Boolean updateNote2Database(String content, String filename, String title, String tag, String deadline, String scheduled,
                                      String show,String repeat, String state, int priority,String fatherItem){
         if(database==null||TextUtils.isEmpty(content)){
@@ -432,8 +432,9 @@ public class EditItemActivity extends AppCompatActivity implements View.OnClickL
     private void initScheduledDatePicker() {
         long beginTimestamp = DateFormatUtils.str2Long("2010-05-01", false);
         long endTimestamp = System.currentTimeMillis();
+        long scheduledTimestamp = DateFormatUtils.str2Long(Fscheduled,false);
 
-        item_scheduled_date.setText(DateFormatUtils.long2Str(endTimestamp, false));
+        item_scheduled_date.setText(Fscheduled);
 
         // 通过时间戳初始化日期，毫秒级别
         mScheduledDatePicker = new CustomDatePicker(this, new CustomDatePicker.Callback() {
@@ -441,7 +442,7 @@ public class EditItemActivity extends AppCompatActivity implements View.OnClickL
             public void onTimeSelected(long timestamp) {
                 item_scheduled_date.setText(DateFormatUtils.long2Str(timestamp, false));
             }
-        }, beginTimestamp, endTimestamp);
+        }, beginTimestamp, endTimestamp, scheduledTimestamp);
         // 允许点击屏幕或物理返回键关闭
         mScheduledDatePicker.setCancelable(true);
         // 不显示时和分
@@ -455,8 +456,9 @@ public class EditItemActivity extends AppCompatActivity implements View.OnClickL
     private void initDeadlineDatePicker() {
         long beginTimestamp = System.currentTimeMillis();
         long endTimestamp = System.currentTimeMillis();
+        long DeadlineDateTimestamp = DateFormatUtils.str2Long(Fdeadline,false);
 
-        item_deadline_date.setText(DateFormatUtils.long2Str(beginTimestamp, false));
+        item_deadline_date.setText(Fdeadline);
 
         // 通过时间戳初始化日期，毫秒级别
         mDeadlineDatePicker = new CustomFutureDatePicker(this, new CustomFutureDatePicker.Callback() {
@@ -464,7 +466,7 @@ public class EditItemActivity extends AppCompatActivity implements View.OnClickL
             public void onTimeSelected(long timestamp) {
                 item_deadline_date.setText(DateFormatUtils.long2Str(timestamp, false));
             }
-        }, beginTimestamp, endTimestamp);
+        }, beginTimestamp, endTimestamp, DeadlineDateTimestamp);
         // 允许点击屏幕或物理返回键关闭
         mDeadlineDatePicker.setCancelable(true);
         // 不显示时和分
@@ -478,8 +480,9 @@ public class EditItemActivity extends AppCompatActivity implements View.OnClickL
     private void initShowDatePicker() {
         long beginTimestamp = System.currentTimeMillis();
         long endTimestamp = System.currentTimeMillis();
+        long ShowDateTimestamp = DateFormatUtils.str2Long(Fshow,false);
 
-        item_show_date.setText(DateFormatUtils.long2Str(beginTimestamp, false));
+        item_show_date.setText(Fshow);
 
         // 通过时间戳初始化日期，毫秒级别
         mShowDatePicker = new CustomFutureDatePicker(this, new CustomFutureDatePicker.Callback() {
@@ -487,7 +490,7 @@ public class EditItemActivity extends AppCompatActivity implements View.OnClickL
             public void onTimeSelected(long timestamp) {
                 item_show_date.setText(DateFormatUtils.long2Str(timestamp, false));
             }
-        }, beginTimestamp, endTimestamp);
+        }, beginTimestamp, endTimestamp, ShowDateTimestamp);
         // 允许点击屏幕或物理返回键关闭
         mShowDatePicker.setCancelable(true);
         // 不显示时和分
@@ -545,7 +548,6 @@ public class EditItemActivity extends AppCompatActivity implements View.OnClickL
     }
 
     private Note initialNoteInfFromDatabase() {
-        //TODO:根据变量id查询唯一的一条数据note，注意返回值不是List<Note>
         if (database == null) {
             return null;
         }

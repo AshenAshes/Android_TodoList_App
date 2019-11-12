@@ -3,7 +3,7 @@ package com.byted.camp.todolist.beans;
 import java.util.Date;
 
 public class Note {
-
+    //TODO: add loop String to Database
     public final long id;
     private String deadline;
     private String show;
