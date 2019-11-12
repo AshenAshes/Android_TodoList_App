@@ -147,6 +147,13 @@ public class ItemActivity extends AppCompatActivity implements View.OnClickListe
         item_deadline_date.setOnClickListener(this);
         item_show_date.setOnClickListener(this);
 
+        bar_back.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                finish();
+            }
+        });
+
         bar_commit.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {

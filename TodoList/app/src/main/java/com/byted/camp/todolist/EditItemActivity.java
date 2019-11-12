@@ -200,6 +200,13 @@ public class EditItemActivity extends AppCompatActivity implements View.OnClickL
         item_deadline_date.setOnClickListener(this);
         item_show_date.setOnClickListener(this);
 
+        bar_back.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                finish();
+            }
+        });
+
         bar_save.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -304,7 +311,7 @@ public class EditItemActivity extends AppCompatActivity implements View.OnClickL
         Cursor cursor = null;
         try {
             cursor = database.query(TodoContract.TodoNote.TABLE_NAME, null,
-                    "file like ?", new String[]{filename},
+                    "file = ?", new String[]{filename},
                     null, null,
                     TodoContract.TodoNote.COLUMN_CAPTION);
             while (cursor.moveToNext()) {

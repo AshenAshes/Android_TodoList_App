@@ -119,7 +119,7 @@ public class PickerView extends View {
         mHalfHeight = height / 2f;
         mQuarterHeight = height / 4f;
         float maxTextSize = height / 7f;
-        mMinTextSize = maxTextSize / 2.2f;
+        mMinTextSize = maxTextSize / 1.4f;
         mTextSizeRange = maxTextSize - mMinTextSize;
         mTextSpacing = mMinTextSize * 2.8f;
         mHalfTextSpacing = mTextSpacing / 2f;
