@@ -154,7 +154,6 @@ public class ItemActivity extends AppCompatActivity implements View.OnClickListe
             }
         });
 
-        //TODO:加一项closedTime
         bar_commit.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -215,7 +214,7 @@ public class ItemActivity extends AppCompatActivity implements View.OnClickListe
                 }
                 boolean succeed = saveNote2Database(content.toString().trim(),filename,title,tag,deadline,scheduled,show,repeat,
                         item_state.getText().toString().trim(),
-                        getSelectedPriority(),fatherItem);
+                        getSelectedPriority(),fatherItem,closedTime);
                 if (succeed) {
                     Toast.makeText(ItemActivity.this,
                             "Note added", Toast.LENGTH_SHORT).show();
@@ -288,7 +287,7 @@ public class ItemActivity extends AppCompatActivity implements View.OnClickListe
         return result;
     }
     public Boolean saveNote2Database(String content, String filename, String title, String tag, String deadline, String scheduled,
-                                     String show,String repeat, String state, int priority,String fatherItem){
+                                     String show,String repeat, String state, int priority,String fatherItem,String closed){
         if(database==null||TextUtils.isEmpty(content)){
             return false;
         }
@@ -302,6 +301,7 @@ public class ItemActivity extends AppCompatActivity implements View.OnClickListe
         values.put(TodoContract.TodoNote.COLUMN_CAPTION,title);
         values.put(TodoContract.TodoNote.COLUMN_FILE,filename);
         values.put(TodoContract.TodoNote.COLUMN_TAG,tag);
+        values.put(TodoContract.TodoNote.COLUMN_CLOSED,closed);
         values.put(TodoContract.TodoNote.COLUMN_CONTENT,content);
         values.put(TodoContract.TodoNote.COLUMN_PRIORITY,priority);
         values.put(TodoContract.TodoNote.COLUMN_FATHERITEM,fatherItem);

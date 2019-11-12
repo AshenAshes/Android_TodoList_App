@@ -26,7 +26,6 @@ import static com.byted.camp.todolist.db.TodoContract.TodoNote.TABLE_NAME;
 public class ExitActivity extends AppCompatActivity {
     private TodoDbHelper dbHelper;
     private SQLiteDatabase database;
-    private final List<Note> notes = new ArrayList<>();
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -82,6 +81,9 @@ public class ExitActivity extends AppCompatActivity {
                 writer.newLine();
                 writer.write("<"+newNote.getShow()+">");
                 writer.newLine();
+                if(newNote.getState().equals("Done")){
+                    writer.write("CLOSED:<"+newNote.getClosed()+">");
+                }
                 writer.write(newNote.getContent());
                 writer.newLine();
             }catch (IOException e) {
@@ -144,9 +146,11 @@ public class ExitActivity extends AppCompatActivity {
                 String intState = cursor.getString(cursor.getColumnIndex(TodoContract.TodoNote.COLUMN_STATE));
                 int intPriority = cursor.getInt(cursor.getColumnIndex(TodoContract.TodoNote.COLUMN_PRIORITY));
                 String fileName = cursor.getString(cursor.getColumnIndex(TodoContract.TodoNote.COLUMN_FILE));
+                String closed = cursor.getString(cursor.getColumnIndex(TodoContract.TodoNote.COLUMN_CLOSED));
                 Log.d("file",file+"+"+caption+"+"+fatherItem);
                 Note note = new Note(id);
                 note.setScheduled(scheduled);
+                note.setClosed(closed);
                 note.setShow(show);
                 note.setDeadline(deadline);
                 note.setContent(content);

@@ -207,7 +207,7 @@ public class EditItemActivity extends AppCompatActivity implements View.OnClickL
             }
         });
 
-        //TODO:加一项closedTime
+
         bar_save.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -269,7 +269,7 @@ public class EditItemActivity extends AppCompatActivity implements View.OnClickL
 
                 boolean succeed = updateNote2Database(content.toString().trim(),filename,title,tag,deadline,scheduled,show,repeat,
                         item_state.getText().toString().trim(),
-                        getSelectedPriority(),fatherItem);
+                        getSelectedPriority(),fatherItem,closedTime);
                 if (succeed) {
                     Toast.makeText(EditItemActivity.this,
                             "Note added", Toast.LENGTH_SHORT).show();
@@ -360,7 +360,7 @@ public class EditItemActivity extends AppCompatActivity implements View.OnClickL
     }
 
     public Boolean updateNote2Database(String content, String filename, String title, String tag, String deadline, String scheduled,
-                                     String show,String repeat, String state, int priority,String fatherItem){
+                                     String show,String repeat, String state, int priority,String fatherItem,String closedtime){
         if(database==null||TextUtils.isEmpty(content)){
             return false;
         }
@@ -375,6 +375,7 @@ public class EditItemActivity extends AppCompatActivity implements View.OnClickL
         values.put(TodoContract.TodoNote.COLUMN_FILE,filename);
         values.put(TodoContract.TodoNote.COLUMN_TAG,tag);
         values.put(TodoContract.TodoNote.COLUMN_FATHERITEM,fatherItem);
+        values.put(TodoContract.TodoNote.COLUMN_CLOSED,closedtime);
         values.put(TodoContract.TodoNote.COLUMN_CONTENT,content);
         values.put(TodoContract.TodoNote.COLUMN_PRIORITY,priority);
         long rowId = database.update(TodoContract.TodoNote.TABLE_NAME, values,"_id="+id,null);

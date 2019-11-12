@@ -867,9 +867,6 @@ public class CalendarProviderManager {
                                                       String title, String des, String location,
                                                       boolean isAllDay) {
         checkCalendarAccount(context);
-
-
-        // FIXME: 2019/3/6 VIVO手机无法打开界面，找不到对应的Activity  com.bbk.calendar
         Intent intent = new Intent(Intent.ACTION_INSERT)
                 .setData(CalendarContract.Events.CONTENT_URI)
                 .putExtra(CalendarContract.EXTRA_EVENT_BEGIN_TIME, beginTime)
