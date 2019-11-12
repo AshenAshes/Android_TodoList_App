@@ -63,15 +63,15 @@ public class EditItemActivity extends AppCompatActivity implements View.OnClickL
 
     private String id;
     private Note note;
-    private String deadline;
-    private String show;
-    private String scheduled;
-    private String state;
-    private String priority;
-    private String title;
-    private String tag;
-    private String filename;
-    private String fatherItem;
+    private String Fdeadline;
+    private String Fshow;
+    private String Fscheduled;
+    private String Fstate;
+    private String Fpriority;
+    private String Ftitle;
+    private String Ftag;
+    private String Ffilename;
+    private String FfatherItem;
 
     private CustomLoopPicker mLoopPicker;
     private CustomStatePicker mStatePicker;
@@ -111,15 +111,15 @@ public class EditItemActivity extends AppCompatActivity implements View.OnClickL
         //
         note = initialNoteInfFromDatabase();
         if(note != null){
-            deadline = note.getDeadline();
-            show = note.getShow();
-            scheduled = note.getScheduled();
-            state = note.getState();
-            priority = note.getPriority()+"";
-            title = note.getCaption();
-            tag = note.getTag();
-            filename = note.getFilename();
-            fatherItem = note.getFatherItem();
+            Fdeadline = note.getDeadline();
+            Fshow = note.getShow();
+            Fscheduled = note.getScheduled();
+            Fstate = note.getState();
+            Fpriority = note.getPriority()+"";
+            Ftitle = note.getCaption();
+            Ftag = note.getTag();
+            Ffilename = note.getFilename();
+            FfatherItem = note.getFatherItem();
         }
         else{
             Log.d("error","note = null");
@@ -205,15 +205,17 @@ public class EditItemActivity extends AppCompatActivity implements View.OnClickL
                 Log.d("scheduled",scheduled);
                 String show = item_show_date.getText().toString().trim();
                 String tag = item_tag.getText().toString().trim();
+                String fatherItem = item_father_item.getText().toString();
                 String repeat = item_loop.getText().toString().trim();
                 if (TextUtils.isEmpty(content)) {
                     Toast.makeText(EditItemActivity.this,
                             "No content to add", Toast.LENGTH_SHORT).show();
                     return;
                 }
-                boolean succeed = saveNote2Database(content.toString().trim(),filename,title,tag,deadline,scheduled,show,repeat,
+
+                boolean succeed = updateNote2Database(content.toString().trim(),filename,title,tag,deadline,scheduled,show,repeat,
                         item_state.getText().toString().trim(),
-                        getSelectedPriority());
+                        getSelectedPriority(),fatherItem);
                 if (succeed) {
                     Toast.makeText(EditItemActivity.this,
                             "Note added", Toast.LENGTH_SHORT).show();
@@ -222,6 +224,7 @@ public class EditItemActivity extends AppCompatActivity implements View.OnClickL
                     Toast.makeText(EditItemActivity.this,
                             "Error", Toast.LENGTH_SHORT).show();
                 }
+
                 String rRule="";
                 switch (repeat) {
                     case "每天":
@@ -240,13 +243,24 @@ public class EditItemActivity extends AppCompatActivity implements View.OnClickL
                         DateFormatUtils.str2Long(deadline,false),
                         (int)DateFormatUtils.str2Long(deadline,false)-(int)DateFormatUtils.str2Long(show,false),
                         (!rRule.equals(""))?rRule:null);
-                int result = CalendarProviderManager.addCalendarEvent(EditItemActivity.this, calendarEvent);
-                if (result == 0) {
-                    Toast.makeText(EditItemActivity.this, "插入成功", Toast.LENGTH_SHORT).show();
-                } else if (result == -1) {
-                    Toast.makeText(EditItemActivity.this, "插入失败", Toast.LENGTH_SHORT).show();
-                } else if (result == -2) {
-                    Toast.makeText(EditItemActivity.this, "没有权限", Toast.LENGTH_SHORT).show();
+
+                long calID = CalendarProviderManager.obtainCalendarAccountID(EditItemActivity.this);
+                List<CalendarEvent> events = CalendarProviderManager.queryAccountEvent(EditItemActivity.this, calID,Ftitle,DateFormatUtils.str2Long(Fscheduled,false),DateFormatUtils.str2Long(Fdeadline,false));
+                if (null != events) {
+                    if (events.size() == 0) {
+                        Toast.makeText(EditItemActivity.this, "没有事件可以更新", Toast.LENGTH_SHORT).show();
+                    } else {
+                        long eventID = events.get(0).getId();
+                        int result3 = CalendarProviderManager.updateCalendarEventTitle(
+                                EditItemActivity.this, eventID, "改吃晚饭的房间第三方监督司法");
+                        if (result3 == 1) {
+                            Toast.makeText(EditItemActivity.this, "更新成功", Toast.LENGTH_SHORT).show();
+                        } else {
+                            Toast.makeText(EditItemActivity.this, "更新失败", Toast.LENGTH_SHORT).show();
+                        }
+                    }
+                } else {
+                    Toast.makeText(EditItemActivity.this, "查询失败", Toast.LENGTH_SHORT).show();
                 }
                 //insert(content.toString().trim(),fileText.getText().toString().trim(), getSelectedPriority());
                 finish();
@@ -284,9 +298,8 @@ public class EditItemActivity extends AppCompatActivity implements View.OnClickL
         }
         return result;
     }
-    //TODO:添加fatherItem, String fatherItem = item_father_item.getText().toString()
-    public Boolean saveNote2Database(String content, String filename, String title, String tag, String deadline, String scheduled,
-                                     String show,String repeat, String state, int priority){
+    public Boolean updateNote2Database(String content, String filename, String title, String tag, String deadline, String scheduled,
+                                     String show,String repeat, String state, int priority,String fatherItem){
         if(database==null||TextUtils.isEmpty(content)){
             return false;
         }
@@ -300,9 +313,10 @@ public class EditItemActivity extends AppCompatActivity implements View.OnClickL
         values.put(TodoContract.TodoNote.COLUMN_CAPTION,title);
         values.put(TodoContract.TodoNote.COLUMN_FILE,filename);
         values.put(TodoContract.TodoNote.COLUMN_TAG,tag);
+        values.put(TodoContract.TodoNote.COLUMN_FATHERITEM,fatherItem);
         values.put(TodoContract.TodoNote.COLUMN_CONTENT,content);
         values.put(TodoContract.TodoNote.COLUMN_PRIORITY,priority);
-        long rowId = database.insert(TodoContract.TodoNote.TABLE_NAME, null, values);
+        long rowId = database.update(TodoContract.TodoNote.TABLE_NAME, values,"_id="+id,null);
         return rowId!=-1;
     }
 
@@ -371,7 +385,7 @@ public class EditItemActivity extends AppCompatActivity implements View.OnClickL
     }
 
     private void initStatePicker(){
-        item_state.setText(state);
+        item_state.setText(Fstate);
 
         mStatePicker = new CustomStatePicker(this, new CustomStatePicker.Callback() {
             @Override
@@ -386,7 +400,7 @@ public class EditItemActivity extends AppCompatActivity implements View.OnClickL
     }
 
     private void initPriorityPicker(){
-        item_priority.setText(priority);
+        item_priority.setText(Fpriority);
 
         mPriorityPicker = new CustomPriorityPicker(this, new CustomPriorityPicker.Callback() {
             @Override
@@ -401,7 +415,7 @@ public class EditItemActivity extends AppCompatActivity implements View.OnClickL
     }
 
     private void initFatherItemPicker(){
-        item_father_item.setText(fatherItem);
+        item_father_item.setText(FfatherItem);
 
         mFatherItemPicker = new CustomFatherItemPicker(this, new CustomFatherItemPicker.Callback() {
             @Override
@@ -531,9 +545,50 @@ public class EditItemActivity extends AppCompatActivity implements View.OnClickL
     }
 
     private Note initialNoteInfFromDatabase() {
-        Note note = null;
         //TODO:根据变量id查询唯一的一条数据note，注意返回值不是List<Note>
+        if (database == null) {
+            return null;
+        }
+        Cursor cursor = null;
+        try {
+            cursor = database.query(TodoContract.TodoNote.TABLE_NAME, null,
+                    "_id like ?", new String[]{id+""},
+                    null, null,
+                    TodoContract.TodoNote.COLUMN_FILE);
+            while (cursor.moveToNext()) {
+                long id = cursor.getLong(cursor.getColumnIndex(TodoContract.TodoNote._ID));
+                String caption = cursor.getString(cursor.getColumnIndex(TodoContract.TodoNote.COLUMN_CAPTION));
+                String content = cursor.getString(cursor.getColumnIndex(TodoContract.TodoNote.COLUMN_CONTENT));
+                String intState = cursor.getString(cursor.getColumnIndex(TodoContract.TodoNote.COLUMN_STATE));
+                int intPriority = cursor.getInt(cursor.getColumnIndex(TodoContract.TodoNote.COLUMN_PRIORITY));
+                String fileName = cursor.getString(cursor.getColumnIndex(TodoContract.TodoNote.COLUMN_FILE));
+                String deadline = cursor.getString(cursor.getColumnIndex(TodoContract.TodoNote.COLUMN_DEADLINE));
+                String fatherItem = cursor.getString(cursor.getColumnIndex(TodoContract.TodoNote.COLUMN_FATHERITEM));
+                String show = cursor.getString(cursor.getColumnIndex(TodoContract.TodoNote.COLUMN_SHOW));
+                int week = cursor.getInt(cursor.getColumnIndex(TodoContract.TodoNote.COLUMN_WEEK));
+                String repeat = cursor.getString(cursor.getColumnIndex(TodoContract.TodoNote.COLUMN_REPEAT));
+                String scheduled = cursor.getString(cursor.getColumnIndex(TodoContract.TodoNote.COLUMN_SCHEDULED));
 
+                String tag = cursor.getString(cursor.getColumnIndex(TodoContract.TodoNote.COLUMN_TAG));
+                Note note = new Note(id);
+                note.setContent(content);
+                note.setShow(show);
+                note.setFatherItem(fatherItem);
+                note.setTag(tag);
+                note.setScheduled(scheduled);
+                note.setWeek(week);
+                note.setRepeat(repeat);
+                note.setCaption(caption);
+                note.setState(intState);
+                note.setPriority(intPriority);
+                note.setDeadline(deadline);
+                note.setFilename(fileName);
+            }
+        } finally {
+            if (cursor != null) {
+                cursor.close();
+            }
+        }
         return note;
     }
 }

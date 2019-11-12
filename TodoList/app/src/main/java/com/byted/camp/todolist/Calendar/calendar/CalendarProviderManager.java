@@ -590,7 +590,7 @@ public class CalendarProviderManager {
      *
      * @return If failed return null else return List<CalendarEvent>
      */
-    public static List<CalendarEvent> queryAccountEvent(Context context, long calID) {
+    public static List<CalendarEvent> queryAccountEvent(Context context, long calID, String title, long begin, long end) {
         checkContextNull(context);
 
         final String[] EVENT_PROJECTION = new String[]{
@@ -622,8 +622,9 @@ public class CalendarProviderManager {
         Uri uri = CalendarContract.Events.CONTENT_URI;
         Uri uri2 = CalendarContract.Reminders.CONTENT_URI;
 
-        String selection = "(" + CalendarContract.Events.CALENDAR_ID + " = ?)";
-        String[] selectionArgs = new String[]{String.valueOf(calID)};
+        String selection = "(" + CalendarContract.Events.CALENDAR_ID + " = ? and "+CalendarContract.Events.TITLE+" = ? and "
+                +CalendarContract.Events.DTSTART+" = ? and "+CalendarContract.Events.DTEND+" = ? )";
+        String[] selectionArgs = new String[]{String.valueOf(calID),title,String.valueOf(begin),String.valueOf(end)};
 
         Cursor cursor;
 

@@ -203,7 +203,8 @@ public class ItemActivity extends AppCompatActivity implements View.OnClickListe
                         break;
                 }
 
-                CalendarEvent calendarEvent = new CalendarEvent(title,content.toString().trim(),
+                CalendarEvent calendarEvent;
+                calendarEvent = new CalendarEvent(title,content.toString().trim(),
                         null,DateFormatUtils.str2Long(scheduled,false),
                         DateFormatUtils.str2Long(deadline,false),
                         (int)DateFormatUtils.str2Long(deadline,false)-(int)DateFormatUtils.str2Long(show,false),

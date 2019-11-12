@@ -6,7 +6,7 @@ public final class TodoContract {
 
     public static final String SQL_CREATE_NOTES =
             "CREATE TABLE " + TodoNote.TABLE_NAME
-                    + "(" + TodoNote._ID + " INTEGER PRIMARY KEY AUTOINCREMENT, "
+                    + "(" + TodoNote.COLUMN_ID + " INTEGER PRIMARY KEY AUTOINCREMENT, "
                     + TodoNote.COLUMN_DEADLINE + " TEXT, "
                     + TodoNote.COLUMN_SHOW + " TEXT, "
                     + TodoNote.COLUMN_STATE + " TEXT, "
@@ -28,7 +28,7 @@ public final class TodoContract {
 
     public static class TodoNote implements BaseColumns {
         public static final String TABLE_NAME = "note1";
-
+        public static final String COLUMN_ID = "_id";
         public static final String COLUMN_DEADLINE = "deadline";
         public static final String COLUMN_SCHEDULED = "scheduled";
         public static final String COLUMN_SHOW = "show";

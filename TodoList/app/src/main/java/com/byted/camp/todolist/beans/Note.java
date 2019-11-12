@@ -15,11 +15,12 @@ public class Note {
     private String tag;
     private String content;
     private String filename;
+    private String repeat;
     private String fatherItem;
+
     public Note(long id) {
         this.id = id;
     }
-
     public long getID() { return id; }
     public String getContent() {
         return content;
@@ -47,4 +48,6 @@ public class Note {
     public void  setFilename(String filename){this.filename=filename;}
     public String getFatherItem(){return fatherItem;}
     public void setFatherItem(String fatherItem) { this.fatherItem = fatherItem; }
+    public String getRepeat(){return repeat;}
+    public void setRepeat(String repeat) { this.repeat = repeat; }
 }
