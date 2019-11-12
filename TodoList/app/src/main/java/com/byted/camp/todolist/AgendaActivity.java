@@ -72,13 +72,13 @@ public class AgendaActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        Toast.makeText(AgendaActivity.this,
-                "create", Toast.LENGTH_SHORT).show();
-        //TODO(Kong):所有的item显示在file下面加一个deadline
+//        Toast.makeText(AgendaActivity.this,
+//                "create", Toast.LENGTH_SHORT).show();
         setContentView(R.layout.activity_agenda);
         toolbar = findViewById(R.id.toolbar);
         toolbar.setTitle("");
         setSupportActionBar(toolbar);
+
         agenda_title = findViewById(R.id.agenda_title);
         if (ContextCompat.checkSelfPermission(this,
                 Manifest.permission.WRITE_CALENDAR) != PackageManager.PERMISSION_GRANTED) {
@@ -86,6 +86,7 @@ public class AgendaActivity extends AppCompatActivity {
                     new String[]{Manifest.permission.WRITE_CALENDAR,
                             Manifest.permission.READ_CALENDAR}, 1);
         }
+
         //透明状态栏
         if (Build.VERSION.SDK_INT >= 21) {
             View decorView = getWindow().getDecorView();

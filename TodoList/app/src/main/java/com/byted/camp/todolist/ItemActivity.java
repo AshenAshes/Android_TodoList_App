@@ -168,6 +168,8 @@ public class ItemActivity extends AppCompatActivity implements View.OnClickListe
                     title = "Titled";
                 String deadline = item_deadline_date.getText().toString().trim();
                 String scheduled = item_scheduled_date.getText().toString().trim();
+                Log.d("deadline",deadline);
+                Log.d("scheduled",scheduled);
                 String show = item_show_date.getText().toString().trim();
                 String tag = item_tag.getText().toString().trim();
                 String repeat = item_loop.getText().toString().trim();
@@ -189,7 +191,7 @@ public class ItemActivity extends AppCompatActivity implements View.OnClickListe
                 }
                 String rRule="";
                 switch (repeat) {
-                    case "每日":
+                    case "每天":
                         rRule = "FREQ=DAILY";
                         break;
                     case "每周":

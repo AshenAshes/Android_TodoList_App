@@ -121,7 +121,6 @@ public class CustomLoopPicker implements View.OnClickListener, PickerView.OnSele
         mLoopUnits.add("每天");
         mLoopUnits.add("每周");
         mLoopUnits.add("每月");
-        mLoopUnits.add("每年");
         mDpvLoop.setDataList(mLoopUnits);
         mDpvLoop.setSelected(0);
 
