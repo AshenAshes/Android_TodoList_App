@@ -3,7 +3,6 @@ package com.byted.camp.todolist.beans;
 import java.util.Date;
 
 public class Note {
-    //TODO: add closedTime String to Database
     public final long id;
     private String deadline;
     private String show;
@@ -17,6 +16,7 @@ public class Note {
     private String filename;
     private String repeat;
     private String fatherItem;
+    private String closed;
 
     public Note(long id) {
         this.id = id;
@@ -50,4 +50,6 @@ public class Note {
     public void setFatherItem(String fatherItem) { this.fatherItem = fatherItem; }
     public String getRepeat(){return repeat;}
     public void setRepeat(String repeat) { this.repeat = repeat; }
+    public String getClosed(){return closed;}
+    public void setClosed(String closed){this.closed=closed;}
 }

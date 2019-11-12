@@ -11,6 +11,7 @@ public final class TodoContract {
                     + TodoNote.COLUMN_SHOW + " TEXT, "
                     + TodoNote.COLUMN_STATE + " TEXT, "
                     + TodoNote.COLUMN_SCHEDULED + " TEXT, "
+                    + TodoNote.COLUMN_CLOSED + " TEXT, "
                     + TodoNote.COLUMN_WEEK + " INTEGER, "
                     + TodoNote.COLUMN_REPEAT + " TEXT, "
                     + TodoNote.COLUMN_CAPTION + " TEXT, "
@@ -31,6 +32,7 @@ public final class TodoContract {
         public static final String COLUMN_ID = "_id";
         public static final String COLUMN_DEADLINE = "deadline";
         public static final String COLUMN_SCHEDULED = "scheduled";
+        public static final String COLUMN_CLOSED = "closed";
         public static final String COLUMN_SHOW = "show";
         public static final String COLUMN_WEEK = "week";
         public static final String COLUMN_REPEAT = "repeat";
