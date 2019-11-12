@@ -20,6 +20,7 @@ import com.byted.camp.todolist.db.TodoContract;
 import com.byted.camp.todolist.db.TodoDbHelper;
 import com.byted.camp.todolist.extra.DoubleBack;
 import com.byted.camp.todolist.ui.NoteListAdapter;
+import com.byted.camp.todolist.ui.NoteListAdapterForFiles;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
 import java.io.BufferedReader;
@@ -55,11 +56,11 @@ public class FilesActivity extends AppCompatActivity {
 
     private String searchString="";
 
-    private NoteListAdapter notesAdapter;
+    private NoteListAdapterForFiles notesAdapter;
     private TodoDbHelper dbHelper;
     private SQLiteDatabase database;
 
-    private Set<String> filenameSet = new HashSet<>();
+    private List<String> filenameSet = new ArrayList<>();
     private List<Note> noteSet = new ArrayList<>();
 
     @Override
@@ -100,7 +101,8 @@ public class FilesActivity extends AppCompatActivity {
                 noteSet = loadNotesFromDatabase();
                 filenameSet.clear();
                 for(Note temp: noteSet){
-                    filenameSet.add(temp.getFilename());
+                    if(!filenameSet.contains(temp.getFilename()))
+                        filenameSet.add(temp.getFilename());
                 }
                 notesAdapter.refresh(filenameSet);
             }
@@ -110,21 +112,26 @@ public class FilesActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 searchString = searchText.getText().toString();
-                Log.d("searchString",searchString);
-                notesAdapter.refresh(loadNotesFromDatabase());
+                noteSet = loadNotesFromDatabase();
+                filenameSet.clear();
+                for(Note temp: noteSet){
+                    if(!filenameSet.contains(temp.getFilename()))
+                        filenameSet.add(temp.getFilename());
+                }
+                notesAdapter.refresh(filenameSet);
             }
         });
 
         recyclerView = findViewById(R.id.list_items);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
         recyclerView.addItemDecoration(new DividerItemDecoration(this, DividerItemDecoration.VERTICAL));
-        notesAdapter = new NoteListAdapter(new NoteOperator() {
+        notesAdapter = new NoteListAdapterForFiles(new NoteOperator() {
             @Override
             public void deleteNote(Note note) {}
             @Override
             public void updateNote(Note note) {}
         });
-        notesAdapter.setOnItemClickListener(new NoteListAdapter.OnItemClickListener() {
+        notesAdapter.setOnItemClickListener(new NoteListAdapterForFiles.OnItemClickListener() {
             @Override
             public void onItemClick(View view, int position) {
                 TextView item_filename = view.findViewById(R.id.item_filename);
@@ -138,11 +145,12 @@ public class FilesActivity extends AppCompatActivity {
         recyclerView.setAdapter(notesAdapter);
 
         noteSet = loadNotesFromDatabase();
-        notesAdapter.refresh(noteSet);
         filenameSet.clear();
         for(Note temp: noteSet){
-            filenameSet.add(temp.getFilename());
+            if(!filenameSet.contains(temp.getFilename()))
+                filenameSet.add(temp.getFilename());
         }
+        notesAdapter.refresh(filenameSet);
 
         fab = findViewById(R.id.fab);
         fab.setOnClickListener(new View.OnClickListener() {
