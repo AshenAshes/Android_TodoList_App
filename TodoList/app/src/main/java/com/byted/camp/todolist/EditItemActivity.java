@@ -569,15 +569,17 @@ public class EditItemActivity extends AppCompatActivity implements View.OnClickL
     }
 
     private Note initialNoteInfFromDatabase() {
+        Note note_init;
         if (database == null) {
             return null;
         }
+        List<Note> result = new LinkedList<>();
         Cursor cursor = null;
         try {
             cursor = database.query(TodoContract.TodoNote.TABLE_NAME, null,
                     "_id like ?", new String[]{String.valueOf(id)},
                     null, null,
-                    TodoContract.TodoNote.COLUMN_FILE);
+                    null);
             while (cursor.moveToNext()) {
                 long id = cursor.getLong(cursor.getColumnIndex(TodoContract.TodoNote._ID));
                 String caption = cursor.getString(cursor.getColumnIndex(TodoContract.TodoNote.COLUMN_CAPTION));
@@ -606,12 +608,13 @@ public class EditItemActivity extends AppCompatActivity implements View.OnClickL
                 note.setPriority(intPriority);
                 note.setDeadline(deadline);
                 note.setFilename(fileName);
+                result.add(note);
             }
         } finally {
             if (cursor != null) {
                 cursor.close();
             }
         }
-        return note;
+        return result.get(0);
     }
 }
