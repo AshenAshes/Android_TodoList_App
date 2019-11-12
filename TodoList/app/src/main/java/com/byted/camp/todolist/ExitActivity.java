@@ -102,7 +102,6 @@ public class ExitActivity extends AppCompatActivity {
             cursor = database.query(TABLE_NAME,new String[]{ TodoContract.TodoNote.COLUMN_FILE },null,null,
                     TodoContract.TodoNote.COLUMN_FILE,null, TodoContract.TodoNote.COLUMN_FILE);
             while (cursor.moveToNext()){
-
                 String fileName = cursor.getString(cursor.getColumnIndex(TodoContract.TodoNote.COLUMN_FILE));
                 Log.d("file", "getFilename: "+fileName);
                 result.add(fileName);
@@ -115,8 +114,6 @@ public class ExitActivity extends AppCompatActivity {
         return result;
     }
 
-
-
     public String getSelectedPriority(int priority){
         switch(priority){
             case 1: return "A";
@@ -126,6 +123,7 @@ public class ExitActivity extends AppCompatActivity {
             default: return "None";
         }
     }
+
     private List<Note> loadNotesFromDatabase(String file, String fatherItem) {
         if (database == null) {
             return Collections.emptyList();
