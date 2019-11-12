@@ -9,6 +9,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.view.ViewParent;
 import android.widget.ImageView;
+import android.widget.TextView;
 
 
 import com.byted.camp.todolist.NoteOperator;
@@ -18,13 +19,22 @@ import com.byted.camp.todolist.beans.Note;
 import java.util.ArrayList;
 import java.util.List;
 
-public class NoteListAdapter extends RecyclerView.Adapter<NoteViewHolder> {
+public class NoteListAdapter extends RecyclerView.Adapter<NoteViewHolder> implements View.OnClickListener {
 
     private final NoteOperator operator;
     private final List<Note> notes = new ArrayList<>();
+    private OnItemClickListener mOnItemClickListener;
 
     public NoteListAdapter(NoteOperator operator) {
         this.operator = operator;
+    }
+
+    public interface OnItemClickListener{
+        void onItemClick(View view, int position);
+    }
+
+    public void setOnItemClickListener(OnItemClickListener listener){
+        this.mOnItemClickListener = listener;
     }
 
     public void refresh(List<Note> newNotes) {
@@ -32,7 +42,6 @@ public class NoteListAdapter extends RecyclerView.Adapter<NoteViewHolder> {
         if (newNotes != null) {
             notes.addAll(newNotes);
         }
-
         notifyDataSetChanged();
     }
 
@@ -65,11 +74,20 @@ public class NoteListAdapter extends RecyclerView.Adapter<NoteViewHolder> {
             itemView = LayoutInflater.from(parent.getContext())
                     .inflate(R.layout.item_none, parent, false);
         }
+
+        itemView.setOnClickListener(this);
         return new NoteViewHolder(itemView, operator);
     }
 
     @Override
+    public void onClick(View view) {
+        if(mOnItemClickListener != null)
+            mOnItemClickListener.onItemClick(view, (int)view.getTag());
+    }
+
+    @Override
     public void onBindViewHolder(@NonNull NoteViewHolder holder, int pos) {
+        holder.itemView.setTag(pos);
         holder.bind(notes.get(pos));
     }
 

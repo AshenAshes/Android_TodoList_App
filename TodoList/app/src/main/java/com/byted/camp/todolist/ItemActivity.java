@@ -1,7 +1,6 @@
 package com.byted.camp.todolist;
 
 import android.app.Activity;
-import android.content.ClipData;
 import android.content.ContentValues;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
@@ -13,7 +12,6 @@ import android.text.TextUtils;
 import android.text.TextWatcher;
 import android.util.Log;
 import android.view.View;
-import android.widget.Button;
 import android.widget.CompoundButton;
 import android.widget.EditText;
 import android.widget.Switch;
@@ -251,6 +249,7 @@ public class ItemActivity extends AppCompatActivity implements View.OnClickListe
         }
         return result;
     }
+
     //TODO:添加fatherItem, String fatherItem = item_father_item.getText().toString()
     public Boolean saveNote2Database(String content, String filename, String title, String tag, String deadline, String scheduled,
                                      String show,String repeat, String state, int priority){
@@ -330,7 +329,7 @@ public class ItemActivity extends AppCompatActivity implements View.OnClickListe
             public void onLoopSelected(String loop) {
                 item_loop.setText(loop);
             }
-        });
+        },"每天");
         // 允许点击屏幕或物理返回键关闭
         mLoopPicker.setCancelable(true);
         // 允许循环滚动
@@ -345,7 +344,7 @@ public class ItemActivity extends AppCompatActivity implements View.OnClickListe
             public void onStateSelected(String state) {
                 item_state.setText(state);
             }
-        });
+        },"None");
         // 允许点击屏幕或物理返回键关闭
         mStatePicker.setCancelable(true);
         // 不允许循环滚动
@@ -360,7 +359,7 @@ public class ItemActivity extends AppCompatActivity implements View.OnClickListe
             public void onPrioritySelected(String priority) {
                 item_priority.setText(priority);
             }
-        });
+        }, "None");
         // 允许点击屏幕或物理返回键关闭
         mPriorityPicker.setCancelable(true);
         // 允许循环滚动
@@ -375,7 +374,7 @@ public class ItemActivity extends AppCompatActivity implements View.OnClickListe
             public void onFatherItemPicker(String fatherItem) {
                 item_father_item.setText(fatherItem);
             }
-        }, this);
+        }, this, "None");
         // 允许点击屏幕或物理返回键关闭
         mFatherItemPicker.setCancelable(true);
         // 允许循环滚动

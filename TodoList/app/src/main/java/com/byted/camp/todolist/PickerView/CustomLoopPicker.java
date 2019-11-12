@@ -39,7 +39,7 @@ public class CustomLoopPicker implements View.OnClickListener, PickerView.OnSele
      * @param context      Activity Context
      * @param callback     选择结果回调
      */
-    public CustomLoopPicker(Context context, Callback callback) {
+    public CustomLoopPicker(Context context, Callback callback, String beginLoop) {
         if(context == null || callback == null){
             mCanDialogShow = false;
             return;
@@ -47,7 +47,7 @@ public class CustomLoopPicker implements View.OnClickListener, PickerView.OnSele
 
         mContext = context;
         mCallback = callback;
-        mBeginLoop = "";
+        mBeginLoop = beginLoop;
         mEndLoop = "";
         mSelectedLoop = "";
 
@@ -122,7 +122,7 @@ public class CustomLoopPicker implements View.OnClickListener, PickerView.OnSele
         mLoopUnits.add("每周");
         mLoopUnits.add("每月");
         mDpvLoop.setDataList(mLoopUnits);
-        mDpvLoop.setSelected(0);
+        mDpvLoop.setSelected(mLoopUnits.indexOf(mBeginLoop));
 
         setCanScroll();
     }

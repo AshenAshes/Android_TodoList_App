@@ -27,6 +27,7 @@ public class NoteViewHolder extends RecyclerView.ViewHolder {
 
     private final NoteOperator operator;
 
+    private TextView item_id;
     private ImageView item_image;
     private TextView item_title;
     private TextView item_filename;
@@ -37,6 +38,7 @@ public class NoteViewHolder extends RecyclerView.ViewHolder {
         super(itemView);
         this.operator = operator;
 
+        item_id = itemView.findViewById(R.id.item_id);
         item_image = itemView.findViewById(R.id.item_image);
         item_title = itemView.findViewById(R.id.item_title);
         item_filename = itemView.findViewById(R.id.item_filename);
@@ -45,6 +47,7 @@ public class NoteViewHolder extends RecyclerView.ViewHolder {
     }
 
     public void bind(final Note note) {
+        item_id.setText(note.getID()+"");
         item_title.setText(note.getCaption());
         item_filename.setText(note.getFilename());
         item_content.setText(note.getContent());

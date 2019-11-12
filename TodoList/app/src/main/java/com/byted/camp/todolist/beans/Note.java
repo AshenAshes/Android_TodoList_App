@@ -20,6 +20,7 @@ public class Note {
         this.id = id;
     }
 
+    public long getID() { return id; }
     public String getContent() {
         return content;
     }

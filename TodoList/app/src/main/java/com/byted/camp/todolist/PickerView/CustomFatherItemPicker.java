@@ -11,6 +11,7 @@ import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
 
+import com.byted.camp.todolist.EditItemActivity;
 import com.byted.camp.todolist.ItemActivity;
 import com.byted.camp.todolist.R;
 import com.byted.camp.todolist.db.TodoDbHelper;
@@ -29,7 +30,8 @@ public class CustomFatherItemPicker implements View.OnClickListener, PickerView.
 
     private List<String> mFatherItemUnits = new ArrayList<>();
     private List<String> mItemTitlesFromDatabase = new ArrayList<>();
-    private ItemActivity mActivity;
+    private ItemActivity mItemActivity;
+    private EditItemActivity mEditItemActivity;
 
     /**
      * 状态选择结果回调接口
@@ -44,14 +46,14 @@ public class CustomFatherItemPicker implements View.OnClickListener, PickerView.
      * @param context      Activity Context
      * @param callback     选择结果回调
      */
-    public CustomFatherItemPicker(Context context, Callback callback, ItemActivity activity) {
+    public CustomFatherItemPicker(Context context, Callback callback, ItemActivity activity, String beginFatherItem) {
         if(context == null || callback == null){
             mCanDialogShow = false;
             return;
         }
 
-        mActivity = activity;
-        mActivity.sendCallback(new ItemActivity.databaseCallback() {
+        mItemActivity = activity;
+        mItemActivity.sendCallback(new ItemActivity.databaseCallback() {
             @Override
             public void setOnDatabaseResult(List<String> itemTitlesFromDatabase) {
                 Log.d("itemTitlesFromDatabase",itemTitlesFromDatabase.size()+"");
@@ -61,7 +63,33 @@ public class CustomFatherItemPicker implements View.OnClickListener, PickerView.
         });
         mContext = context;
         mCallback = callback;
-        mBeginFatherItem = "";
+        mBeginFatherItem = beginFatherItem;
+        mEndFatherItem = "";
+        mSelectedFatherItem = "";
+
+        initView();
+        initData();
+        mCanDialogShow = true;
+    }
+
+    public CustomFatherItemPicker(Context context, Callback callback, EditItemActivity activity, String beginFatherItem) {
+        if(context == null || callback == null){
+            mCanDialogShow = false;
+            return;
+        }
+
+        mEditItemActivity = activity;
+        mEditItemActivity.sendCallback(new EditItemActivity.databaseCallback() {
+            @Override
+            public void setOnDatabaseResult(List<String> itemTitlesFromDatabase) {
+                Log.d("itemTitlesFromDatabase",itemTitlesFromDatabase.size()+"");
+                mItemTitlesFromDatabase = itemTitlesFromDatabase;
+                Log.d("mItemTitlesFromDatabase",mItemTitlesFromDatabase.size()+"");
+            }
+        });
+        mContext = context;
+        mCallback = callback;
+        mBeginFatherItem = beginFatherItem;
         mEndFatherItem = "";
         mSelectedFatherItem = "";
 
@@ -127,7 +155,6 @@ public class CustomFatherItemPicker implements View.OnClickListener, PickerView.
     private void initData() {
         mSelectedFatherItem=mBeginFatherItem;
 
-        mBeginFatherItem = "None";
         mEndFatherItem = "";
 
         boolean canSpanState = mBeginFatherItem != mEndFatherItem;
@@ -146,7 +173,8 @@ public class CustomFatherItemPicker implements View.OnClickListener, PickerView.
             }
         }
         mDpvFatherItem.setDataList(mFatherItemUnits);
-        mDpvFatherItem.setSelected(0);
+        mDpvFatherItem.setSelected(
+                mFatherItemUnits.indexOf(mBeginFatherItem));
 
         setCanScroll();
     }

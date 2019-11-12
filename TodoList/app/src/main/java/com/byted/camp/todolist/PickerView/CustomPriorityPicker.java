@@ -39,7 +39,7 @@ public class CustomPriorityPicker implements View.OnClickListener, PickerView.On
      * @param context      Activity Context
      * @param callback     选择结果回调
      */
-    public CustomPriorityPicker(Context context, Callback callback) {
+    public CustomPriorityPicker(Context context, Callback callback, String beginPriority) {
         if(context == null || callback == null){
             mCanDialogShow = false;
             return;
@@ -47,7 +47,7 @@ public class CustomPriorityPicker implements View.OnClickListener, PickerView.On
 
         mContext = context;
         mCallback = callback;
-        mBeginPriority = "";
+        mBeginPriority = beginPriority;
         mEndPriority = "";
         mSelectedPriority = "";
 
@@ -106,7 +106,6 @@ public class CustomPriorityPicker implements View.OnClickListener, PickerView.On
     private void initData() {
         mSelectedPriority=mBeginPriority;
 
-        mBeginPriority = "None";
         mEndPriority = "D";
 
         boolean canSpanState = mBeginPriority != mEndPriority;
@@ -121,7 +120,7 @@ public class CustomPriorityPicker implements View.OnClickListener, PickerView.On
         mPriorityUnits.add("C");
         mPriorityUnits.add("D");
         mDpvPriority.setDataList(mPriorityUnits);
-        mDpvPriority.setSelected(0);
+        mDpvPriority.setSelected(mPriorityUnits.indexOf(mBeginPriority));
 
         setCanScroll();
     }

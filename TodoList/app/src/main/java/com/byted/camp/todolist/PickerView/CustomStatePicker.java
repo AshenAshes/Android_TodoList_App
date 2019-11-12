@@ -39,14 +39,14 @@ public class CustomStatePicker implements View.OnClickListener, PickerView.OnSel
      * @param context      Activity Context
      * @param callback     选择结果回调
      */
-    public CustomStatePicker(Context context, Callback callback) {
+    public CustomStatePicker(Context context, Callback callback, String beginState) {
         if(context == null || callback == null){
             mCanDialogShow = false;
             return;
         }
         mContext = context;
         mCallback = callback;
-        mBeginState = "None";
+        mBeginState = beginState;
         mEndState = "Done";
         mSelectedState = "";
 
@@ -108,7 +108,6 @@ public class CustomStatePicker implements View.OnClickListener, PickerView.OnSel
     private void initData() {
         mSelectedState=mBeginState;
 
-        mBeginState = "None";
         mEndState = "Done";
 
         boolean canSpanState = mBeginState != mEndState;

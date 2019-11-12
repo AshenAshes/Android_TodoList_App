@@ -11,6 +11,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
+import android.widget.TextView;
 
 import com.byted.camp.todolist.beans.Note;
 import com.byted.camp.todolist.beans.Priority;
@@ -61,6 +62,17 @@ public class CalendarFragment extends Fragment {
             public void deleteNote(Note note) {}
             @Override
             public void updateNote(Note note) {}
+        });
+        notesAdapter.setOnItemClickListener(new NoteListAdapter.OnItemClickListener() {
+            @Override
+            public void onItemClick(View view, int position) {
+                TextView item_id = view.findViewById(R.id.item_id);
+                String id = item_id.getText().toString();
+
+                Intent intent = new Intent(getActivity(),EditItemActivity.class);
+                intent.putExtra("id",id);
+                startActivity(intent);
+            }
         });
         recyclerView.setAdapter(notesAdapter);
 

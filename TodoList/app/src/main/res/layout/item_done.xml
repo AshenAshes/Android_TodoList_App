@@ -7,6 +7,12 @@
     android:paddingLeft="12dp"
     android:paddingTop="15dp">
 
+    <TextView
+        android:id="@+id/item_id"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:visibility="invisible"/>
+
     <ImageView
         android:id="@+id/item_image"
         android:layout_marginTop="10dp"
