@@ -34,15 +34,16 @@ public class FileInfActivity extends AppCompatActivity {
         Log.d("filename",filename);
         fileInf = findViewById(R.id.fileInf);
 
-        str=loadTextFromFile().toString();
-        str=str.replaceAll(" Todo ", "<font color=#880000><b>"+" Todo "+"</b><</font>");
-        str=str.replaceAll(" Done ", "<font color=#293d7b><b>"+" Done "+"</b><</font>");
-        str=str.replaceAll(" None ", "<font color=#7fb3d5><b>"+" None "+"</b><</font>");
+//        str=loadTextFromFile().toString();
+//        str=str.replaceAll(" T odo ", "<font color=#880000><b>"+" T odo "+"</b><</font>");
+//        str=str.replaceAll(" Done ", "<font color=#293d7b><b>"+" Done "+"</b><</font>");
+//        str=str.replaceAll(" None ", "<font color=#7fb3d5><b>"+" None "+"</b><</font>");
+//
+//        str=str.replace("\r\n","<br/>");
+//        Spanned text = Html.fromHtml(str);
 
-        str=str.replace("\r\n","<br />");
-        Spanned text = Html.fromHtml(str);
-
-        fileInf.setText(text);
+        fileInf.setText(loadTextFromFile().toString());
+//        fileInf.setText(text.toString());
     }
 
     private CharSequence loadTextFromFile(){

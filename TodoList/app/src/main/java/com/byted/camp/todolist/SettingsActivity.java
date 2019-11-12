@@ -22,7 +22,6 @@ public class SettingsActivity extends AppCompatActivity {
 
     private Toolbar toolbar;
     private LinearLayout buttonAgenda,buttonTodo,buttonFiles,buttonSettings;
-    private FloatingActionButton fab;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -49,17 +48,6 @@ public class SettingsActivity extends AppCompatActivity {
             getWindow().setStatusBarColor(Color.TRANSPARENT);
         }
 
-        fab = findViewById(R.id.fab);
-        fab.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-//                Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
-//                        .setAction("Action", null).show();
-                startActivityForResult(
-                        new Intent(SettingsActivity.this, ItemActivity.class),
-                        REQUEST_CODE_ADD);
-            }
-        });
     }
 
     private void bindActivity(final int btnId, final Class<?> activityClass){

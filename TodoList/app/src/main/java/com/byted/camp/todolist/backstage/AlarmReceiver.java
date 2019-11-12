@@ -64,7 +64,6 @@ public class AlarmReceiver extends BroadcastReceiver {
                     e.printStackTrace();
                 }
             }
-
         }
     }
 
@@ -119,8 +118,6 @@ public class AlarmReceiver extends BroadcastReceiver {
         }
         return result;
     }
-
-
 
     public String getSelectedPriority(int priority){
         switch(priority){
