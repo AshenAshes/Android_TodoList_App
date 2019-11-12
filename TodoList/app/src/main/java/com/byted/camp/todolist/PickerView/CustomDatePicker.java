@@ -72,9 +72,9 @@ public class CustomDatePicker implements View.OnClickListener, PickerView.OnSele
      * @param beginDateStr 日期字符串，格式为 yyyy-MM-dd HH:mm
      * @param endDateStr   日期字符串，格式为 yyyy-MM-dd HH:mm
      */
-    public CustomDatePicker(Context context, Callback callback, String beginDateStr, String endDateStr, long scheduled) {
+    public CustomDatePicker(Context context, Callback callback, String beginDateStr, String endDateStr) {
         this(context, callback, DateFormatUtils.str2Long(beginDateStr, true),
-                DateFormatUtils.str2Long(endDateStr, true), scheduled);
+                DateFormatUtils.str2Long(endDateStr, true));
     }
 
     /**
@@ -85,6 +85,27 @@ public class CustomDatePicker implements View.OnClickListener, PickerView.OnSele
      * @param beginTimestamp 毫秒级时间戳
      * @param endTimestamp   毫秒级时间戳
      */
+
+    public CustomDatePicker(Context context, Callback callback, long beginTimestamp, long endTimestamp) {
+        if (context == null || callback == null || beginTimestamp <= 0 || beginTimestamp >= endTimestamp) {
+            mCanDialogShow = false;
+            return;
+        }
+
+        mContext = context;
+        mCallback = callback;
+        mBeginTime = Calendar.getInstance();
+        mBeginTime.setTimeInMillis(beginTimestamp);
+        mEndTime = Calendar.getInstance();
+        mEndTime.setTimeInMillis(endTimestamp);
+        mScheduledTime = mEndTime;
+        mSelectedTime = Calendar.getInstance();
+
+        initView();
+        initData();
+        mCanDialogShow = true;
+    }
+
     public CustomDatePicker(Context context, Callback callback, long beginTimestamp, long endTimestamp, long scheduled) {
         if (context == null || callback == null || beginTimestamp <= 0 || beginTimestamp >= endTimestamp) {
             mCanDialogShow = false;

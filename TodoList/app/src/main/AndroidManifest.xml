@@ -30,6 +30,7 @@
         <activity android:name=".FileInfActivity"/>
         <activity android:name=".SettingsActivity"/>
         <activity android:name=".ExitActivity"/>
+        <activity android:name=".EditItemActivity"/>
     </application>
 
 </manifest>

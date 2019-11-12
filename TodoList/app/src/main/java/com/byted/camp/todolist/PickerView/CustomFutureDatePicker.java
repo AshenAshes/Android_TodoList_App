@@ -71,9 +71,9 @@ public class CustomFutureDatePicker implements View.OnClickListener, PickerView.
      * @param beginDateStr 日期字符串，格式为 yyyy-MM-dd HH:mm
      * @param endDateStr   日期字符串，格式为 yyyy-MM-dd HH:mm
      */
-    public CustomFutureDatePicker(Context context, Callback callback, String beginDateStr, String endDateStr, long futureTimestamp) {
+    public CustomFutureDatePicker(Context context, Callback callback, String beginDateStr, String endDateStr) {
         this(context, callback, DateFormatUtils.str2Long(beginDateStr, true),
-                DateFormatUtils.str2Long(endDateStr, true), futureTimestamp);
+                DateFormatUtils.str2Long(endDateStr, true));
     }
 
     /**
@@ -84,6 +84,26 @@ public class CustomFutureDatePicker implements View.OnClickListener, PickerView.
      * @param beginTimestamp 毫秒级时间戳
      * @param endTimestamp   毫秒级时间戳
      */
+    public CustomFutureDatePicker(Context context, Callback callback, long beginTimestamp, long endTimestamp) {
+        if (context == null || callback == null || beginTimestamp <= 0 || beginTimestamp > endTimestamp) {
+            mCanDialogShow = false;
+            return;
+        }
+
+        mContext = context;
+        mCallback = callback;
+        mBeginTime = Calendar.getInstance();
+        mBeginTime.setTimeInMillis(beginTimestamp);
+        mEndTime = Calendar.getInstance();
+        mEndTime.setTimeInMillis(endTimestamp);
+        mSelectedTime = Calendar.getInstance();
+        mFutureTime = mBeginTime;
+
+        initView();
+        initData();
+        mCanDialogShow = true;
+    }
+
     public CustomFutureDatePicker(Context context, Callback callback, long beginTimestamp, long endTimestamp, long futureTimeStamp) {
         if (context == null || callback == null || beginTimestamp <= 0 || beginTimestamp > endTimestamp) {
             mCanDialogShow = false;

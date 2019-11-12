@@ -63,6 +63,7 @@ public class EditItemActivity extends AppCompatActivity implements View.OnClickL
 
     private String id;
     private Note note;
+    private String Fcontent;
     private String Fdeadline;
     private String Fshow;
     private String Fscheduled;
@@ -72,6 +73,7 @@ public class EditItemActivity extends AppCompatActivity implements View.OnClickL
     private String Ftag;
     private String Ffilename;
     private String FfatherItem;
+    private String Floop;
 
     private CustomLoopPicker mLoopPicker;
     private CustomStatePicker mStatePicker;
@@ -108,9 +110,10 @@ public class EditItemActivity extends AppCompatActivity implements View.OnClickL
         Intent intent = getIntent();
         id = intent.getStringExtra("id");
 
-        //
+        Log.d("idValue",id+"");
         note = initialNoteInfFromDatabase();
         if(note != null){
+            Fcontent = note.getContent();
             Fdeadline = note.getDeadline();
             Fshow = note.getShow();
             Fscheduled = note.getScheduled();
@@ -120,6 +123,7 @@ public class EditItemActivity extends AppCompatActivity implements View.OnClickL
             Ftag = note.getTag();
             Ffilename = note.getFilename();
             FfatherItem = note.getFatherItem();
+            Floop = note.getRepeat();
         }
         else{
             Log.d("error","note = null");
@@ -137,9 +141,26 @@ public class EditItemActivity extends AppCompatActivity implements View.OnClickL
         item_show_date = findViewById(R.id.item_show_date);
         item_loop = findViewById(R.id.item_loop);
         item_switch = findViewById(R.id.item_switch);
-        bar_save = findViewById(R.id.bar_commit);
+        bar_save = findViewById(R.id.bar_save);
         bar_back = findViewById(R.id.bar_back);
         item_loop_clickListener = new myOnClick();
+
+        item_content.setText(Fcontent);
+        item_title.setText(Ftitle);
+        item_filename.setText(Ffilename);
+        item_state.setText(Fstate);
+        item_priority.setText(Fpriority);
+        item_tag.setText(Ftag);
+        item_father_item.setText(FfatherItem);
+        item_scheduled_date.setText(Fscheduled);
+        item_deadline_date.setText(Fdeadline);
+        item_show_date.setText(Fshow);
+        item_loop.setText(Floop);
+
+//        if(Floop.equals("不重复"))
+//            item_switch.setChecked(false);
+//        else
+//            item_switch.setChecked(true);
 
         item_filename.addTextChangedListener(new TextWatcher() {
             @Override
@@ -554,7 +575,7 @@ public class EditItemActivity extends AppCompatActivity implements View.OnClickL
         Cursor cursor = null;
         try {
             cursor = database.query(TodoContract.TodoNote.TABLE_NAME, null,
-                    "_id like ?", new String[]{id+""},
+                    "_id like ?", new String[]{String.valueOf(id)},
                     null, null,
                     TodoContract.TodoNote.COLUMN_FILE);
             while (cursor.moveToNext()) {
