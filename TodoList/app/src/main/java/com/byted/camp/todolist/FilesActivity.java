@@ -20,6 +20,7 @@ import com.byted.camp.todolist.db.TodoContract;
 import com.byted.camp.todolist.db.TodoDbHelper;
 import com.byted.camp.todolist.extra.DoubleBack;
 import com.byted.camp.todolist.ui.NoteListAdapter;
+import com.byted.camp.todolist.ui.NoteListAdapterForFiles;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
 import java.io.BufferedReader;
@@ -27,9 +28,12 @@ import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.nio.file.Files;
+import java.util.ArrayList;
 import java.util.Collections;
+import java.util.HashSet;
 import java.util.LinkedList;
 import java.util.List;
+import java.util.Set;
 
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
@@ -50,11 +54,14 @@ public class FilesActivity extends AppCompatActivity {
     private Button button_showAll, button_search;
     private RecyclerView recyclerView;
 
-    private String searchString = "a";
+    private String searchString="";
 
-    private NoteListAdapter notesAdapter;
+    private NoteListAdapterForFiles notesAdapter;
     private TodoDbHelper dbHelper;
     private SQLiteDatabase database;
+
+    private List<String> filenameSet = new ArrayList<>();
+    private List<Note> noteSet = new ArrayList<>();
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -91,7 +98,13 @@ public class FilesActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 searchString = "";
-                notesAdapter.refresh(loadNotesFromDatabase());
+                noteSet = loadNotesFromDatabase();
+                filenameSet.clear();
+                for(Note temp: noteSet){
+                    if(!filenameSet.contains(temp.getFilename()))
+                        filenameSet.add(temp.getFilename());
+                }
+                notesAdapter.refresh(filenameSet);
             }
         });
 
@@ -99,21 +112,26 @@ public class FilesActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 searchString = searchText.getText().toString();
-                Log.d("searchString",searchString);
-                notesAdapter.refresh(loadNotesFromDatabase());
+                noteSet = loadNotesFromDatabase();
+                filenameSet.clear();
+                for(Note temp: noteSet){
+                    if(!filenameSet.contains(temp.getFilename()))
+                        filenameSet.add(temp.getFilename());
+                }
+                notesAdapter.refresh(filenameSet);
             }
         });
 
         recyclerView = findViewById(R.id.list_items);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
         recyclerView.addItemDecoration(new DividerItemDecoration(this, DividerItemDecoration.VERTICAL));
-        notesAdapter = new NoteListAdapter(new NoteOperator() {
+        notesAdapter = new NoteListAdapterForFiles(new NoteOperator() {
             @Override
             public void deleteNote(Note note) {}
             @Override
             public void updateNote(Note note) {}
         });
-        notesAdapter.setOnItemClickListener(new NoteListAdapter.OnItemClickListener() {
+        notesAdapter.setOnItemClickListener(new NoteListAdapterForFiles.OnItemClickListener() {
             @Override
             public void onItemClick(View view, int position) {
                 TextView item_filename = view.findViewById(R.id.item_filename);
@@ -126,7 +144,13 @@ public class FilesActivity extends AppCompatActivity {
         });
         recyclerView.setAdapter(notesAdapter);
 
-        notesAdapter.refresh(loadNotesFromDatabase());
+        noteSet = loadNotesFromDatabase();
+        filenameSet.clear();
+        for(Note temp: noteSet){
+            if(!filenameSet.contains(temp.getFilename()))
+                filenameSet.add(temp.getFilename());
+        }
+        notesAdapter.refresh(filenameSet);
 
         fab = findViewById(R.id.fab);
         fab.setOnClickListener(new View.OnClickListener() {

@@ -2,6 +2,9 @@ package com.byted.camp.todolist;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.text.Html;
+import android.text.Spanned;
+import android.util.Log;
 import android.widget.TextView;
 
 import java.io.BufferedReader;
@@ -16,6 +19,7 @@ public class FileInfActivity extends AppCompatActivity {
     private String filename;
     private TextView fileInf;
     private TextView fileTitle;
+    private String str;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -27,8 +31,18 @@ public class FileInfActivity extends AppCompatActivity {
 
         fileTitle = findViewById(R.id.file_title);
         fileTitle.setText(filename);
+        Log.d("filename",filename);
         fileInf = findViewById(R.id.fileInf);
-        fileInf.setText(loadTextFromFile());
+
+        str=loadTextFromFile().toString();
+        str=str.replaceAll(" Todo ", "<font color=#880000><b>"+" Todo "+"</b><</font>");
+        str=str.replaceAll(" Done ", "<font color=#293d7b><b>"+" Done "+"</b><</font>");
+        str=str.replaceAll(" None ", "<font color=#7fb3d5><b>"+" None "+"</b><</font>");
+
+        str=str.replace("\r\n","<br />");
+        Spanned text = Html.fromHtml(str);
+
+        fileInf.setText(text);
     }
 
     private CharSequence loadTextFromFile(){

@@ -17,12 +17,14 @@ import com.byted.camp.todolist.R;
 import com.byted.camp.todolist.beans.Note;
 
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
-public class NoteListAdapterForFiles extends RecyclerView.Adapter<NoteViewHolder> implements View.OnClickListener {
+public class NoteListAdapterForFiles extends RecyclerView.Adapter<NoteViewHolderForFiles> implements View.OnClickListener {
 
     private final NoteOperator operator;
-    private final List<Note> notes = new ArrayList<>();
+    private final List<String> filenames = new ArrayList<>();
     private OnItemClickListener mOnItemClickListener;
 
     public NoteListAdapterForFiles(NoteOperator operator) {
@@ -37,47 +39,30 @@ public class NoteListAdapterForFiles extends RecyclerView.Adapter<NoteViewHolder
         this.mOnItemClickListener = listener;
     }
 
-    public void refresh(List<Note> newNotes) {
-        notes.clear();
-        if (newNotes != null) {
-            notes.addAll(newNotes);
+    public void refresh(List<String> newFilenames) {
+        filenames.clear();
+        if (newFilenames != null) {
+            filenames.addAll(newFilenames);
         }
-
         notifyDataSetChanged();
-    }
-
-    @Override
-    public int getItemViewType(int position) {
-        //Implement your logic here
-        Note note = notes.get(position);
-        if(note.getState().equals("Todo"))
-            return 1;
-        else if(note.getState().equals("Done"))
-            return 2;
-        else
-            return 0;
     }
 
     @NonNull
     @Override
-    public NoteViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int pos) {
+    public NoteViewHolderForFiles onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         View itemView;
 
-        if(pos == 1){//To do
-            itemView = LayoutInflater.from(parent.getContext())
-                    .inflate(R.layout.item_todo, parent, false);
-        }
-        else if(pos == 2){//done
-            itemView = LayoutInflater.from(parent.getContext())
-                    .inflate(R.layout.item_done, parent, false);
-        }
-        else{//none
-            itemView = LayoutInflater.from(parent.getContext())
-                    .inflate(R.layout.item_none, parent, false);
-        }
+        itemView = LayoutInflater.from(parent.getContext())
+                .inflate(R.layout.item_file, parent,false);
 
         itemView.setOnClickListener(this);
-        return new NoteViewHolder(itemView, operator);
+        return new NoteViewHolderForFiles(itemView, operator);
+    }
+
+    @Override
+    public void onBindViewHolder(@NonNull NoteViewHolderForFiles holder, int position) {
+        holder.itemView.setTag(position);
+        holder.bind(filenames.get(position));
     }
 
     @Override
@@ -87,13 +72,7 @@ public class NoteListAdapterForFiles extends RecyclerView.Adapter<NoteViewHolder
     }
 
     @Override
-    public void onBindViewHolder(@NonNull NoteViewHolder holder, int pos) {
-        holder.itemView.setTag(pos);
-        holder.bind(notes.get(pos));
-    }
-
-    @Override
     public int getItemCount() {
-        return notes.size();
+        return filenames.size();
     }
 }

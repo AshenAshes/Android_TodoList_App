@@ -147,9 +147,43 @@ public class ItemActivity extends AppCompatActivity implements View.OnClickListe
         item_deadline_date.setOnClickListener(this);
         item_show_date.setOnClickListener(this);
 
+        bar_back.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                finish();
+            }
+        });
+
+        //TODO:加一项closedTime
         bar_commit.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                String closedTime;
+                Calendar Time;
+                int offset;
+                String year,month,day,week,hour,minute;
+
+                Time = Calendar.getInstance();
+                Time.setTimeInMillis(System.currentTimeMillis());
+                year = Time.get(Calendar.YEAR)+"";
+                month = (Time.get(Calendar.MONTH) + 1)+"";
+                day = Time.get(Calendar.DAY_OF_MONTH)+"";
+                offset = Time.get(Calendar.DAY_OF_WEEK);
+                switch (offset){
+                    case 1: week = "Sun"; break;
+                    case 2: week = "Mon"; break;
+                    case 3: week = "Tue"; break;
+                    case 4: week = "Wed"; break;
+                    case 5: week = "Thur"; break;
+                    case 6: week = "Fri"; break;
+                    case 7: week = "Sat"; break;
+                    default: week = "null"; break;
+                }
+                hour = Time.get(Calendar.HOUR_OF_DAY)+"";
+                minute = Time.get(Calendar.MINUTE)+"";
+                closedTime = year+"-"+month+"-"+day+" "+week+" "+hour+":"+minute;
+                Log.d("Time",closedTime);
+
                 long diff=System.currentTimeMillis()-timeStamp;
                 if(diff<500) return;
                 timeStamp=System.currentTimeMillis();
