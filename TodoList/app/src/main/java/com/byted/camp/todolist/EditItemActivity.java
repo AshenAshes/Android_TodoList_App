@@ -207,9 +207,36 @@ public class EditItemActivity extends AppCompatActivity implements View.OnClickL
             }
         });
 
+        //TODO:加一项closedTime
         bar_save.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                String closedTime;
+                Calendar Time;
+                int offset;
+                String year,month,day,week,hour,minute;
+
+                Time = Calendar.getInstance();
+                Time.setTimeInMillis(System.currentTimeMillis());
+                year = Time.get(Calendar.YEAR)+"";
+                month = (Time.get(Calendar.MONTH) + 1)+"";
+                day = Time.get(Calendar.DAY_OF_MONTH)+"";
+                offset = Time.get(Calendar.DAY_OF_WEEK);
+                switch (offset){
+                    case 1: week = "Sun"; break;
+                    case 2: week = "Mon"; break;
+                    case 3: week = "Tue"; break;
+                    case 4: week = "Wed"; break;
+                    case 5: week = "Thur"; break;
+                    case 6: week = "Fri"; break;
+                    case 7: week = "Sat"; break;
+                    default: week = "null"; break;
+                }
+                hour = Time.get(Calendar.HOUR_OF_DAY)+"";
+                minute = Time.get(Calendar.MINUTE)+"";
+                closedTime = year+"-"+month+"-"+day+" "+week+" "+hour+":"+minute;
+                Log.d("Time",closedTime);
+
                 long diff=System.currentTimeMillis()-timeStamp;
                 if(diff<500) return;
                 timeStamp=System.currentTimeMillis();

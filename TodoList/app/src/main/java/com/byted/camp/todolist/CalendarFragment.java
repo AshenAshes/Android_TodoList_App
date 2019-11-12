@@ -95,7 +95,6 @@ public class CalendarFragment extends Fragment {
             else
                 image.setVisibility(View.INVISIBLE);
         }
-
         isResumeFirst = false;
     }
 

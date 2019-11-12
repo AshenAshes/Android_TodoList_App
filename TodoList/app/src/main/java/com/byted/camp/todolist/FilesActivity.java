@@ -27,9 +27,12 @@ import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.nio.file.Files;
+import java.util.ArrayList;
 import java.util.Collections;
+import java.util.HashSet;
 import java.util.LinkedList;
 import java.util.List;
+import java.util.Set;
 
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
@@ -50,11 +53,14 @@ public class FilesActivity extends AppCompatActivity {
     private Button button_showAll, button_search;
     private RecyclerView recyclerView;
 
-    private String searchString = "a";
+    private String searchString="";
 
     private NoteListAdapter notesAdapter;
     private TodoDbHelper dbHelper;
     private SQLiteDatabase database;
+
+    private Set<String> filenameSet = new HashSet<>();
+    private List<Note> noteSet = new ArrayList<>();
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -91,7 +97,12 @@ public class FilesActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 searchString = "";
-                notesAdapter.refresh(loadNotesFromDatabase());
+                noteSet = loadNotesFromDatabase();
+                filenameSet.clear();
+                for(Note temp: noteSet){
+                    filenameSet.add(temp.getFilename());
+                }
+                notesAdapter.refresh(filenameSet);
             }
         });
 
@@ -126,7 +137,12 @@ public class FilesActivity extends AppCompatActivity {
         });
         recyclerView.setAdapter(notesAdapter);
 
-        notesAdapter.refresh(loadNotesFromDatabase());
+        noteSet = loadNotesFromDatabase();
+        notesAdapter.refresh(noteSet);
+        filenameSet.clear();
+        for(Note temp: noteSet){
+            filenameSet.add(temp.getFilename());
+        }
 
         fab = findViewById(R.id.fab);
         fab.setOnClickListener(new View.OnClickListener() {
