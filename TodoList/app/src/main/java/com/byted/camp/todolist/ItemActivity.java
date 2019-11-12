@@ -251,7 +251,7 @@ public class ItemActivity extends AppCompatActivity implements View.OnClickListe
         }
         return result;
     }
-
+    //TODO:添加fatherItem, String fatherItem = item_father_item.getText().toString()
     public Boolean saveNote2Database(String content, String filename, String title, String tag, String deadline, String scheduled,
                                      String show,String repeat, String state, int priority){
         if(database==null||TextUtils.isEmpty(content)){
