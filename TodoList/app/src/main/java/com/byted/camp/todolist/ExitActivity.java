@@ -11,7 +11,6 @@ import com.byted.camp.todolist.db.TodoContract;
 import com.byted.camp.todolist.db.TodoDbHelper;
 
 import java.io.BufferedWriter;
-import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.OutputStreamWriter;
@@ -33,61 +32,91 @@ public class ExitActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         dbHelper = new TodoDbHelper(this);
         database = dbHelper.getWritableDatabase();
-        List<Note> newNotes = loadNotesFromDatabase();
-        FileOutputStream out = null;
-        BufferedWriter writer = null;
-        if(newNotes!=null){
-            notes.addAll(newNotes);
-            String fileN = null;
 
-            for(int i=0;i<notes.size();i++){
-
-                String filename = notes.get(i).getFilename();
-                try {
-                    if(fileN==null){
-                        Log.d("i",i+"");
-                        out = openFileOutput(filename, Context.MODE_PRIVATE);
-                        fileN=filename;
-                    }
-                    else if(!(fileN.equals(filename))){
-                        Log.d("i",i+"");
-                        out = openFileOutput(filename, Context.MODE_PRIVATE);
-                        fileN=filename;
-                    }
-                    else{
-                        out = openFileOutput(filename, Context.MODE_APPEND);
-                    }
-                    //"data"为文件名，第二个参数为文件操作模式：文件已经存在，就往文件里面追加类容，不从新创建文件。
-                    writer = new BufferedWriter(new OutputStreamWriter(out));
-                    writer.write("* "+notes.get(i).getState()+" [#"+getSelectedPriority(notes.get(i).getPriority())+"] "+notes.get(i).getCaption());
-                    writer.newLine();
-                    writer.write("DEADLINE:<"+notes.get(i).getDeadline()+">");
-                    writer.newLine();
-                    writer.write("SCHEDULED:<"+notes.get(i).getScheduled()+">");
-                    writer.newLine();
-                    writer.write("<"+notes.get(i).getShow()+">");
-                    writer.newLine();
-                    writer.write(notes.get(i).getContent());
-                    writer.newLine();
-                } catch (IOException e) {
-                    e.printStackTrace();
-                } finally {
-                    try {
-                        if (writer != null) {
-                            Log.d("write", "onCreate: "+i);
-                            writer.flush();
-                            out.close();
-                            writer.close();
-                        }
-                    } catch (IOException e) {
-                        e.printStackTrace();
-                    }
-                }
-            }
-        }
+        writeFatherItem2File();
         //database.execSQL("DROP TABLE IF EXISTS "+ TABLE_NAME);
         finish();
     }
+
+    public void writeFatherItem2File(){
+        List<String> fileNameList = getFilename();
+        for(int i =0;i<fileNameList.size();i++){
+            String thisFile = fileNameList.get(i);
+            FileOutputStream out = null;
+            BufferedWriter writer = null;
+            try{
+                out = openFileOutput(thisFile, Context.MODE_PRIVATE);
+                writer = new BufferedWriter(new OutputStreamWriter(out));
+                writeItem(writer,thisFile,"None",1);
+            }catch (IOException e) {
+                e.printStackTrace();
+            } finally {
+                try {
+                    if (writer != null) {
+                        Log.d("write", "onCreate: "+i);
+                        writer.flush();
+                        out.close();
+                        writer.close();
+                    }
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+            }
+
+        }
+    }
+
+    public void writeItem(BufferedWriter writer, String file, String fatherItem, int count){
+        List<Note> newNotes = loadNotesFromDatabase(file,fatherItem);
+        for(int i = 0;i<newNotes.size();i++){
+            Note newNote = newNotes.get(i);
+            try{
+                for(int j=0;j<count;j++){
+                    writer.write("*");
+                }
+                writer.write(" "+newNote.getState()+" [#"+getSelectedPriority(newNote.getPriority())+"] "+newNote.getCaption());
+                writer.newLine();
+                writer.write("DEADLINE:<"+newNote.getDeadline()+">");
+                writer.newLine();
+                writer.write("SCHEDULED:<"+newNote.getScheduled()+">");
+                writer.newLine();
+                writer.write("<"+newNote.getShow()+">");
+                writer.newLine();
+                writer.write(newNote.getContent());
+                writer.newLine();
+            }catch (IOException e) {
+                e.printStackTrace();
+            }
+            writeItem(writer,file,newNote.getCaption(),count+1);
+        }
+        return;
+    }
+
+    public List<String> getFilename(){
+        if (database == null) {
+            return Collections.emptyList();
+        }
+        List<String> result = new LinkedList<>();
+        Cursor cursor = null;
+        try{
+            cursor = database.query(TABLE_NAME,new String[]{ TodoContract.TodoNote.COLUMN_FILE },null,null,
+                    TodoContract.TodoNote.COLUMN_FILE,null, TodoContract.TodoNote.COLUMN_FILE);
+            while (cursor.moveToNext()){
+
+                String fileName = cursor.getString(cursor.getColumnIndex(TodoContract.TodoNote.COLUMN_FILE));
+                Log.d("file", "getFilename: "+fileName);
+                result.add(fileName);
+            }
+        }finally {
+            if (cursor != null) {
+                cursor.close();
+            }
+        }
+        return result;
+    }
+
+
+
     public String getSelectedPriority(int priority){
         switch(priority){
             case 1: return "A";
@@ -97,7 +126,7 @@ public class ExitActivity extends AppCompatActivity {
             default: return "None";
         }
     }
-    private List<Note> loadNotesFromDatabase() {
+    private List<Note> loadNotesFromDatabase(String file, String fatherItem) {
         if (database == null) {
             return Collections.emptyList();
         }
@@ -105,7 +134,8 @@ public class ExitActivity extends AppCompatActivity {
         Cursor cursor = null;
         try {
             cursor = database.query(TodoContract.TodoNote.TABLE_NAME,
-                    null,null,null,null,null, TodoContract.TodoNote.COLUMN_FILE);
+                    null,"("+ TodoContract.TodoNote.COLUMN_FILE+" = ? and "+ TodoContract.TodoNote.COLUMN_FATHERITEM+" = ? )",
+                    new String[]{file,fatherItem},null,null,null);
             while (cursor.moveToNext()) {
                 long id = cursor.getLong(cursor.getColumnIndex(TodoContract.TodoNote._ID));
                 String caption = cursor.getString(cursor.getColumnIndex(TodoContract.TodoNote.COLUMN_CAPTION));
@@ -116,7 +146,7 @@ public class ExitActivity extends AppCompatActivity {
                 String intState = cursor.getString(cursor.getColumnIndex(TodoContract.TodoNote.COLUMN_STATE));
                 int intPriority = cursor.getInt(cursor.getColumnIndex(TodoContract.TodoNote.COLUMN_PRIORITY));
                 String fileName = cursor.getString(cursor.getColumnIndex(TodoContract.TodoNote.COLUMN_FILE));
-
+                Log.d("file",file+"+"+caption+"+"+fatherItem);
                 Note note = new Note(id);
                 note.setScheduled(scheduled);
                 note.setShow(show);
