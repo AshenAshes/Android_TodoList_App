@@ -1,17 +1,12 @@
 package com.byted.camp.todolist;
 
 import android.Manifest;
-import android.app.Activity;
-import android.content.ContentValues;
 import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageManager;
-import android.database.Cursor;
-import android.database.sqlite.SQLiteDatabase;
 import android.graphics.Color;
 import android.os.Build;
 import android.os.Bundle;
-import androidx.annotation.Nullable;
 
 import com.byted.camp.todolist.PickerView.DateFormatUtils;
 import com.byted.camp.todolist.extra.DoubleBack;
@@ -21,13 +16,10 @@ import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentPagerAdapter;
-import androidx.recyclerview.widget.DividerItemDecoration;
-import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import androidx.appcompat.widget.Toolbar;
 import androidx.viewpager.widget.ViewPager;
 
-import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -35,24 +27,14 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.byted.camp.todolist.beans.Note;
-import com.byted.camp.todolist.beans.Priority;
-import com.byted.camp.todolist.beans.State;
-import com.byted.camp.todolist.db.TodoContract.TodoNote;
-import com.byted.camp.todolist.db.TodoDbHelper;
 import com.byted.camp.todolist.ui.NoteListAdapter;
 import com.google.android.material.tabs.TabLayout;
-import com.jaeger.library.StatusBarUtil;
-
-import org.w3c.dom.Text;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
-import java.util.Collections;
 import java.util.Date;
-import java.util.LinkedList;
 import java.util.List;
 import java.util.Locale;
 
@@ -146,10 +128,10 @@ public class AgendaActivity extends AppCompatActivity {
                 for(int i=before;i <= after;i++)
                     aWeekDates.add(getDayBeforeOrAfter(todayDate,i));
 
-                CalendarFragment calendarFragment = new CalendarFragment();
+                WeekFragment weekFragment = new WeekFragment();
 
-                calendarFragment.setDate(aWeekDates.get(position));
-                return calendarFragment;
+                weekFragment.setDate(aWeekDates.get(position));
+                return weekFragment;
             }
             @Override
             public int getCount() {
@@ -255,22 +237,25 @@ public class AgendaActivity extends AppCompatActivity {
         return context.getResources().getDimensionPixelSize(resourceId);
     }
 
-//    @Override
-//    public boolean onOptionsItemSelected(MenuItem item) {
-//        int id = item.getItemId();
-//        switch (id) {
-//            case R.id.action_settings:
-//                return true;
-//            case R.id.action_debug:
-////                startActivity(new Intent(this, DebugActivity.class));
-//                return true;
-//            default:
-//                break;
-//        }
-//
-//        return super.onOptionsItemSelected(item);
-//    }
-//
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.menu_main, menu);
+        return true;
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        int id = item.getItemId();
+        switch (id) {
+            case R.id.action_calendar:
+                startActivity(new Intent(this, CalendarActivity.class));
+                return true;
+            default:
+                break;
+        }
+        return super.onOptionsItemSelected(item);
+    }
+
 //    @Override
 //    protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
 //        super.onActivityResult(requestCode, resultCode, data);

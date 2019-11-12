@@ -1,0 +1,14 @@
+<component name="libraryTable">
+  <library name="Gradle: com.necer.ncalendar:ncalendar:4.3.8@aar">
+    <CLASSES>
+      <root url="jar://$USER_HOME$/.gradle/caches/transforms-2/files-2.1/4c34b48424c694492c4d2f43acb651d6/jetified-ncalendar-4.3.8/jars/classes.jar!/" />
+      <root url="file://$USER_HOME$/.gradle/caches/transforms-2/files-2.1/4c34b48424c694492c4d2f43acb651d6/jetified-ncalendar-4.3.8/res" />
+    </CLASSES>
+    <JAVADOC>
+      <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/com.necer.ncalendar/ncalendar/4.3.8/b7caa9997f0b7ae5b124db908494bfe020207859/ncalendar-4.3.8-javadoc.jar!/" />
+    </JAVADOC>
+    <SOURCES>
+      <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/com.necer.ncalendar/ncalendar/4.3.8/f2b006b5992c269db1c11c7f0025fa06afa536e/ncalendar-4.3.8-sources.jar!/" />
+    </SOURCES>
+  </library>
+</component>
