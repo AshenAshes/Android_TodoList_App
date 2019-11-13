@@ -83,6 +83,7 @@ public class ExitActivity extends AppCompatActivity {
                 writer.newLine();
                 if(newNote.getState().equals("Done")){
                     writer.write("CLOSED:<"+newNote.getClosed()+">");
+                    writer.newLine();
                 }
                 writer.write(newNote.getContent());
                 writer.newLine();
