@@ -103,6 +103,7 @@
 
     <com.necer.calendar.Miui9Calendar
         android:id="@+id/myCalendar"
+        app:pointColor="#5dade2"
         app:selectCircleColor="#1f618d"
         app:bgCalendarColor="#44eaf2f8"
         android:layout_width="match_parent"

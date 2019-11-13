@@ -37,7 +37,7 @@
 
     <TextView
         android:id="@+id/fileInf"
-        android:textSize="25sp"
+        android:textSize="18sp"
         android:textColor="@color/colorPrimaryDark"
         android:layout_below="@+id/toolbarlayout"
         android:layout_width="match_parent"

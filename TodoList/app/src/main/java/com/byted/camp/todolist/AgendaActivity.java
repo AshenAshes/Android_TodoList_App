@@ -93,7 +93,7 @@ public class AgendaActivity extends AppCompatActivity {
         todaySystemDate = System.currentTimeMillis();
         //get XXXX-XX-XX
         todayDate = DateFormatUtils.long2Str(todaySystemDate, false);
-        todayWeek = getDayofWeek("今天");
+        todayWeek = getDayofWeek("Today");
 
         before = 1 - todayWeek;
         after = 7 - todayWeek;
@@ -165,7 +165,7 @@ public class AgendaActivity extends AppCompatActivity {
         });
 
         pager.setCurrentItem(todayWeek-1);
-        agenda_title.setText("今天");
+        agenda_title.setText("Today");
 
         pager.addOnPageChangeListener(new ViewPager.OnPageChangeListener() {
             @Override
@@ -176,7 +176,7 @@ public class AgendaActivity extends AppCompatActivity {
                 if(!aWeekDates.get(position).equals(todayDate))
                     agenda_title.setText(aWeekDates.get(position));
                 else
-                    agenda_title.setText("今天");
+                    agenda_title.setText("Today");
             }
             @Override
             public void onPageScrollStateChanged(int state) {

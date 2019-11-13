@@ -41,6 +41,7 @@ public class CalendarActivity extends AppCompatActivity {
     ImageView image;
     TextView date;
     ImageView today;
+    ImageView back;
 
     private NoteListAdapter notesAdapter;
     private TodoDbHelper dbHelper;
@@ -74,6 +75,7 @@ public class CalendarActivity extends AppCompatActivity {
         recyclerView = findViewById(R.id.recyclerView);
         date = findViewById(R.id.item_date);
         today = findViewById(R.id.bar_today);
+        back = findViewById(R.id.bar_back);
 
         today.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -81,22 +83,16 @@ public class CalendarActivity extends AppCompatActivity {
                 myCalendar.toToday();
             }
         });
+        back.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                finish();
+            }
+        });
 
         selectedDate = myCalendar.getAllSelectDateList().get(0);
         mDate = localDate2DateString(selectedDate);
         date.setText(mDate);
-
-        wholeMonthDate.addAll(myCalendar.getCurrectDateList());
-        if(wholeMonthDate.size()==0)
-            Log.d("empty","");
-        markedDate.clear();
-        for(LocalDate temp:wholeMonthDate){
-            tempDate = localDate2DateString(temp);
-            if(!loadNotesFromDatabase(tempDate).isEmpty())
-                markedDate.add(tempDate);
-        }
-        InnerPainter innerPainter = (InnerPainter)myCalendar.getCalendarPainter();
-        innerPainter.setPointList(markedDate);
 
         myCalendar.setOnCalendarMultipleChangedListener(new OnCalendarMultipleChangedListener() {
             @Override
@@ -105,13 +101,21 @@ public class CalendarActivity extends AppCompatActivity {
                 mDate = localDate2DateString(selectedDate);
                 date.setText(mDate);
 
-                Log.d("Date",mDate);
-
                 notesAdapter.refresh(loadNotesFromDatabase());
                 if(notesAdapter.getItemCount() == 0)
                     image.setVisibility(View.VISIBLE);
                 else
                     image.setVisibility(View.GONE);
+
+                wholeMonthDate.addAll(myCalendar.getCurrectDateList());
+                markedDate.clear();
+                for(LocalDate temp:wholeMonthDate){
+                    tempDate = localDate2DateString(temp);
+                    if(!loadNotesFromDatabase(tempDate).isEmpty())
+                        markedDate.add(tempDate);
+                }
+                InnerPainter innerPainter = (InnerPainter)myCalendar.getCalendarPainter();
+                innerPainter.setPointList(markedDate);
             }
         });
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
