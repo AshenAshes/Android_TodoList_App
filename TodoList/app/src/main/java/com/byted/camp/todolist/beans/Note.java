@@ -3,20 +3,20 @@ package com.byted.camp.todolist.beans;
 import java.util.Date;
 
 public class Note {
-    public final long id;
-    private String deadline;
-    private String show;
-    private String scheduled;
-    private String state;
-    private int priority;
-    private int week;
-    private String caption;
-    private String tag;
-    private String content;
-    private String filename;
-    private String repeat;
-    private String fatherItem;
-    private String closed;
+    public final long id;       //事件在数据库中存储条目对应的唯一id
+    private String deadline;    //事件的截止日期
+    private String show;        //事件的提醒日期
+    private String scheduled;   //事件的记录日期
+    private String state;       //事件的状态,分为Todo,Done和None
+    private int priority;       //事件的优先级,由高到低为A,B,C,D,None
+    private String caption;     //事件的标题
+    private String tag;         //事件的tag
+    private String content;     //事件的内容
+    private String filename;    //事件所存储的文件名
+    private String repeat;      //事件的重复类型,分为"不重复","每天","每周","每月"
+    private String fatherItem;  //事件的父类的标题
+    private String closed;      //事件被完成的时间
+    private int week;           //事件的星期偏移量(not used?)
 
     public Note(long id) {
         this.id = id;

@@ -118,7 +118,14 @@ public class EditItemActivity extends AppCompatActivity implements View.OnClickL
             Fshow = note.getShow();
             Fscheduled = note.getScheduled();
             Fstate = note.getState();
-            Fpriority = note.getPriority()+"";
+//            Fpriority = note.getPriority()+"";
+            switch (note.getPriority()){
+                case 1: Fpriority = "A"; break;
+                case 2: Fpriority = "B"; break;
+                case 3: Fpriority = "C"; break;
+                case 4: Fpriority = "D"; break;
+                case 5: Fpriority = "None"; break;
+            }
             Ftitle = note.getCaption();
             Ftag = note.getTag();
             Ffilename = note.getFilename();
@@ -206,7 +213,6 @@ public class EditItemActivity extends AppCompatActivity implements View.OnClickL
                 finish();
             }
         });
-
 
         bar_save.setOnClickListener(new View.OnClickListener() {
             @Override

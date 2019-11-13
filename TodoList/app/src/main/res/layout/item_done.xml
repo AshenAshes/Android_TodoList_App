@@ -71,7 +71,7 @@
             android:text="text"
             android:layout_alignLeft="@+id/item_priority_A"
             android:layout_marginLeft="15dp"
-            android:textColor="#808080"
+            android:textColor="@color/bar_gradient_light"
             android:textSize="14sp"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"/>
@@ -94,7 +94,7 @@
         android:layout_alignStart="@id/item_title_filename_line"
         android:layout_below="@id/item_title_filename_line"
         android:layout_marginTop="4dp"
-        android:textColor="#1e1e1e"
+        android:textColor="@color/bar_gradient_dark"
         android:textSize="18sp"
         android:ellipsize="end"
         android:singleLine="true"

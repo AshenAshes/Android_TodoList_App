@@ -59,7 +59,7 @@ public class NoteViewHolder extends RecyclerView.ViewHolder {
     public void bind(final Note note) {
         item_id.setText(note.getID()+"");
         item_title.setText(note.getCaption());
-        item_filename.setText(note.getFilename());
+        item_filename.setText("<"+note.getFilename()+">");
         item_content.setText(note.getContent());
         item_deadline_date.setText(note.getDeadline());
 
@@ -102,7 +102,6 @@ public class NoteViewHolder extends RecyclerView.ViewHolder {
             default:
                 break;
         }
-
 
         if(note.getDeadline() == null)
             Log.d("deadline","null");

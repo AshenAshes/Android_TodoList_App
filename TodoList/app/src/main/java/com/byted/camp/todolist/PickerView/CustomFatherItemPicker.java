@@ -82,11 +82,10 @@ public class CustomFatherItemPicker implements View.OnClickListener, PickerView.
         mEditItemActivity.sendCallback(new EditItemActivity.databaseCallback() {
             @Override
             public void setOnDatabaseResult(List<String> itemTitlesFromDatabase) {
-                Log.d("itemTitlesFromDatabase",itemTitlesFromDatabase.size()+"");
                 mItemTitlesFromDatabase = itemTitlesFromDatabase;
-                Log.d("mItemTitlesFromDatabase",mItemTitlesFromDatabase.size()+"");
             }
         });
+
         mContext = context;
         mCallback = callback;
         mBeginFatherItem = beginFatherItem;

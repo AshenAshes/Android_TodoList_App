@@ -8,6 +8,9 @@
     <color name="Gray">#abb2b9</color>
     <color name="white">#ffffff</color>
 
+    <color name="bar_gradient_dark">#192842</color>
+    <color name="bar_gradient_light">#293d7b</color>
+
     <color name="date_picker_bg">#FFFFFF</color>
     <color name="date_picker_divider">#11112233</color>
     <color name="date_picker_text_light">#7fb3d5</color>

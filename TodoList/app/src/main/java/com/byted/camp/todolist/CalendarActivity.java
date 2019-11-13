@@ -1,5 +1,6 @@
 package com.byted.camp.todolist;
 
+import android.content.Intent;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.graphics.Color;
@@ -125,6 +126,17 @@ public class CalendarActivity extends AppCompatActivity {
             public void deleteNote(Note note) {}
             @Override
             public void updateNote(Note note) {}
+        });
+        notesAdapter.setOnItemClickListener(new NoteListAdapter.OnItemClickListener() {
+            @Override
+            public void onItemClick(View view, int position) {
+                TextView item_id = view.findViewById(R.id.item_id);
+                String id = item_id.getText().toString();
+
+                Intent intent = new Intent(CalendarActivity.this, EditItemActivity.class);
+                intent.putExtra("id",id);
+                startActivity(intent);
+            }
         });
         recyclerView.setAdapter(notesAdapter);
 
