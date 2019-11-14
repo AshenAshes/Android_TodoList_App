@@ -33,13 +33,13 @@ public class AlarmReceiver extends BroadcastReceiver {
         this.mContent=context;
         dbHelper = new TodoDbHelper(context);
         database = dbHelper.getWritableDatabase();
-        writeFatherItem2File();
+        writeFatherItem2File();//写文件
 
-        //再次开启这个服务，从而可以
+        //再次开启这个服务，从而可以循环
         Intent i = new Intent(context, FileWriteService.class);
         context.startService(i);
     }
-
+//类似Exit中的写文件操作
     public void writeFatherItem2File(){
         List<String> fileNameList = getFilename();
         for(int i =0;i<fileNameList.size();i++){

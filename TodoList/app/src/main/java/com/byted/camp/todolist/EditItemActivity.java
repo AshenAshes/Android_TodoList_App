@@ -313,15 +313,15 @@ public class EditItemActivity extends AppCompatActivity implements View.OnClickL
                         break;
                 }
 
-                CalendarEvent calendarEvent;
-                calendarEvent = new CalendarEvent(title,content.toString().trim(),
+                CalendarEvent calendarEvent;//更新系统日历
+                calendarEvent = new CalendarEvent(title,content.toString().trim(),//对系统日历进行实例化
                         null,DateFormatUtils.str2Long(scheduled,false),
                         DateFormatUtils.str2Long(deadline,false),
                         AdvanceTime.FIFTH_MINUTES,
                         (!rRule.equals(""))?rRule:null);
 
-                long calID = CalendarProviderManager.obtainCalendarAccountID(EditItemActivity.this);
-                List<CalendarEvent> events =
+                long calID = CalendarProviderManager.obtainCalendarAccountID(EditItemActivity.this);//获取注册系统日历事件的账户
+                List<CalendarEvent> events =//从系统日历事件数据库中读取想要的事件
                         CalendarProviderManager.queryAccountEvent(EditItemActivity.this,
                                 calID,Ftitle,DateFormatUtils.str2Long(Fscheduled,false),
                                 DateFormatUtils.str2Long(Fdeadline,false));
@@ -330,11 +330,11 @@ public class EditItemActivity extends AppCompatActivity implements View.OnClickL
                         Toast.makeText(EditItemActivity.this, "没有事件可以更新", Toast.LENGTH_SHORT).show();
                     } else {
                         long eventID = events.get(0).getId();
-                        int result2 = CalendarProviderManager.deleteCalendarEvent(EditItemActivity.this, eventID);
+                        int result2 = CalendarProviderManager.deleteCalendarEvent(EditItemActivity.this, eventID);//删除事件
                         if (result2 == -2) {
                             Toast.makeText(EditItemActivity.this, "没有权限", Toast.LENGTH_SHORT).show();
                         } else {
-                            int result = CalendarProviderManager.addCalendarEvent(EditItemActivity.this, calendarEvent);
+                            int result = CalendarProviderManager.addCalendarEvent(EditItemActivity.this, calendarEvent);//插入新的事件
                             if(result==0){
                                 Toast.makeText(EditItemActivity.this, "更新成功", Toast.LENGTH_SHORT).show();
                             }
@@ -360,7 +360,7 @@ public class EditItemActivity extends AppCompatActivity implements View.OnClickL
         initShowDatePicker();
     }
 
-    public List<String> getItem(String filename){
+    public List<String> getItem(String filename){//根据获得的文件名获取这个文件中的所有Item的集合
         if (database == null) {
             return Collections.emptyList();
         }
@@ -382,7 +382,7 @@ public class EditItemActivity extends AppCompatActivity implements View.OnClickL
         }
         return result;
     }
-
+//更新数据库
     public Boolean updateNote2Database(String content, String filename, String title, String tag, String deadline, String scheduled,
                                      String show,String repeat, String state, int priority,String fatherItem,String closedtime){
         if(database==null||TextUtils.isEmpty(content)){
@@ -405,7 +405,7 @@ public class EditItemActivity extends AppCompatActivity implements View.OnClickL
         long rowId = database.update(TodoContract.TodoNote.TABLE_NAME, values,"_id="+id,null);
         return rowId!=-1;
     }
-
+//将选择的优先级转换为数字存储
     public int getSelectedPriority(){
         String Priority = item_priority.getText().toString();
         switch(Priority){

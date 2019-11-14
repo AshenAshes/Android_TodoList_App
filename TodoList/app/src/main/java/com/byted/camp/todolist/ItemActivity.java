@@ -208,6 +208,7 @@ public class ItemActivity extends AppCompatActivity implements View.OnClickListe
                 String show = item_show_date.getText().toString().trim();
                 String tag = item_tag.getText().toString().trim();
                 String repeat = item_loop.getText().toString().trim();
+
                 if (TextUtils.isEmpty(content)) {
                     Toast.makeText(ItemActivity.this,
                             "No content to add", Toast.LENGTH_SHORT).show();
@@ -215,7 +216,7 @@ public class ItemActivity extends AppCompatActivity implements View.OnClickListe
                 }
                 boolean succeed = saveNote2Database(content.toString().trim(),filename,title,tag,deadline,scheduled,show,repeat,
                         item_state.getText().toString().trim(),
-                        getSelectedPriority(),fatherItem,closedTime);
+                        getSelectedPriority(),fatherItem,closedTime);//写入数据库
                 if (succeed) {
                     Toast.makeText(ItemActivity.this,
                             "Note added", Toast.LENGTH_SHORT).show();
@@ -224,8 +225,10 @@ public class ItemActivity extends AppCompatActivity implements View.OnClickListe
                     Toast.makeText(ItemActivity.this,
                             "Error", Toast.LENGTH_SHORT).show();
                 }
+
+
                 String rRule="";
-                String dateneed = deadline.replaceAll("-","");
+                String dateneed = deadline.replaceAll("-","");//重复规则的转换
                 switch (repeat) {
                     case "每天":
 
@@ -242,10 +245,10 @@ public class ItemActivity extends AppCompatActivity implements View.OnClickListe
                 CalendarEvent calendarEvent;
                 calendarEvent = new CalendarEvent(title,content.toString().trim(),
                         null,DateFormatUtils.str2Long(scheduled,false),
-                        DateFormatUtils.str2Long(deadline,false),
+                        DateFormatUtils.str2Long(deadline,false),//实例化系统日历事件
                         AdvanceTime.FIFTH_MINUTES,
                         (!rRule.equals(""))?rRule:null);
-                int result = CalendarProviderManager.addCalendarEvent(ItemActivity.this, calendarEvent);
+                int result = CalendarProviderManager.addCalendarEvent(ItemActivity.this, calendarEvent);//插入
                 if (result == 0) {
                     Toast.makeText(ItemActivity.this, "插入成功", Toast.LENGTH_SHORT).show();
                 } else if (result == -1) {

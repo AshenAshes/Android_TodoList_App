@@ -32,7 +32,7 @@ public class FileWriteService extends Service {
 
         AlarmManager alarmManager = (AlarmManager)getSystemService(ALARM_SERVICE);
         Intent i = new Intent(this,AlarmReceiver.class);
-        PendingIntent pendingIntent = PendingIntent.getBroadcast(this,0,i,0);
+        PendingIntent pendingIntent = PendingIntent.getBroadcast(this,0,i,0);//找到对应的广播并且关闭
         alarmManager.cancel(pendingIntent);
     }
 }

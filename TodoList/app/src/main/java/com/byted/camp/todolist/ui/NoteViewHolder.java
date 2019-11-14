@@ -1,21 +1,16 @@
 package com.byted.camp.todolist.ui;
 
-import android.graphics.Color;
-import android.graphics.Paint;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.util.Log;
 import android.view.View;
-import android.widget.CheckBox;
-import android.widget.CompoundButton;
 import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.byted.camp.todolist.NoteOperator;
 import com.byted.camp.todolist.R;
 import com.byted.camp.todolist.beans.Note;
-import com.byted.camp.todolist.beans.State;
 
 import java.text.SimpleDateFormat;
 import java.util.Locale;

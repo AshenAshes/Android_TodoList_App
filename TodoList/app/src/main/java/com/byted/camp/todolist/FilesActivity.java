@@ -165,7 +165,7 @@ public class FilesActivity extends AppCompatActivity {
         });
     }
 
-    private List<Note> loadNotesFromDatabase() {
+    private List<Note> loadNotesFromDatabase() {//按照文件名搜索数据库
         if (database == null) {
             Log.d("null","null");
             return Collections.emptyList();
@@ -173,8 +173,6 @@ public class FilesActivity extends AppCompatActivity {
         List<Note> result = new LinkedList<>();
         Cursor cursor = null;
         try {
-//            cursor = database.query(TodoContract.TodoNote.TABLE_NAME,
-//                    null,null,null,null,null,null);
             if(searchString==""){
                 cursor = database.query(TodoContract.TodoNote.TABLE_NAME, null,
                         null, null,

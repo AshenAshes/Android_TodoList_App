@@ -29,7 +29,7 @@
         <receiver android:name=".backstage.AlarmReceiver">
 
         </receiver>
-        <activity android:name=".NoteActivity" />
+
         <activity android:name=".ItemActivity" />
         <activity android:name=".TodoActivity"/>
         <activity android:name=".FilesActivity"/>

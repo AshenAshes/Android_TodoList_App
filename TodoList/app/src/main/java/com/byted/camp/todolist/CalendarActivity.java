@@ -169,7 +169,7 @@ public class CalendarActivity extends AppCompatActivity {
         isResumeFirst = false;
     }
 
-    private List<Note> loadNotesFromDatabase() {
+    private List<Note> loadNotesFromDatabase() {//根据记录时间找到数据库中的数据
         if (database == null) {
             return Collections.emptyList();
         }
@@ -207,7 +207,7 @@ public class CalendarActivity extends AppCompatActivity {
     }
 
 
-    private List<Note> loadNotesFromDatabase(String date) {
+    private List<Note> loadNotesFromDatabase(String date) {//根据传进来的参数查询事件
         if (database == null) {
             return Collections.emptyList();
         }

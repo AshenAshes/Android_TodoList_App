@@ -51,7 +51,7 @@ public class FileInfActivity extends AppCompatActivity {
         fileInf.setText(text);
     }
 
-    private CharSequence loadTextFromFile(){
+    private CharSequence loadTextFromFile(){//读文件操作
         FileInputStream in = null;
         BufferedReader reader = null;
         String text="";
@@ -61,7 +61,7 @@ public class FileInfActivity extends AppCompatActivity {
             String line = "";
             int id = 0;
             while ((line = reader.readLine()) != null) {
-                text+=line+"\r\n";
+                text+=line+"\r\n";//累加
             }
         } catch (IOException e) {
             e.printStackTrace();
