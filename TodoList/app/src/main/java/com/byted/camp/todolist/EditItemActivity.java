@@ -111,30 +111,39 @@ public class EditItemActivity extends AppCompatActivity implements View.OnClickL
         Intent intent = getIntent();
         id = intent.getStringExtra("id");
 
-        Log.d("idValue",id+"");
+        Log.d("idValue", id + "");
         note = initialNoteInfFromDatabase();
-        if(note != null){
+        if (note != null) {
             Fcontent = note.getContent();
             Fdeadline = note.getDeadline();
             Fshow = note.getShow();
             Fscheduled = note.getScheduled();
             Fstate = note.getState();
 //            Fpriority = note.getPriority()+"";
-            switch (note.getPriority()){
-                case 1: Fpriority = "A"; break;
-                case 2: Fpriority = "B"; break;
-                case 3: Fpriority = "C"; break;
-                case 4: Fpriority = "D"; break;
-                case 5: Fpriority = "None"; break;
+            switch (note.getPriority()) {
+                case 1:
+                    Fpriority = "A";
+                    break;
+                case 2:
+                    Fpriority = "B";
+                    break;
+                case 3:
+                    Fpriority = "C";
+                    break;
+                case 4:
+                    Fpriority = "D";
+                    break;
+                case 5:
+                    Fpriority = "None";
+                    break;
             }
             Ftitle = note.getCaption();
             Ftag = note.getTag();
             Ffilename = note.getFilename();
             FfatherItem = note.getFatherItem();
             Floop = note.getRepeat();
-        }
-        else{
-            Log.d("error","note = null");
+        } else {
+            Log.d("error", "note = null");
         }
 
         item_content = findViewById(R.id.item_content);
@@ -163,12 +172,15 @@ public class EditItemActivity extends AppCompatActivity implements View.OnClickL
         item_scheduled_date.setText(Fscheduled);
         item_deadline_date.setText(Fdeadline);
         item_show_date.setText(Fshow);
-        item_loop.setText(Floop);
 
-//        if(Floop.equals("不重复"))
-//            item_switch.setChecked(false);
-//        else
-//            item_switch.setChecked(true);
+        if (Floop.equals("不重复")){
+            item_switch.setChecked(false);
+            item_loop.setOnClickListener(null);
+        }
+        else {
+            item_switch.setChecked(true);
+            item_loop.setOnClickListener(item_loop_clickListener);
+        }
 
         item_filename.addTextChangedListener(new TextWatcher() {
             @Override
@@ -441,7 +453,7 @@ public class EditItemActivity extends AppCompatActivity implements View.OnClickL
     }
 
     private void initLoopPicker(){
-        item_loop.setText("不重复");
+        item_loop.setText(Floop);
 
         mLoopPicker = new CustomLoopPicker(this, new CustomLoopPicker.Callback() {
             @Override
