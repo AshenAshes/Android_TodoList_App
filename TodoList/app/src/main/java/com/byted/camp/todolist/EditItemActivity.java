@@ -321,7 +321,10 @@ public class EditItemActivity extends AppCompatActivity implements View.OnClickL
                         (!rRule.equals(""))?rRule:null);
 
                 long calID = CalendarProviderManager.obtainCalendarAccountID(EditItemActivity.this);
-                List<CalendarEvent> events = CalendarProviderManager.queryAccountEvent(EditItemActivity.this, calID,Ftitle,DateFormatUtils.str2Long(Fscheduled,false),DateFormatUtils.str2Long(Fdeadline,false));
+                List<CalendarEvent> events =
+                        CalendarProviderManager.queryAccountEvent(EditItemActivity.this,
+                                calID,Ftitle,DateFormatUtils.str2Long(Fscheduled,false),
+                                DateFormatUtils.str2Long(Fdeadline,false));
                 if (null != events) {
                     if (events.size() == 0) {
                         Toast.makeText(EditItemActivity.this, "没有事件可以更新", Toast.LENGTH_SHORT).show();

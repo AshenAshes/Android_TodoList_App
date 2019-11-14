@@ -18,10 +18,10 @@ public class FileWriteService extends Service {
     @Override
     public int onStartCommand(Intent intent, int flag, int startId){
         AlarmManager manager = (AlarmManager) getSystemService(ALARM_SERVICE);
-        int Minutes = 30*1000;//30s
-        long triggerTime = SystemClock.elapsedRealtime()+Minutes;
+        int Minutes = 3*1000;//3s
+        long triggerTime = SystemClock.elapsedRealtime()+Minutes;//系统时间
         Intent i = new Intent(this,AlarmReceiver.class);
-        PendingIntent pendingIntent = PendingIntent.getBroadcast(this,0,i,0);
+        PendingIntent pendingIntent = PendingIntent.getBroadcast(this,0,i,0);//广播跳转
         manager.set(AlarmManager.ELAPSED_REALTIME_WAKEUP,triggerTime,pendingIntent);
         return super.onStartCommand(intent,flag,startId);
     }
