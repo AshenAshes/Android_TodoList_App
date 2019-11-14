@@ -107,14 +107,12 @@ public class TodoActivity extends AppCompatActivity {
     }
 
     private List<Note> loadNotesFromDatabase() {
-        if (database == null) {
+        if (database == null) {//判断数据库存不存在
             return Collections.emptyList();
         }
         List<Note> result = new LinkedList<>();
         Cursor cursor = null;
         try {
-//            cursor = database.query(TodoContract.TodoNote.TABLE_NAME,
-//                    null,null,null,null,null,null);
             cursor = database.query(TodoContract.TodoNote.TABLE_NAME, null,
                     "state like ?", new String[]{"Todo"},
                     null, null,

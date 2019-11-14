@@ -19,6 +19,7 @@ import android.widget.Switch;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.byted.camp.todolist.Calendar.calendar.AdvanceTime;
 import com.byted.camp.todolist.Calendar.calendar.CalendarEvent;
 import com.byted.camp.todolist.Calendar.calendar.CalendarProviderManager;
 import com.byted.camp.todolist.PickerView.CustomDatePicker;
@@ -286,15 +287,17 @@ public class EditItemActivity extends AppCompatActivity implements View.OnClickL
                 }
 
                 String rRule="";
+                String dateneed = deadline.replaceAll("-","");
                 switch (repeat) {
                     case "每天":
-                        rRule = "FREQ=DAILY";
+
+                        rRule = "FREQ=DAILY;UNTIL="+dateneed+"T000000Z";
                         break;
                     case "每周":
-                        rRule = "FREQ=WEEKLY";
+                        rRule = "FREQ=WEEKLY;UNTIL="+dateneed+"T000000Z";
                         break;
                     case "每月":
-                        rRule = "FREQ=MONTHLY";
+                        rRule = "FREQ=MONTHLY;UNTIL="+dateneed+"T000000Z";
                         break;
                 }
 
@@ -302,7 +305,7 @@ public class EditItemActivity extends AppCompatActivity implements View.OnClickL
                 calendarEvent = new CalendarEvent(title,content.toString().trim(),
                         null,DateFormatUtils.str2Long(scheduled,false),
                         DateFormatUtils.str2Long(deadline,false),
-                        (int)DateFormatUtils.str2Long(deadline,false)-(int)DateFormatUtils.str2Long(show,false),
+                        AdvanceTime.FIFTH_MINUTES,
                         (!rRule.equals(""))?rRule:null);
 
                 long calID = CalendarProviderManager.obtainCalendarAccountID(EditItemActivity.this);

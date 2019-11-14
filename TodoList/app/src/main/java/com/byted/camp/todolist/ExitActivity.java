@@ -41,12 +41,12 @@ public class ExitActivity extends AppCompatActivity {
         List<String> fileNameList = getFilename();
         for(int i =0;i<fileNameList.size();i++){
             String thisFile = fileNameList.get(i);
-            FileOutputStream out = null;
+            FileOutputStream out = null;//打开文件
             BufferedWriter writer = null;
             try{
                 out = openFileOutput(thisFile, Context.MODE_PRIVATE);
                 writer = new BufferedWriter(new OutputStreamWriter(out));
-                writeItem(writer,thisFile,"None",1);
+                writeItem(writer,thisFile,"None",1);//递归输出所有的item
             }catch (IOException e) {
                 e.printStackTrace();
             } finally {
@@ -71,21 +71,21 @@ public class ExitActivity extends AppCompatActivity {
             Note newNote = newNotes.get(i);
             try{
                 for(int j=0;j<count;j++){
-                    writer.write("*");
+                    writer.write("*");//几级就几个*
                 }
                 writer.write(" "+newNote.getState()+" [#"+getSelectedPriority(newNote.getPriority())+"] "+newNote.getCaption());
-                writer.newLine();
+                writer.newLine();//第一行的状态输出
                 writer.write("DEADLINE:<"+newNote.getDeadline()+">");
-                writer.newLine();
+                writer.newLine();//结束时间
                 writer.write("SCHEDULED:<"+newNote.getScheduled()+">");
-                writer.newLine();
+                writer.newLine();//开始时间
                 writer.write("<"+newNote.getShow()+">");
-                writer.newLine();
+                writer.newLine();//提醒时间
                 if(newNote.getState().equals("Done")){
                     writer.write("CLOSED:<"+newNote.getClosed()+">");
-                    writer.newLine();
+                    writer.newLine();//如果时间是Done的状态，输出他的done时间
                 }
-                writer.write(newNote.getContent());
+                writer.write(newNote.getContent());//内容
                 writer.newLine();
             }catch (IOException e) {
                 e.printStackTrace();
@@ -95,13 +95,13 @@ public class ExitActivity extends AppCompatActivity {
         return;
     }
 
-    public List<String> getFilename(){
-        if (database == null) {
+    public List<String> getFilename(){//找到所有不重复的文件名
+        if (database == null) {//排除找不到database的情况
             return Collections.emptyList();
         }
         List<String> result = new LinkedList<>();
         Cursor cursor = null;
-        try{
+        try{//查询文件名
             cursor = database.query(TABLE_NAME,new String[]{ TodoContract.TodoNote.COLUMN_FILE },null,null,
                     TodoContract.TodoNote.COLUMN_FILE,null, TodoContract.TodoNote.COLUMN_FILE);
             while (cursor.moveToNext()){
