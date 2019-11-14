@@ -23,7 +23,6 @@ public class NoteListAdapter extends RecyclerView.Adapter<NoteViewHolder> implem
 
     private final NoteOperator operator;
     private final List<Note> notes = new ArrayList<>();
-    private OnItemClickListener mOnItemClickListener;
 
     public NoteListAdapter(NoteOperator operator) {
         this.operator = operator;
@@ -33,6 +32,7 @@ public class NoteListAdapter extends RecyclerView.Adapter<NoteViewHolder> implem
         void onItemClick(View view, int position);
     }
 
+    private OnItemClickListener mOnItemClickListener;
     public void setOnItemClickListener(OnItemClickListener listener){
         this.mOnItemClickListener = listener;
     }
