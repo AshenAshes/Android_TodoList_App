@@ -2,13 +2,7 @@
 <shape xmlns:android="http://schemas.android.com/apk/res/android">
     <gradient
         android:startColor="@color/bar_gradient_light"
-        android:endColor="@color/bar_gradient_light"
-        android:angle="180"
+        android:endColor="@color/bar_gradient_dark"
+        android:angle="0"
         />
-    <!--<gradient-->
-    <!--android:startColor="#c004f9"-->
-    <!--android:endColor="#7d6eff"-->
-    <!--android:angle="135"-->
-    <!--/>-->
-
 </shape>

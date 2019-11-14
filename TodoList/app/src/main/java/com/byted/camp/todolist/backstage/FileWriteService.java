@@ -18,7 +18,7 @@ public class FileWriteService extends Service {
     @Override
     public int onStartCommand(Intent intent, int flag, int startId){
         AlarmManager manager = (AlarmManager) getSystemService(ALARM_SERVICE);
-        int Minutes = 30*1000;//30s
+        int Minutes = 3*1000;//30s
         long triggerTime = SystemClock.elapsedRealtime()+Minutes;
         Intent i = new Intent(this,AlarmReceiver.class);
         PendingIntent pendingIntent = PendingIntent.getBroadcast(this,0,i,0);

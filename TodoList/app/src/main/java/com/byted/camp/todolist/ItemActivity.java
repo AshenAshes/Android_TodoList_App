@@ -417,7 +417,7 @@ public class ItemActivity extends AppCompatActivity implements View.OnClickListe
         }, this, "None");
         // 允许点击屏幕或物理返回键关闭
         mFatherItemPicker.setCancelable(true);
-        // 允许循环滚动
+        // 不允许循环滚动
         mFatherItemPicker.setScrollLoop(false);
     }
 
